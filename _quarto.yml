@@ -1,0 +1,41 @@
+project:
+  type: website
+  render:
+    - index.qmd
+    - about.qmd
+    - IBD/results/01A_Seurat_import_clean.qmd
+
+ 
+website:
+  title: "RNA editing project"
+  navbar: 
+    background: primary
+    search: true
+  
+    left: 
+      - text: "Home"
+        href: index.qmd
+      - text: "About"
+        href: about.qmd
+
+    
+  sidebar:
+    style: docked
+    contents:
+      - section: "IBD dataset"
+        contents:
+          - href: IBD/results/01A_Seurat_import_clean.qmd
+            text: "Seurat cleaning"
+      
+
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    
+
+  
+
+

@@ -1,0 +1,273 @@
+---
+title: "IBD pooled dataset cleaning"
+toc: true
+
+execute: 
+  freeze: true
+---
+
+```{r}
+library(stringr)
+library(Seurat)
+library(ggplot2)
+library(dplyr)
+library(RColorBrewer)
+
+```
+
+# Colitis data set
+
+```{r}
+matrix.col <- read.csv("../data/01_raw_data/GSE121380_Col1-6_5prime_raw_gene_expression.txt.gz",sep = "\t",row.names = 1)
+colnames(matrix.col) <- paste0("Col_",colnames(matrix.col))
+
+srat <- CreateSeuratObject(matrix.col,project = "RNA editing",names.field = 2,names.delim = "[.]",min.cells = 3, min.features = 200) 
+
+srat[["percent.mt"]] <- PercentageFeatureSet(srat, pattern = "^MT-")
+srat[["percent.rb"]] <- PercentageFeatureSet(srat, pattern = "^RP[SL]")
+
+VlnPlot(srat, features = c("nFeature_RNA","nCount_RNA","percent.rb","percent.mt"),ncol = 2,pt.size = 0.1) 
+```
+
+In the original paper, there aren't the cleaning parameters! Notice also that sample number 4, and, to some extent, also the number 5, are quite different: quite fewer RNA molecules detected, lower number of genes detected, and lower ribosomal genes but higher mitochondrial RNA.
+
+```{r}
+srat <- subset(srat, subset = nFeature_RNA > 200 & nFeature_RNA < 4000 & percent.mt < 15 &  nCount_RNA < 20000)
+
+VlnPlot(srat, features = c("nFeature_RNA","nCount_RNA","percent.rb","percent.mt"),ncol = 2,pt.size = 0.1) 
+```
+
+```{r}
+FeatureScatter(srat, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+```
+
+```{r}
+FeatureScatter(srat, feature1 = "nCount_RNA", feature2 = "percent.mt")
+```
+
+```{r}
+print(hist(srat$nFeature_RNA/srat$nCount_RNA, breaks = 100))
+```
+
+```{r}
+srat <- NormalizeData(srat)
+srat <- FindVariableFeatures(srat, selection.method = "vst", nfeatures = 2000)
+top10 <- head(VariableFeatures(srat), 15)
+plot1 <- VariableFeaturePlot(srat)
+LabelPoints(plot = plot1, points = top10, repel = TRUE, xnudge = 0, ynudge = 0)
+```
+
+```{r}
+all.genes <- rownames(srat)
+srat <- ScaleData(srat, features = all.genes)
+srat <- RunPCA(srat, features = VariableFeatures(object = srat),npcs = 75)
+DimPlot(srat, reduction = "pca",dims = c(1,2),group.by = "orig.ident")
+```
+
+```{r}
+DimPlot(srat, reduction = "pca",dims = c(1,2),group.by = "orig.ident",split.by = "orig.ident")
+```
+
+```{r}
+ElbowPlot(srat,ndims = 100)
+```
+
+```{r}
+srat <- RunUMAP(srat, dims = 1:25, verbose = F)
+DimPlot(srat)
+```
+
+So we decided to drop cell set number 4 and 5.
+
+```{r}
+srat <- CreateSeuratObject(matrix.col[,str_ends(colnames(matrix.col),pattern = "[4-5]",negate = T)],project = "RNA editing",names.field = 2,names.delim = "[.]",min.cells = 3, min.features = 200) 
+
+srat[["percent.mt"]] <- PercentageFeatureSet(srat, pattern = "^MT-")
+srat[["percent.rb"]] <- PercentageFeatureSet(srat, pattern = "^RP")
+
+VlnPlot(srat, features = c("nFeature_RNA","nCount_RNA","percent.rb","percent.mt"),ncol = 2,pt.size = 0.1) 
+```
+
+```{r}
+srat <- subset(srat, subset = nFeature_RNA > 200 & nFeature_RNA < 4000 & percent.mt < 12 &  nCount_RNA < 15000)
+
+VlnPlot(srat, features = c("nFeature_RNA","nCount_RNA","percent.rb","percent.mt"),ncol = 2,pt.size = 0.1) 
+```
+
+```{r}
+FeatureScatter(srat, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+```
+
+```{r}
+FeatureScatter(srat, feature1 = "nCount_RNA", feature2 = "percent.mt")
+```
+
+```{r}
+print(hist(srat$nFeature_RNA/srat$nCount_RNA, breaks = 100))
+```
+
+```{r}
+srat <- NormalizeData(srat)
+srat <- FindVariableFeatures(srat, selection.method = "vst", nfeatures = 2000)
+top10 <- head(VariableFeatures(srat), 15)
+plot1 <- VariableFeaturePlot(srat)
+LabelPoints(plot = plot1, points = top10, repel = TRUE, xnudge = 0, ynudge = 0)
+```
+
+```{r}
+all.genes <- rownames(srat)
+srat <- ScaleData(srat, features = all.genes)
+srat <- RunPCA(srat, features = VariableFeatures(object = srat),npcs = 75)
+DimPlot(srat, reduction = "pca",dims = c(1,2),group.by = "orig.ident")
+```
+
+```{r}
+DimPlot(srat, reduction = "pca",dims = c(1,2),group.by = "orig.ident",split.by = "orig.ident")
+```
+
+```{r}
+ElbowPlot(srat,ndims = 100)
+```
+
+```{r}
+srat <- RunUMAP(srat, dims = 1:25, verbose = F)
+DimPlot(srat)
+```
+
+```{r}
+srat <- FindNeighbors(srat, dims = 1:25)
+srat <- FindClusters(srat, resolution = 0.3)
+DimPlot(srat,label.size = 4,repel = T,label = T)
+```
+
+## Cell cycle score
+
+A list of cell cycle markers, from Tirosh et al, 2015, is loaded with Seurat. We can segregate this list into markers of G2/M phase and markers of S phase
+
+```{r}
+
+s.genes <- cc.genes.updated.2019$s.genes
+s.genes <- c(s.genes,str_to_lower(s.genes))
+g2m.genes <- cc.genes.updated.2019$g2m.genes
+g2m.genes <- c(g2m.genes, str_to_lower(g2m.genes))
+srat <- CellCycleScoring(srat, s.features = s.genes, g2m.features = g2m.genes, set.ident = TRUE)
+
+# view cell cycle scores and phase assignments
+head(srat[[]])
+
+```
+
+```{r}
+DimPlot(srat, reduction = "umap",group.by = "Phase")
+```
+
+```{r}
+FeaturePlot(srat,features = c("S.Score","G2M.Score"),label.size = 4,repel = T,label = T) & 
+  theme(plot.title = element_text(size=10))
+```
+
+```{r}
+VlnPlot(srat,features = c("S.Score","G2M.Score"),group.by  = "seurat_clusters") & 
+  theme(plot.title = element_text(size=10))
+```
+
+"We suggest regressing out the difference between the G2M and S phase scores. This means that signals separating non-cycling cells and cycling cells will be maintained, but differences in cell cycle phase amongst proliferating cells (which are often uninteresting), will be regressed out of the data" From the Seurat official site.
+
+```{r}
+DimPlot(srat, reduction = "pca",group.by = "Phase")
+```
+
+```{r}
+#srat$CC.Difference <- srat$S.Score - srat$G2M.Score
+#srat <- ScaleData(srat, vars.to.regress = "CC.Difference", features = rownames(srat))
+```
+
+```{r}
+srat <- readRDS("../data/02_cleaned_data/Seurat_colitis_data.RDS")
+```
+
+```{r}
+# Now, a PCA on the variable genes no longer returns components associated with cell cycle
+srat <- RunPCA(srat, features = VariableFeatures(srat), nfeatures.print = 25)
+DimPlot(srat, reduction = "pca",group.by = "Phase")
+```
+
+```{r}
+gc()
+srat <- RunUMAP(srat, dims = 1:25, verbose = F)
+DimPlot(srat, reduction = "umap",group.by = "Phase")
+```
+
+```{r eval=FALSE, include=FALSE}
+#saveRDS(srat,"../Seurat_colitis_data.RDS")
+```
+
+# Control data set
+
+```{r}
+matrix.con <- read.csv("../data/01_raw_data/GSE121380_HB1-4_5prime_raw_gene_expression.txt.gz",sep = "\t",row.names = 1)
+colnames(matrix.con) <- paste0("CTRL_",colnames(matrix.con))
+
+srat <- CreateSeuratObject(matrix.con,project = "RNA editing",names.field = 2,names.delim = "[.]",min.cells = 3, min.features = 200) 
+
+srat[["percent.mt"]] <- PercentageFeatureSet(srat, pattern = "^MT-")
+srat[["percent.rb"]] <- PercentageFeatureSet(srat, pattern = "^RP[SL]")
+
+VlnPlot(srat, features = c("nFeature_RNA","nCount_RNA","percent.rb","percent.mt"),ncol = 2,pt.size = 0.1) 
+```
+
+```{r}
+srat <- subset(srat, subset = nFeature_RNA > 200 & nFeature_RNA < 4000 & percent.mt < 15 &  nCount_RNA < 30000)
+
+VlnPlot(srat, features = c("nFeature_RNA","nCount_RNA","percent.rb","percent.mt"),ncol = 2,pt.size = 0.1) 
+```
+
+```{r}
+FeatureScatter(srat, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+```
+
+```{r}
+FeatureScatter(srat, feature1 = "nCount_RNA", feature2 = "percent.mt")
+```
+
+```{r}
+print(hist(srat$nFeature_RNA/srat$nCount_RNA, breaks = 100))
+```
+
+```{r}
+srat <- NormalizeData(srat)
+srat <- FindVariableFeatures(srat, selection.method = "vst", nfeatures = 2000)
+top10 <- head(VariableFeatures(srat), 15)
+plot1 <- VariableFeaturePlot(srat)
+LabelPoints(plot = plot1, points = top10, repel = TRUE, xnudge = 0, ynudge = 0)
+```
+
+```{r}
+all.genes <- rownames(srat)
+srat <- ScaleData(srat, features = all.genes)
+srat <- RunPCA(srat, features = VariableFeatures(object = srat),npcs = 75)
+DimPlot(srat, reduction = "pca",dims = c(1,2),group.by = "orig.ident")
+```
+
+```{r}
+DimPlot(srat, reduction = "pca",dims = c(1,2),group.by = "orig.ident",split.by = "orig.ident")
+```
+
+```{r}
+ElbowPlot(srat,ndims = 100)
+```
+
+```{r}
+srat <- RunUMAP(srat, dims = 1:25, verbose = F)
+DimPlot(srat)
+```
+
+```{r}
+srat <- FindNeighbors(srat, dims = 1:25)
+srat <- FindClusters(srat, resolution = 0.3)
+DimPlot(srat,label.size = 4,repel = T,label = T)
+```
+
+```{r}
+#saveRDS(srat,"../Seurat_control_data.RDS")
+```

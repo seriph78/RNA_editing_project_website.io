@@ -1,0 +1,42 @@
+---
+title: "RNA editing report website"
+---
+
+Schematic workflow for the analysis. To be applied to every dataset.
+
+
+```{mermaid}
+flowchart TB
+  
+ 
+  
+  A[(Raw data)] --- t1(cleaning notebook) 
+  t1 --> B[(Cleaned data)]
+  B --- t2(COTAN analysis src)  --> C[(COTAN obj)]
+  
+  C --- t3(COTAN clustering src) --> D[(Clustered COTAN obj)] 
+  
+  B --- t4(Seurat analysis src) --> E[(Seurat obj)]
+  
+  E --- t3
+  
+  t3 --> CD[(Seurat obj with COTAN cl.)]
+  
+  CD --> t5(Data exploration + Markers +<br>cluster identification notebook) 
+  
+  D --> t5
+  
+  t5 --> G[(Seurat obj with cell id)]
+  t5 --> H[(COTAN obj with cell id)]
+  
+  G -->  t6(Exploration & Conclusion notebook) 
+  H --> t6
+  
+  
+  classDef src fill:#66cc33;
+  classDef notebook fill:#cc99ff;
+  
+  class t1,t5,t6 notebook;
+  class t2,t3,t4 src;
+
+```

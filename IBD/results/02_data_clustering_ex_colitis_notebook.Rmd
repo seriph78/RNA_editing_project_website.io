@@ -1,0 +1,326 @@
+---
+title: "Colitis data clustering Notebook"
+output: html_notebook
+---
+Really this should be the **CONTROL** (problem in the excel/geo consistency)
+
+```{r}
+library(Seurat)
+library(Rgb)
+library(grid)
+library(gridExtra)
+library(viridis)
+library(ggplot2)
+library(stringr)
+library(dendextend)
+devtools::load_all("../../../../../COTAN/")
+
+grid.ftable <- function(d, padding = unit(4, "mm"), ...) {
+
+  nc <- ncol(d)
+  nr <- nrow(d)
+
+  ## character table with added row and column names
+  extended_matrix <- cbind(c("", rownames(d)),
+                           rbind(colnames(d),
+                                 as.matrix(d)))
+
+  ## string width and height
+  w <- apply(extended_matrix, 2, strwidth, "inch")
+  h <- apply(extended_matrix, 2, strheight, "inch")
+
+  widths <- apply(w, 2, max)
+  heights <- apply(h, 1, max)
+
+  padding <- convertUnit(padding, unitTo = "in", valueOnly = TRUE)
+
+  x <- cumsum(widths + padding) - 0.5 * padding
+  y <- cumsum(heights + padding) - padding
+
+  rg <- rectGrob(x = unit(x - widths/2, "in"),
+                 y = unit(1, "npc") - unit(rep(y, each = nc + 1), "in"),
+                 width = unit(widths + padding, "in"),
+                 height = unit(heights + padding, "in"))
+
+  tg <- textGrob(c(t(extended_matrix)), x = unit(x - widths/2, "in"),
+                 y = unit(1, "npc") - unit(rep(y, each = nc + 1), "in"),
+                 just = "center")
+
+  g <- gTree(children = gList(rg, tg), ...,
+             x = x, y = y, widths = widths, heights = heights)
+
+  grid.draw(g)
+  invisible(g)
+}
+```
+
+
+```{r}
+seurat.data <- readRDS(file = "Seurat_obj_IBD_colitis_with_cotan_clusters_merged.RDS")
+```
+
+
+```{r,fig.height=7}
+DimPlot(seurat.data, label = T, group.by = "seurat_clusters") + theme(legend.position="none")
+```
+
+```{r,fig.height=7}
+DimPlot(seurat.data, label = T, group.by = "cotan") + theme(legend.position="none")
+```
+
+```{r}
+markers <- list("B cells" = c("MS4A1", "CD83", "CD79A", "VPREB3", "CD37", "BANK1", "LY9" ),
+                "Plasma" = c( "JCHAIN", "IGHA2", "IGHA1", "IGKC"),
+                "T & NK cells"= c("CCL5", "CD7", "CD3E", "CD3D", "IL32", "NKG7", "CST7", "FYB", "CD8A", "CD2", "HCST"),
+                "LTi"=c( "IL22", "CSF2", "IL4I1", "XCL1", "KIT", "BHLHE40", "TNFRSF18", "KRT86", "NCOA7", "IL23R", "AQP3", "ALDOC", "TNFSF13B"), 
+                "Myeloid"= c("LYZ", "CST3", "IL1B", "TPSAB1", "CXCL8", "CPA3", "TPSB2", "AIF1", "FCER1G", "C1QC", "C1QA", "C1QB", "S100A8"), 
+                "Mitotic B cells"= c("MS4A1", "CD79A", "VPREB3", "STMN1", "HMGB2", "HMGN2", "HIST1H4C", "H2AFZ", "TUBB", "TUBA1B", "HMGB1", "UBE2C", "RRM2", "PTTG1", "DUT", "TYMS", "H2AFV", "MKI67", "TOP2A", "CENPF", "NUSAP1"), 
+                "Mitotic T cells"= c("CCL5", "CD7", "CD3E", "CD3D", "IL32", "NKG7", "CST7", "FYB", "CD8A", "CD2", "HCST", "STMN1", "HMGB2", "HMGN2", "HIST1H4C", "H2AFZ", "TUBB", "TUBA1B", "HMGB1", "UBE2C", "RRM2", "PTTG1", "DUT", "TYMS", "H2AFV", "MKI67", "TOP2A", "CENPF", "NUSAP1"), 
+                "Fibro & Endo"= c( "CXCL14", "ADAMDEC1", "COL3A1", "APOE", "CFD", "IGFBP7", "CCL2", "COL1A2", "COL1A1", "A2M", "COL6A2", "IFITM3", "LUM", "DCN", "MFAP4"),
+                "Epithelial" = c( "PHGR1", "TFF3", "FABP1", "ELF3", "ZG16", "KRT8", "SPINK4", "LGALS4", "KRT18", "CLDN4", "PIGR", "S100A6", "FCGBP", "KRT19", "CLDN3")
+                
+)
+```
+
+
+
+```{r}
+obj <- readRDS("IBD_colitis_merged_cotan.RDS")
+
+cluster_data <- obj@cluster_data
+
+######## This is the best: cosine dissimilarity
+Matrix <- as.matrix(t(cluster_data))
+sim <- Matrix / sqrt(rowSums(Matrix * Matrix))
+sim <- sim %*% t(sim)
+D_sim <- as.dist(1 - sim)
+tree <- hclust(D_sim,method = "ward.D2")
+plot(tree)
+```
+```{r}
+GDI.df <- get.GDI(obj)
+
+GDI.df[unlist(markers),]
+```
+```{r}
+unlist(markers)[!unlist(markers) %in% rownames(GDI.df)]
+```
+```{r}
+GDI.df[GDI.df$GDI > 1.5 &  rownames(GDI.df) %in% unlist(markers),]
+```
+```{r}
+unlist(markers)[unlist(markers) %in% rownames(GDI.df[GDI.df$GDI > 1.5 &  rownames(GDI.df) %in% unlist(markers),])]
+```
+
+
+
+```{r,fig.width=18}
+#df <- read.csv("IBD_colitis_markers_clusters_percentage.csv",row.names = 1)
+df <- read.csv("IBD_colitis_markers_clusters_expression_function_exp_markers.csv",row.names = 1)
+
+#rownames(df) <- str_replace_all(rownames(df),pattern = " & ", " &\n")
+
+dend <- as.dendrogram(tree)
+df <- round(df[,dend %>% labels], digits = 2)
+colnames(df) <- str_remove_all(colnames(df), pattern = "cl.")
+cut = cutree(tree, k = 9)
+dend =branches_color(dend,k=9,col=c("#4DBBD5FF","#91D1C2FF","#E64B35FF","gray80","#3C5488FF","#F39B7FFF","gray80"),groupLabels = T)
+dend =color_labels(dend,k=9)#,labels = rownames(pca_1),col=pca_1$colors)
+dd <- dend %>%
+  dendextend::set("labels") %>%
+  #  set("branches_k_color", value = c("gray80","#4DBBD5FF","#91D1C2FF" ,"gray80","#F39B7FFF","#E64B35FF","#3C5488FF"), k = 7) %>%
+  ggplot(horiz=F, axes=T)
+
+#tab <- tableGrob(round(df[,dend %>% labels], digits = 0),theme = ttheme_minimal(base_size = 4))
+tab <- grid.ftable(df, gp = gpar(fill = rep(c("grey80", "grey95"), each = (dim(df)[2]+1))),padding = unit(5, "mm"))
+
+lay <- rbind(c(rep(1,10)),
+               c(rep(2,9),NA))
+
+#tab1 <- grid.ftable(matrix(rownames(df), c(1:length(rownames(df)))))
+
+grid.arrange(dd, arrangeGrob(tab,widths = 1),  layout_matrix=lay)
+```
+```{r}
+seurat.data <- SetIdent(seurat.data,value =  "cotan")
+seurat.markers <- FindAllMarkers(seurat.data, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
+```
+```{r}
+write.csv(seurat.markers,"seurat_markers.csv")
+seurat.markers[unlist(markers),]
+```
+
+```{r}
+seurat.markers$cluster <- paste("cl",seurat.markers$cluster,sep = ".") 
+df.seu <- as.data.frame(matrix(nrow = length(names(markers)),ncol = length(unique(seurat.markers$cluster))))
+rownames(df.seu) <- names(markers)
+colnames(df.seu) <- unique(seurat.markers$cluster)
+#not_ass_clusters <- NA
+for (ro in colnames(df.seu)) {
+  #print(ro)
+  for (m in names(markers)) {
+    pv <- seurat.markers[rownames(seurat.markers) %in% unlist(markers[[m]]) & seurat.markers$cluster == ro ,"p_val"]
+    
+    df.seu[m,ro] <- (sum(pv < 0.05)/length(unlist(markers[[m]])))*100
+  }
+}
+
+df.seu <- round(df.seu,digits = 0)
+df.seu
+```
+
+```{r,fig.width=18}
+df.seu <- round(df.seu[,dend %>% labels], digits = 0)
+colnames(df.seu) <- str_remove_all(colnames(df.seu), pattern = "cl.")
+tab <- grid.ftable(df.seu, gp = gpar(fill = rep(c("grey80", "grey95"), each = (dim(df)[2]+1))),padding = unit(9.5, "mm"))
+
+lay <- rbind(c(rep(1,10)),
+               c(rep(2,9),NA))
+
+#tab1 <- grid.ftable(matrix(rownames(df), c(1:length(rownames(df)))))
+
+grid.arrange(dd, arrangeGrob(tab,widths = 1),  layout_matrix=lay)
+```
+
+
+```{r,fig.width=10}
+
+FeaturePlot(seurat.data,features = markers$Myeloid[1:6],label = T)
+```
+```{r,fig.width=10}
+FeaturePlot(seurat.data,features = markers$Myeloid[7:12],label = T)
+```
+
+```{r echo=TRUE}
+
+int.genes <- read.csv("../../../../ISG_fixed.txt",header = T)
+int.genes <- int.genes$X.list.of.331.Interferon.Stimulated.Genes..ISGs..from.Charles.Samuel.of.UCSB
+#g2m.genes <- cc.genes.updated.2019$g2m.genes
+#g2m.genes <- c(g2m.genes, str_to_lower(g2m.genes))
+seurat.data <- AddModuleScore(seurat.data, features =  list(int.genes), name = "ISG genes", set.ident = TRUE)
+
+# view cell cycle scores and phase assignments
+head(seurat.data[[]])
+
+```
+
+```{r echo=TRUE}
+FeaturePlot(seurat.data,
+            features = "S.Score", label = TRUE, repel = TRUE) +
+            scale_colour_gradientn(colours = rev(brewer.pal(n = 11, name = "RdBu")))
+```
+```{r echo=TRUE}
+seurat.data <- SetIdent(seurat.data,value =  "Type.cell")
+
+FeaturePlot(seurat.data,
+            features = "ISG.genes1", label = TRUE, repel = TRUE) +
+            scale_colour_gradientn(colours = rev(brewer.pal(n = 11, name = "RdBu")))
+```
+
+```{r echo=TRUE}
+DimPlot(seurat.data, reduction = "umap",group.by = "ISG.genes2")
+```
+
+
+```{r echo=TRUE}
+DimPlot(seurat.data, reduction = "umap",group.by = "ISG.genes3")
+```
+
+
+```{r}
+seurat.data@meta.data$Type = seurat.data@meta.data$cotan
+
+for (cl in unique(seurat.data@meta.data$cotan)) {
+  if (!cut[paste0("cl.",cl)] %in% c(7,5)) {
+    seurat.data@meta.data[seurat.data@meta.data$cotan == cl,]$Type <- cut[paste0("cl.",cl)]  
+  }
+}
+
+plot(DimPlot(seurat.data, reduction = "umap",group.by = "Type",  label = TRUE, pt.size = 0.5) + NoLegend())
+
+```
+Based on the cotan cosine distance between clusters, I decide to merge also clusters 30,26, 38, 33 and 41, 40, 10, 21, 42, 46.
+
+```{r}
+seurat.data@meta.data[seurat.data@meta.data$cotan %in% c(30,26, 38, 33),]$Type <- "5A"
+seurat.data@meta.data[seurat.data@meta.data$cotan %in% c(41, 40, 10, 21, 42, 46),]$Type <- "5B"
+```
+
+```{r}
+plot(DimPlot(seurat.data, reduction = "umap",group.by = "Type",  label = TRUE, pt.size = 0.5) + NoLegend())
+```
+```{r}
+seurat.data@meta.data$Type.cell = seurat.data@meta.data$Type
+
+seurat.data@meta.data[seurat.data@meta.data$Type %in% 6,]$Type.cell = "Plasma"
+seurat.data@meta.data[seurat.data@meta.data$Type %in% 4,]$Type.cell = "B cells"
+seurat.data@meta.data[seurat.data@meta.data$Type %in% 3,]$Type.cell = "Mitotic B & T cells"
+seurat.data@meta.data[seurat.data@meta.data$Type %in% c(2,1),]$Type.cell = "T & NK cells"
+seurat.data@meta.data[seurat.data@meta.data$Type %in% 19,]$Type.cell = "LTi"
+
+plot(DimPlot(seurat.data, reduction = "umap",group.by = "Type.cell",  label = TRUE, pt.size = 0.5) + NoLegend())
+
+```
+```{r}
+plot(DimPlot(seurat.data, reduction = "umap",group.by = "Phase",  label = TRUE, pt.size = 0.5) + NoLegend())
+```
+```{r}
+saveRDS(seurat.data,file = "Seurat_obj_IBD_colitis_with_cotan_clusters.RDS")
+```
+
+
+```{r}
+clusters.names = unique(seurat.data@meta.data$Type.cell)
+list.clusters = list()
+#names(list.clusters)=clusters.names[1]
+for (c in c(1:length(clusters.names))) {
+  tmp = list(rownames(seurat.data@meta.data[seurat.data@meta.data$Type.cell == clusters.names[c],]))
+  names(tmp)= clusters.names[c]
+  if (c == 1) {
+    list.clusters = tmp  
+  }else if (c > 1) {
+    list.clusters = c(list.clusters,tmp)
+  }
+}
+
+#obj_list = cotan_on_cluster_DE(obj,p_v = 0.1)
+obj_list = DEA_on_clusters(obj,list.clusters)
+
+obj = obj_list[[1]]
+p_value = obj_list[[2]]
+
+```
+```{r}
+write.csv(p_value,file = paste("p_values_clusters_cell_types.csv", sep = ""))
+write.csv(obj@cluster_data,file = paste("coex_clusters_cell_types.csv", sep = ""))
+
+write.csv(p_value[unlist(markers),],file = paste("p_values_clusters_cell_types_markers.csv", sep = ""))
+write.csv(obj@cluster_data[unlist(markers),],file = paste("coex_clusters_cell_types_markers.csv", sep = ""))
+
+saveRDS(obj,file = paste("IBD_colitis_cell_types_cotan.RDS", sep = ""))
+#}
+obj@cluster_data[unlist(markers$`Fibro & Endo`),]
+```
+```{r}
+# cluster assignment percentage
+df <- as.data.frame(matrix(nrow = length(names(markers)),ncol = ncol(obj@cluster_data)))
+rownames(df) <- names(markers)
+colnames(df) <- colnames(obj@cluster_data)
+#not_ass_clusters <- NA
+for (ro in colnames(df)) {
+  for (m in names(markers)) {
+    pv <- p_value[unlist(markers[[m]]),ro]
+    co <- obj@cluster_data[unlist(markers[[m]]),ro]
+    df[m,ro] <- (sum(pv < 0.05 & co > 0,na.rm = T)/length(unlist(markers[[m]])))*100
+  }
+}
+write.csv(df,file = paste(obj@meta$V2[4],"_markers_clusters_percentage_cell_type.csv", sep = ""))
+
+df
+```
+
+
+
+Mettere poi per i cluster senza markers spacifici i top 10 geni da cotan e da Seurat (se i cluster grossomodo corrispondono)
+
+Fare i merge ovvi con cotan, mettere info in struttura seurat e salvare.

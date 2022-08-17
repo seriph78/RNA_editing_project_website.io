@@ -1,0 +1,384 @@
+---
+title: "IBD dataset cleaning"
+output:
+  html_document: 
+    collapsed: no
+    fig_caption: yes
+    highlight: haddock
+    number_sections: yes
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+    fig_width: 10
+    fig_height: 7
+    keep_md: yes
+  html_notebook:
+    collapsed: no
+    #css: html-md-01.css
+    fig_caption: yes
+    highlight: haddock
+    number_sections: yes
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+---
+
+```{r libraries}
+library(stringr)
+library(Seurat)
+library(ggplot2)
+library(ggrepel)
+library(dplyr)
+library(RColorBrewer)
+#library(COTAN)
+devtools::load_all("../../../../../COTAN/")
+
+#mycolours <- c("A" = "#8491B4B2","B"="#E64B35FF")
+#my_theme = theme(axis.text.x = element_text(size = 14, angle = 0, hjust = .5, vjust = .5, face = "plain", colour ="#3C5488FF" ),
+#                 axis.text.y = element_text( size = 14, angle = 0, hjust = 0, vjust = .5, face = "plain", colour ="#3C5488FF"),
+#                 axis.title.x = element_text( size = 14, angle = 0, hjust = .5, vjust = 0, face = "plain", colour ="#3C5488FF"),
+#                 axis.title.y = element_text( size = 14, angle = 90, hjust = .5, vjust = .5, face = "plain", colour ="#3C5488FF"))
+
+```
+
+
+
+
+
+# Colitis dataset
+
+
+GEO code GSE121380
+
+
+
+
+
+```{r echo=TRUE}
+srat <- readRDS("../Seurat_colitis_data.RDS")
+
+obj = new("scCOTAN",raw = srat@assays$RNA@counts)
+
+obj = initRaw(obj,GEO="GSE121380" ,sc.method="10X 5'",cond = "colitis")
+rm(srat)
+gc()
+ttm = clean(obj)
+
+obj = ttm$object
+
+ttm$pca.cell.2
+```
+
+```{r}
+ttm$genes.plot
+```
+
+
+
+
+
+To color the pca based on nu_j (so the cells' efficiency)
+
+
+
+
+```{r}
+ttm$UDE.plot
+```
+
+
+
+
+
+
+No cells need to be removed.
+
+
+
+
+```{r}
+out_dir <- "COTAN_clean"
+if(!file.exists(out_dir)){
+  dir.create(file.path(out_dir))
+}
+
+if(!file.exists(paste(out_dir,"cleaning", sep = ""))){   
+  dir.create(file.path(out_dir, "cleaning"))
+}
+n_it <- 1
+t = obj@meta[4,"V2"]
+
+pdf(file.path(out_dir,"cleaning",paste(t,"_",n_it,"_plots.pdf", sep = "")))
+ttm$pca.cell.2
+ttm$genes.plot
+ttm$UDE.plot
+
+dev.off()
+```
+
+```{r,fig.width=10}
+ttm$pca_cells$Second.code <- str_split(rownames(ttm$pca_cells),pattern = "_|[.]",simplify = T)[,3]
+
+ggplot(ttm$pca_cells,aes(x=PC1,y=PC2, colour = Second.code)) + geom_point(size = 1.5,alpha= 0.5)
+
+```
+
+```{r,,fig.width=10}
+ggplot(ttm$pca_cells,aes(x=PC1,y=PC3, colour = Second.code)) + geom_point(size = 0.5,alpha= 0.5)
+
+```
+
+```{r}
+nu_df = data.frame("nu"= sort(get.nu(obj)), "n"=c(1:length(get.nu(obj))))
+
+ggplot(nu_df, aes(x = n, y=nu)) + 
+    geom_point(colour = "#8491B4B2", size=1)
+    #my_theme #+ ylim(0,1) + xlim(0,70)
+
+```
+
+
+
+
+We can zoom on the smallest values and, if we detect a clear elbow, we can decide to remove the cells.
+
+
+
+
+```{r}
+yset = 0.39#threshold to remove low UDE cells
+plot.ude <- ggplot(nu_df, aes(x = n, y=nu)) + 
+    geom_point(colour = "#8491B4B2", size=1) + 
+     ylim(0,1) + xlim(0,3000) +
+    geom_hline(yintercept=yset, linetype="dashed", color = "darkred") +
+    annotate(geom="text", x=2000, y=0.25, 
+             label=paste("to remove cells with nu < ",yset,sep = " "), 
+             color="darkred", size=4.5)
+
+
+pdf(file.path(out_dir,"cleaning",paste(t,"_plots_efficiency.pdf", sep = "")))
+plot.ude
+dev.off()
+
+plot.ude
+```
+
+```{r}
+obj = add.row.to.meta(obj,c("Threshold low UDE cells:",yset)) 
+
+to_rem = rownames(nu_df[which(nu_df$nu < yset),])
+
+obj = drop.genes.cells(object = obj, genes = c(),cells =  to_rem)
+```
+
+
+
+
+
+Repeat the estimation after the cells are removed
+
+
+
+
+
+```{r}
+ttm = clean(obj)
+obj = ttm$object
+ttm$pca.cell.2
+```
+
+```{r}
+ttm$genes.plot
+```
+
+
+
+
+
+To color the pca based on nu_j (so the cells' efficiency)
+
+
+
+
+```{r}
+ttm$UDE.plot
+```
+
+```{r}
+gc()
+obj = cotan_analysis(obj,cores = 10)
+# saving the structure 
+saveRDS(obj,file = paste(out_dir,t,".cotan.RDS", sep = ""))
+gc()
+obj = get.coex(obj)
+
+# saving the structure 
+saveRDS(obj,file = paste(out_dir,"/",t,".cotan.RDS", sep = ""))
+```
+
+
+
+
+
+
+# Control dataset
+
+
+GEO code GSE121380
+
+
+
+
+
+```{r echo=TRUE}
+srat <- readRDS("../Seurat_control_data.RDS")
+
+obj = new("scCOTAN",raw = srat@assays$RNA@counts)
+
+rm(srat)
+gc()
+
+obj = initRaw(obj,GEO="GSE121380" ,sc.method="10X 5'",cond = "control")
+
+ttm = clean(obj)
+
+obj = ttm$object
+
+ttm$pca.cell.2
+```
+
+
+
+
+No cells need to be removed.
+
+
+
+
+```{r}
+ttm$genes.plot
+```
+
+
+
+
+
+To color the pca based on nu_j (so the cells' efficiency)
+
+
+
+
+```{r}
+ttm$UDE.plot
+```
+
+```{r}
+n_it <- 1
+t = obj@meta[4,"V2"]
+
+pdf(file.path(out_dir,"cleaning",paste(t,"_",n_it,"_plots.pdf", sep = "")))
+ttm$pca.cell.2
+ttm$genes.plot
+ttm$UDE.plot
+
+dev.off()
+```
+
+```{r,fig.width=20}
+ttm$pca_cells$Second.code <- str_split(rownames(ttm$pca_cells),pattern = "_|[.]",simplify = T)[,3]
+
+ggplot(ttm$pca_cells,aes(x=PC1,y=PC2, colour = Second.code)) + geom_point(size = 1.5,alpha= 0.5)
+
+```
+
+```{r,,fig.width=10}
+ggplot(ttm$pca_cells,aes(x=PC1,y=PC3, colour = Second.code)) + geom_point(size = 0.5,alpha= 0.5)
+
+```
+
+```{r}
+nu_df = data.frame("nu"= sort(get.nu(obj)), "n"=c(1:length(get.nu(obj))))
+
+ggplot(nu_df, aes(x = n, y=nu)) + 
+    geom_point(colour = "#8491B4B2", size=1)
+```
+
+
+
+
+We can zoom on the smallest values and, if we detect a clear elbow, we can decide to remove the cells.
+
+
+
+
+```{r}
+yset = 0.38#threshold to remove low UDE cells
+plot.ude <- ggplot(nu_df, aes(x = n, y=nu)) + 
+    geom_point(colour = "#8491B4B2", size=1) + 
+    ylim(0,1) + xlim(0,3000) +
+    geom_hline(yintercept=yset, linetype="dashed", color = "darkred") +
+    annotate(geom="text", x=2000, y=0.25, 
+             label=paste("to remove cells with nu < ",yset,sep = " "), 
+             color="darkred", size=4.5)
+
+
+pdf(file.path(out_dir,"cleaning",paste(t,"_plots_efficiency.pdf", sep = "")))
+plot.ude
+dev.off()
+
+plot.ude
+```
+
+```{r}
+obj = add.row.to.meta(obj,c("Threshold low UDE cells:",yset)) 
+
+to_rem = rownames(nu_df[which(nu_df$nu < yset),])
+
+obj = drop.genes.cells(object = obj, genes = c(),cells =  to_rem)
+```
+
+
+
+
+
+Repeat the estimation after the cells are removed
+
+
+
+
+
+```{r}
+ttm = clean(obj)
+obj = ttm$object
+ttm$pca.cell.2
+```
+
+```{r}
+ttm$genes.plot
+```
+
+
+
+
+
+To color the pca based on nu_j (so the cells' efficiency)
+
+
+
+
+```{r}
+ttm$UDE.plot
+```
+
+```{r}
+gc()
+obj = cotan_analysis(obj,cores = 10)
+# saving the structure 
+saveRDS(obj,file = paste(out_dir,t,".cotan.RDS", sep = ""))
+gc()
+obj = get.coex(obj)
+gc()
+# saving the structure 
+saveRDS(obj,file = paste(out_dir,"/",t,".cotan.RDS", sep = ""))
+```
+

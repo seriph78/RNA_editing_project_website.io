@@ -1,0 +1,173 @@
+---
+title: "Colitis data clustering"
+format: 
+    html: default
+date: "`r Sys.Date()`"
+reference-location: margin
+citation-location: margin
+editor: visual
+execute: 
+  freeze: true
+---
+
+```{r}
+
+library(Seurat)
+library(Rgb)
+library(grid)
+library(gridExtra)
+library(viridis)
+library(ggplot2)
+library(stringr)
+library(dendextend)
+library(devtools)
+source("../../IBD/code/raw_code/temp_functions.R")
+load_all("../../../../COTAN/")
+```
+
+Really this should be the **CONTROL** (problem in the excel/geo consistency).
+
+```{r}
+seurat.data <- readRDS(file = "../data/03_clustered_data/colitis/Seurat_obj_colitis_with_cotan_clusters.RDS")
+cotan.obj.colitis <- readRDS("../data/03_clustered_data/colitis.cotan.clustered.RDS")
+
+dim(cotan.obj.colitis@cluster_data)
+```
+
+```{r}
+cotan.obj.colitis@meta
+```
+
+# Seurat clustering
+
+Using Seurat 18 clusters were identified.
+
+```{r}
+DimPlot(seurat.data, label = T, group.by = "seurat_clusters") + theme(legend.position="none")
+```
+
+# Cotan initial clusters
+
+While, in the first round of clustering using COTAN the homogeneous clusters were 54 and 21 cells were dropped.
+
+```{r}
+DimPlot(seurat.data, label = T, group.by = "cotan") + theme(legend.position="none")
+```
+
+# Markers
+
+This are the marker used also in the original paper.
+
+| Cell type           | Markers                                                                                                                                                        |
+|--------------|----------------------------------------------------------|
+| B cells             | "MS4A1", "CD79A", "VPREB3", "CD37", "BANK1", "LY9"                                                                                                             |
+| Plasma              | "JCHAIN", "IGHA2", "IGHA1", "IGKC"                                                                                                                             |
+| T & NK cells        | "CCL5", "CD7", "CD3E", "CD3D", "NKG7", "CST7", "FYB", "CD8A", "HCST"                                                                                           |
+| LTi                 | "IL22", "CSF2", "IL4I1", "XCL1", "KIT", "BHLHE40", "TNFRSF18", "KRT86", "NCOA7", "IL23R", "AQP3", "ALDOC", "TNFSF13B"                                          |
+| Myeloid             | "LYZ", "CST3", "IL1B", "TPSAB1", "CXCL8", "CPA3", "TPSB2", "AIF1", "FCER1G", "C1QC", "C1QA", "C1QB", "S100A8"                                                  |
+| Mitotic B & T cells | "STMN1","HMGB2", "HMGN2", "HIST1H4C", "H2AFZ","TUBB", "TUBA1B", "HMGB1", "UBE2C", "RRM2", "PTTG1", "DUT", "TYMS", "H2AFV", "MKI67", "TOP2A", "CENPF", "NUSAP1" |
+| Fibro & Endo        | "CXCL14", "ADAMDEC1", "COL3A1", "APOE", "CFD", "IGFBP7", "CCL2", "COL1A2", "COL1A1", "A2M", "COL6A2", "IFITM3", "LUM", "DCN", "MFAP4"                          |
+| Epithelial          | "PHGR1", "TFF3", "FABP1", "ELF3", "ZG16", "KRT8", "SPINK4", "LGALS4", "KRT18", "CLDN4", "PIGR", "S100A6", "FCGBP", "KRT19", "CLDN3"                            |
+
+# Initial tree
+
+```{r}
+cluster_data <- cotan.obj.colitis@cluster_data
+
+######## This is the best: cosine dissimilarity
+Matrix <- as.matrix(t(cluster_data))
+sim <- Matrix / sqrt(rowSums(Matrix * Matrix))
+sim <- sim %*% t(sim)
+D_sim <- as.dist(1 - sim)
+tree <- hclust(D_sim,method = "ward.D2")
+
+dend <- as.dendrogram(tree)
+plot(dend)
+```
+
+# Final tree and markers enrichment
+
+```{r}
+cotan.obj.colitis <- readRDS("../data/03_clustered_data/colitis.cotan.clustered.merged.RDS")
+cluster_data <- cotan.obj.colitis@cluster_data
+
+######## This is the best: cosine dissimilarity
+Matrix <- as.matrix(t(cluster_data))
+sim <- Matrix / sqrt(rowSums(Matrix * Matrix))
+sim <- sim %*% t(sim)
+D_sim <- as.dist(1 - sim)
+tree <- hclust(D_sim,method = "ward.D2")
+
+dend <- as.dendrogram(tree)
+
+```
+
+```{r, fig.width=18}
+#df <- read.csv("IBD_colitis_markers_clusters_percentage.csv",row.names = 1)
+df <- read.csv("../data/04_cluster_identification/colitis_markers_clusters_expression.csv",row.names = 1)
+
+dend <- as.dendrogram(tree)
+df <- round(df[,dend %>% labels], digits = 2)
+colnames(df) <- str_remove_all(colnames(df), pattern = "cl.")
+cut = cutree(tree, k = 9)
+dend =branches_color(dend,k=9,col=c("#4DBBD5FF","#91D1C2FF","#E64B35FF","gray80","#3C5488FF","#F39B7FFF","gray80"),groupLabels = T)
+dend =color_labels(dend,k=9)
+dd <- dend %>%
+  dendextend::set("labels") %>%
+  ggplot(horiz=F, axes=T)
+
+#tab <- tableGrob(round(df[,dend %>% labels], digits = 0),theme = ttheme_minimal(base_size = 4))
+tab <- grid.ftable(df, gp = gpar(fill = rep(c("grey80", "grey95"), each = (dim(df)[2]+1))),padding = unit(10.6, "mm"))
+
+lay <- rbind(c(rep(1,10)),
+               c(rep(2,9),NA))
+
+#tab1 <- grid.ftable(matrix(rownames(df), c(1:length(rownames(df)))))
+
+grid.arrange(dd, arrangeGrob(tab,widths = 1),  layout_matrix=lay)
+```
+
+# Final merged cluster in Seurat plot
+
+```{r}
+seurat.data <- readRDS(file = "../data/03_clustered_data/Seurat_obj_colitis_with_cotan_clusters_merged.RDS")
+seurat.data <- RunUMAP(seurat.data, dims = 1:20)
+seurat.data <- SetIdent(seurat.data, value = 'cotan')
+DimPlot(seurat.data, label = T) + theme(legend.position="none")
+```
+
+```{r}
+seurat.data@meta.data$sample.id <- str_split(rownames(seurat.data@meta.data),pattern = "[.]",simplify = T)[,2]
+
+DimPlot(seurat.data, label = T,group.by =  "sample.id",pt.size = 0.5)
+```
+
+Here the sample distribution is quite bad. I think that some of the difficulties in clustering and identification can come from this.
+
+# Cluster assignment and merge
+
+```{r}
+#seurat.data@meta.data$Cell.type <- seurat.data@meta.data$cotan 
+
+#seurat.data@meta.data[seurat.data@meta.data$cotan %in% 
+ #      c(36,18,17,34,40,6,24,38,1,31,47,12),]$Cell.type <- "Plama c."
+
+#DimPlot(seurat.data, label = T,repel = T) + theme(legend.position="none")
+
+```
+
+```{r}
+score.ISG <- read.csv("../data/04_cluster_identification/colitis_ISG_clusters_expression.csv",row.names = 1)
+
+colnames(score.ISG) <- str_remove_all(colnames(score.ISG),pattern = "cl.")
+seurat.data@meta.data$ISG.score <- NA
+
+for (cl in unique(colnames(score.ISG))) {
+  seurat.data@meta.data[seurat.data@meta.data$cotan == cl,]$ISG.score <- score.ISG[[cl]]
+}  
+
+FeaturePlot(seurat.data,features = "ISG.score",pt.size = 0.5,label.size = 4,repel = T,label = T,min.cutoff = 0, max.cutoff = 1)+
+  scale_color_gradient2(low ="#EDFC1B", high = "#0B0074", 
+                        mid = "#BC2E67",
+                        midpoint = 0.5,limits = c(0,1))
+```

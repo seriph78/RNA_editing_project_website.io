@@ -1,0 +1,10 @@
+GSE121380 From https://www.sciencedirect.com/science/article/pii/S0092867419311778#sec4
+Single cell suspensions of colonic biopsies from eight patients were stained with antibodies and sorted by FACS. 
+Single cell 5’ gene expression 
+libraries were prepared for CD45+CD3+CD19- (HB1), CD45+CD3-CD19+ (HB2), CD45+CD3-CD19- (HB3-1) and CD45- (HB4) 
+cells obtained from pooled cells 
+of 4 patients. 
+Single cell 5’ gene expression library was prepared for CD45+CD3-CD19- (HB3-2) cells from pooled 
+cells of 2 patients. 
+Single cell 3’ gene expression libraries were prepared for CD45+ (S279 and S280) cells obtained from 2 
+patients respectively. 

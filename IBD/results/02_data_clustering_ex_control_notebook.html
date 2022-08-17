@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2022-08-11">
+
+<title>Control data clustering</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="02_data_clustering_ex_control_notebook_files/libs/clipboard/clipboard.min.js"></script>
+<script src="02_data_clustering_ex_control_notebook_files/libs/quarto-html/quarto.js"></script>
+<script src="02_data_clustering_ex_control_notebook_files/libs/quarto-html/popper.min.js"></script>
+<script src="02_data_clustering_ex_control_notebook_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="02_data_clustering_ex_control_notebook_files/libs/quarto-html/anchor.min.js"></script>
+<link href="02_data_clustering_ex_control_notebook_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="02_data_clustering_ex_control_notebook_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="02_data_clustering_ex_control_notebook_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="02_data_clustering_ex_control_notebook_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="02_data_clustering_ex_control_notebook_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Control data clustering</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 11, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Attaching SeuratObject</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Attaching sp</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Rgb)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: viridisLite</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dendextend)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+---------------------
+Welcome to dendextend version 1.15.2
+Type citation('dendextend') for how to cite the package.
+
+Type browseVignettes(package = 'dendextend') for the package vignette.
+The github page is: https://github.com/talgalili/dendextend/
+
+Suggestions and bug-reports can be submitted at: https://github.com/talgalili/dendextend/issues
+You may ask questions at stackoverflow, use the r and dendextend tags: 
+     https://stackoverflow.com/questions/tagged/dendextend
+
+    To suppress this message use:  suppressPackageStartupMessages(library(dendextend))
+---------------------</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dendextend'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:stats':
+
+    cutree</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: usethis</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"../../IBD/code/raw_code/temp_functions.R"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load_all</span>(<span class="st">"../../../../COTAN/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Loading COTAN</code></pre>
+</div>
+</div>
+<p>Really this should be the <strong>COLITIS</strong> (problem in the excel/geo consistency).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>seurat.data.control <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="at">file =</span> <span class="st">"../data/03_clustered_data/control/Seurat_obj_control_with_cotan_clusters.RDS"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>cotan.obj.control <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"../data/03_clustered_data/control.cotan.clustered.RDS"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(cotan.obj.control<span class="sc">@</span>cluster_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13972    57</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>cotan.obj.control<span class="sc">@</span>meta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                V1        V2
+1                             GEO: GSE121380
+2                 scRNAseq method:    10X 5'
+3            starting n. of cells:     13437
+4                Condition sample:   control
+5         Threshold low UDE cells:      0.38
+6 n. cells left out by clustering:        64</code></pre>
+</div>
+</div>
+<section id="seurat-clustering" class="level1">
+<h1>Seurat clustering</h1>
+<p>Using Seurat 17 clusters were identified.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(seurat.data.control, <span class="at">label =</span> T, <span class="at">group.by =</span> <span class="st">"seurat_clusters"</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_data_clustering_ex_control_notebook_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="cotan-initial-clusters" class="level1">
+<h1>Cotan initial clusters</h1>
+<p>While, in the first round of clustering using COTAN the homogeneous clusters were 57 and 64 cells were dropped.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(seurat.data.control, <span class="at">label =</span> T, <span class="at">group.by =</span> <span class="st">"cotan"</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_data_clustering_ex_control_notebook_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="markers" class="level1">
+<h1>Markers</h1>
+<p>This are the marker used also in the original paper.</p>
+<table class="table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 88%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Cell type</th>
+<th>Markers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>B cells</td>
+<td>“MS4A1”, “CD79A”, “VPREB3”, “CD37”, “BANK1”, “LY9”</td>
+</tr>
+<tr class="even">
+<td>Plasma</td>
+<td>“JCHAIN”, “IGHA2”, “IGHA1”, “IGKC”</td>
+</tr>
+<tr class="odd">
+<td>T &amp; NK cells</td>
+<td>“CCL5”, “CD7”, “CD3E”, “CD3D”, “NKG7”, “CST7”, “FYB”, “CD8A”, “HCST”</td>
+</tr>
+<tr class="even">
+<td>LTi</td>
+<td>“IL22”, “CSF2”, “IL4I1”, “XCL1”, “KIT”, “BHLHE40”, “TNFRSF18”, “KRT86”, “NCOA7”, “IL23R”, “AQP3”, “ALDOC”, “TNFSF13B”</td>
+</tr>
+<tr class="odd">
+<td>Myeloid</td>
+<td>“LYZ”, “CST3”, “IL1B”, “TPSAB1”, “CXCL8”, “CPA3”, “TPSB2”, “AIF1”, “FCER1G”, “C1QC”, “C1QA”, “C1QB”, “S100A8”</td>
+</tr>
+<tr class="even">
+<td>Mitotic B &amp; T cells</td>
+<td>“STMN1”,“HMGB2”, “HMGN2”, “HIST1H4C”, “H2AFZ”,“TUBB”, “TUBA1B”, “HMGB1”, “UBE2C”, “RRM2”, “PTTG1”, “DUT”, “TYMS”, “H2AFV”, “MKI67”, “TOP2A”, “CENPF”, “NUSAP1”</td>
+</tr>
+<tr class="odd">
+<td>Fibro &amp; Endo</td>
+<td>“CXCL14”, “ADAMDEC1”, “COL3A1”, “APOE”, “CFD”, “IGFBP7”, “CCL2”, “COL1A2”, “COL1A1”, “A2M”, “COL6A2”, “IFITM3”, “LUM”, “DCN”, “MFAP4”</td>
+</tr>
+<tr class="even">
+<td>Epithelial</td>
+<td>“PHGR1”, “TFF3”, “FABP1”, “ELF3”, “ZG16”, “KRT8”, “SPINK4”, “LGALS4”, “KRT18”, “CLDN4”, “PIGR”, “S100A6”, “FCGBP”, “KRT19”, “CLDN3”</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="initial-tree" class="level1">
+<h1>Initial tree</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>cluster_data <span class="ot">&lt;-</span> cotan.obj.control<span class="sc">@</span>cluster_data</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="do">######## This is the best: cosine dissimilarity</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>Matrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">t</span>(cluster_data))</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> Matrix <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">rowSums</span>(Matrix <span class="sc">*</span> Matrix))</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> sim <span class="sc">%*%</span> <span class="fu">t</span>(sim)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>D_sim <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(<span class="dv">1</span> <span class="sc">-</span> sim)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">hclust</span>(D_sim,<span class="at">method =</span> <span class="st">"ward.D2"</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">as.dendrogram</span>(tree)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dend)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_data_clustering_ex_control_notebook_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="final-tree-and-markers-enrichment" class="level1">
+<h1>Final tree and markers enrichment</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>cotan.obj.control <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"../data/03_clustered_data/control_merged_cotan.RDS"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>cluster_data <span class="ot">&lt;-</span> cotan.obj.control<span class="sc">@</span>cluster_data</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="do">######## This is the best: cosine dissimilarity</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>Matrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">t</span>(cluster_data))</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> Matrix <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">rowSums</span>(Matrix <span class="sc">*</span> Matrix))</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> sim <span class="sc">%*%</span> <span class="fu">t</span>(sim)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>D_sim <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(<span class="dv">1</span> <span class="sc">-</span> sim)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">hclust</span>(D_sim,<span class="at">method =</span> <span class="st">"ward.D2"</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">as.dendrogram</span>(tree)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#df &lt;- read.csv("IBD_control_markers_clusters_percentage.csv",row.names = 1)</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/04_cluster_identification/control_markers_clusters_expression.csv"</span>,<span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">as.dendrogram</span>(tree)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">round</span>(df[,dend <span class="sc">%&gt;%</span> labels], <span class="at">digits =</span> <span class="dv">2</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> <span class="fu">str_remove_all</span>(<span class="fu">colnames</span>(df), <span class="at">pattern =</span> <span class="st">"cl."</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>cut <span class="ot">=</span> <span class="fu">cutree</span>(tree, <span class="at">k =</span> <span class="dv">9</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">=</span><span class="fu">branches_color</span>(dend,<span class="at">k=</span><span class="dv">9</span>,<span class="at">col=</span><span class="fu">c</span>(<span class="st">"#4DBBD5FF"</span>,<span class="st">"#91D1C2FF"</span>,<span class="st">"#E64B35FF"</span>,<span class="st">"gray80"</span>,<span class="st">"#3C5488FF"</span>,<span class="st">"#F39B7FFF"</span>,<span class="st">"gray80"</span>),<span class="at">groupLabels =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in get_col(col, k): Length of color vector was shorter than the number
+of clusters - color vector was recycled</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">=</span><span class="fu">color_labels</span>(dend,<span class="at">k=</span><span class="dv">9</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>dd <span class="ot">&lt;-</span> dend <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  dendextend<span class="sc">::</span><span class="fu">set</span>(<span class="st">"labels"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">horiz=</span>F, <span class="at">axes=</span>T)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">#tab &lt;- tableGrob(round(df[,dend %&gt;% labels], digits = 0),theme = ttheme_minimal(base_size = 4))</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">grid.ftable</span>(df, <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fill =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"grey80"</span>, <span class="st">"grey95"</span>), <span class="at">each =</span> (<span class="fu">dim</span>(df)[<span class="dv">2</span>]<span class="sc">+</span><span class="dv">1</span>))),<span class="at">padding =</span> <span class="fu">unit</span>(<span class="fl">7.9</span>, <span class="st">"mm"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_data_clustering_ex_control_notebook_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="1728"></p>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>lay <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">10</span>)),</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>               <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">2</span>,<span class="dv">9</span>),<span class="cn">NA</span>))</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">#tab1 &lt;- grid.ftable(matrix(rownames(df), c(1:length(rownames(df)))))</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(dd, <span class="fu">arrangeGrob</span>(tab,<span class="at">widths =</span> <span class="dv">1</span>),  <span class="at">layout_matrix=</span>lay)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_data_clustering_ex_control_notebook_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid" width="1728"></p>
+</div>
+</div>
+</section>
+<section id="final-merged-cluster-in-seurat-plot" class="level1">
+<h1>Final merged cluster in Seurat plot</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>seurat.data.control <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="at">file =</span> <span class="st">"../data/03_clustered_data/Seurat_obj_control_with_cotan_clusters_merged.RDS"</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>seurat.data.control <span class="ot">&lt;-</span> <span class="fu">SetIdent</span>(seurat.data.control, <span class="at">value =</span> <span class="st">'cotan'</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(seurat.data.control, <span class="at">label =</span> T) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_data_clustering_ex_control_notebook_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="check-for-sample-id" class="level1">
+<h1>Check for sample id</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>seurat.data.control<span class="sc">@</span>meta.data<span class="sc">$</span>sample.id <span class="ot">&lt;-</span> <span class="fu">str_split</span>(<span class="fu">rownames</span>(seurat.data.control<span class="sc">@</span>meta.data),<span class="at">pattern =</span> <span class="st">"[.]"</span>,<span class="at">simplify =</span> T)[,<span class="dv">2</span>]</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(seurat.data.control, <span class="at">label =</span> T,<span class="at">group.by =</span>  <span class="st">"sample.id"</span>, <span class="at">pt.size =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_data_clustering_ex_control_notebook_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The sample distribution is not perfect but it doesn’t seems too bad…</p>
+</section>
+<section id="cluster-assignment-and-merge" class="level1">
+<h1>Cluster assignment and merge</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>seurat.data.control<span class="sc">@</span>meta.data<span class="sc">$</span>Cell.type <span class="ot">&lt;-</span> seurat.data.control<span class="sc">@</span>meta.data<span class="sc">$</span>cotan </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>seurat.data.control<span class="sc">@</span>meta.data[seurat.data.control<span class="sc">@</span>meta.data<span class="sc">$</span>cotan <span class="sc">%in%</span> </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="dv">36</span>,<span class="dv">18</span>,<span class="dv">17</span>,<span class="dv">34</span>,<span class="dv">40</span>,<span class="dv">6</span>,<span class="dv">24</span>,<span class="dv">38</span>,<span class="dv">1</span>,<span class="dv">31</span>,<span class="dv">47</span>,<span class="dv">12</span>),]<span class="sc">$</span>Cell.type <span class="ot">&lt;-</span> <span class="st">"Plama c."</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>seurat.data.control<span class="sc">@</span>meta.data[seurat.data.control<span class="sc">@</span>meta.data<span class="sc">$</span>cotan <span class="sc">%in%</span> </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="dv">55</span>),]<span class="sc">$</span>Cell.type <span class="ot">&lt;-</span> <span class="st">"Mitotic Plasma c."</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>seurat.data.control<span class="sc">@</span>meta.data[seurat.data.control<span class="sc">@</span>meta.data<span class="sc">$</span>cotan <span class="sc">%in%</span> </span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="dv">19</span>),]<span class="sc">$</span>Cell.type <span class="ot">&lt;-</span> <span class="st">"Mitotic T c."</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>seurat.data.control<span class="sc">@</span>meta.data[seurat.data.control<span class="sc">@</span>meta.data<span class="sc">$</span>cotan <span class="sc">%in%</span> </span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">46</span>,<span class="dv">2</span>,<span class="dv">43</span>,<span class="dv">33</span>,<span class="dv">29</span>,<span class="dv">4</span>,<span class="dv">7</span>),]<span class="sc">$</span>Cell.type <span class="ot">&lt;-</span> <span class="st">"Mitotic B c."</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>seurat.data.control<span class="sc">@</span>meta.data[seurat.data.control<span class="sc">@</span>meta.data<span class="sc">$</span>cotan <span class="sc">%in%</span> </span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="dv">14</span>,<span class="dv">0</span>,<span class="dv">28</span>,<span class="dv">30</span>),]<span class="sc">$</span>Cell.type <span class="ot">&lt;-</span> <span class="st">"B cells"</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>seurat.data.control<span class="sc">@</span>meta.data[seurat.data.control<span class="sc">@</span>meta.data<span class="sc">$</span>cotan <span class="sc">%in%</span> </span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">11</span>,<span class="dv">10</span>,<span class="dv">25</span>,<span class="dv">9</span>,<span class="dv">32</span>,<span class="dv">8</span>),]<span class="sc">$</span>Cell.type <span class="ot">&lt;-</span> <span class="st">"T &amp; NK cells"</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>seurat.data.control<span class="sc">@</span>meta.data[seurat.data.control<span class="sc">@</span>meta.data<span class="sc">$</span>cotan <span class="sc">%in%</span> </span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="dv">13</span>),]<span class="sc">$</span>Cell.type <span class="ot">&lt;-</span> <span class="st">"LTi"</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>seurat.data.control<span class="sc">@</span>meta.data[seurat.data.control<span class="sc">@</span>meta.data<span class="sc">$</span>cotan <span class="sc">%in%</span> </span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="dv">42</span>,<span class="dv">45</span>,<span class="dv">35</span>,<span class="dv">37</span>),]<span class="sc">$</span>Cell.type <span class="ot">&lt;-</span> <span class="st">"Myeloid"</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>seurat.data.control<span class="sc">@</span>meta.data[seurat.data.control<span class="sc">@</span>meta.data<span class="sc">$</span>cotan <span class="sc">%in%</span> </span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="dv">26</span>,<span class="dv">21</span>,<span class="dv">51</span>,<span class="dv">49</span>,<span class="dv">44</span>),]<span class="sc">$</span>Cell.type <span class="ot">&lt;-</span> <span class="st">"Fibro &amp; Endo"</span></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>seurat.data.control<span class="sc">@</span>meta.data[seurat.data.control<span class="sc">@</span>meta.data<span class="sc">$</span>cotan <span class="sc">%in%</span> </span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(<span class="dv">53</span>,<span class="dv">54</span>),]<span class="sc">$</span>Cell.type <span class="ot">&lt;-</span> <span class="st">"Epitelial"</span></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>seurat.data.control <span class="ot">&lt;-</span> <span class="fu">SetIdent</span>(seurat.data.control, <span class="at">value =</span> <span class="st">'Cell.type'</span>)</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="fu">DimPlot</span>(seurat.data.control, <span class="at">label =</span> T,<span class="at">repel =</span> T) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_data_clustering_ex_control_notebook_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>score.ISG <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/04_cluster_identification/control_ISG_clusters_expression.csv"</span>,<span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(score.ISG) <span class="ot">&lt;-</span> <span class="fu">str_remove_all</span>(<span class="fu">colnames</span>(score.ISG),<span class="at">pattern =</span> <span class="st">"cl."</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>seurat.data.control<span class="sc">@</span>meta.data<span class="sc">$</span>ISG.score <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (cl <span class="cf">in</span> <span class="fu">unique</span>(<span class="fu">colnames</span>(score.ISG))) {</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  seurat.data.control<span class="sc">@</span>meta.data[seurat.data.control<span class="sc">@</span>meta.data<span class="sc">$</span>cotan <span class="sc">==</span> cl,]<span class="sc">$</span>ISG.score <span class="ot">&lt;-</span> score.ISG[[cl]]</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>}  </span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="fu">FeaturePlot</span>(seurat.data.control,<span class="at">features =</span> <span class="st">"ISG.score"</span>,<span class="at">pt.size =</span> <span class="fl">0.5</span>,<span class="at">label.size =</span> <span class="dv">4</span>,<span class="at">repel =</span> T,<span class="at">label =</span> T,<span class="at">min.cutoff =</span> <span class="dv">0</span>, <span class="at">max.cutoff =</span> <span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_gradient2</span>(<span class="at">low =</span><span class="st">"#EDFC1B"</span>, <span class="at">high =</span> <span class="st">"#0B0074"</span>, </span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>                        <span class="at">mid =</span> <span class="st">"#BC2E67"</span>,</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>                        <span class="at">midpoint =</span> <span class="fl">0.5</span>,<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Scale for 'colour' is already present. Adding another scale for 'colour',
+which will replace the existing scale.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="02_data_clustering_ex_control_notebook_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
