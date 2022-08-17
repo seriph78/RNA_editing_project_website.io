@@ -1,0 +1,36 @@
+---
+title: "Colitis data clustering"
+format: 
+    html: default
+date: "`r Sys.Date()`"
+reference-location: margin
+citation-location: margin
+editor: visual
+execute: 
+  freeze: true
+---
+
+```{r}
+
+library(Seurat)
+library(Rgb)
+library(grid)
+library(gridExtra)
+library(viridis)
+library(ggplot2)
+library(stringr)
+library(dendextend)
+library(devtools)
+source("IBD/code/raw_code/temp_functions.R")
+load_all("../COTAN/")
+```
+
+Really this should be the **CONTROL** (problem in the excel/geo consistency).
+
+```{r}
+seurat.data <- readRDS(file = "IBD/data/03_clustered_data/colitis/Seurat_obj_colitis_with_cotan_clusters.RDS")
+cotan.obj.colitis <- readRDS("IBD/data/03_clustered_data/colitis.cotan.clustered.RDS")
+
+dim(cotan.obj.colitis@cluster_data)
+```
+
