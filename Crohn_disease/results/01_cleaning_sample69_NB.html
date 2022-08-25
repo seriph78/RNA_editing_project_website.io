@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>RNA editing project - Cleaning tamplate notebook</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">RNA editing project</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">Home</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">About</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Cleaning tamplate notebook</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">IBD dataset</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../IBD/results/01A_Seurat_import_clean.html" class="sidebar-item-text sidebar-link">Seurat cleaning</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Crohn disease dataset</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Crohn_disease/results/01_cleaning_sample69_NB.html" class="sidebar-item-text sidebar-link active">Seurat cleaning</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#import-data" id="toc-import-data" class="nav-link active" data-scroll-target="#import-data">Import data</a>
+  <ul class="collapse">
+  <li><a href="#general-cleaning" id="toc-general-cleaning" class="nav-link" data-scroll-target="#general-cleaning">General cleaning</a>
+  <ul class="collapse">
+  <li><a href="#by-library-sizes" id="toc-by-library-sizes" class="nav-link" data-scroll-target="#by-library-sizes">By library sizes</a></li>
+  <li><a href="#by-mitochondrial-gene-percentage" id="toc-by-mitochondrial-gene-percentage" class="nav-link" data-scroll-target="#by-mitochondrial-gene-percentage">By mitochondrial gene percentage</a></li>
+  <li><a href="#gene-and-library-size-scatter-plot" id="toc-gene-and-library-size-scatter-plot" class="nav-link" data-scroll-target="#gene-and-library-size-scatter-plot">Gene and library size scatter plot</a></li>
+  </ul></li>
+  <li><a href="#cotan-specific-data-cleaning" id="toc-cotan-specific-data-cleaning" class="nav-link" data-scroll-target="#cotan-specific-data-cleaning">COTAN specific data cleaning</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Cleaning tamplate notebook</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#library(COTAN)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#library(data.table)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#library(Matrix)</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#library(ggrepel)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#library(factoextra)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#library(Rtsne)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#library(utils)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#library(plotly)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#library(tidyverse)</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#library(htmlwidgets)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#library(MASS)</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#library(Seurat)</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#library(dendextend)</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>(<span class="st">"../../../COTAN/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Loading COTAN</code></pre>
+</div>
+</div>
+<section id="import-data" class="level1">
+<h1>Import data</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sample.id <span class="ot">=</span> <span class="st">"sample69"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>raw <span class="ot">&lt;-</span> Seurat<span class="sc">::</span><span class="fu">Read10X</span>(<span class="st">"../data/01_raw_data/69/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Define output directory:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="st">"../../Crohn_disease1/"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>out_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(root,<span class="st">"data/02_cleaned_data/"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>out_dir</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "../../Crohn_disease1/data/02_cleaned_data/"</code></pre>
+</div>
+</div>
+<p>The data set is too big but there are a lot of empty cells.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">colSums</span>(raw) <span class="sc">==</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 573872</code></pre>
+</div>
+</div>
+<p>So we drop them</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>raw <span class="ot">&lt;-</span> raw[,<span class="sc">!</span>(<span class="fu">colSums</span>(raw) <span class="sc">==</span> <span class="dv">0</span>)]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  33694 163408</code></pre>
+</div>
+</div>
+<p>We check also the genes</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">rowSums</span>(raw) <span class="sc">==</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 14128</code></pre>
+</div>
+</div>
+<p>And drop the empty rows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>raw <span class="ot">&lt;-</span> raw[<span class="sc">!</span>(<span class="fu">rowSums</span>(raw) <span class="sc">==</span> <span class="dv">0</span>),]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  19566 163408</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> methods<span class="sc">::</span><span class="fu">new</span>(<span class="st">"scCOTAN"</span>,<span class="at">raw =</span> raw)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">initRaw</span>(obj,<span class="at">GEO=</span><span class="st">"GSM3972009"</span> ,<span class="at">sc.method=</span><span class="st">"10X"</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">cond =</span> sample.id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Initializing S4 object"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(obj<span class="sc">@</span>raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  19566 163408</code></pre>
+</div>
+</div>
+<section id="general-cleaning" class="level2">
+<h2 class="anchored" data-anchor-id="general-cleaning">General cleaning</h2>
+<p>We want to remove cell doublets or multiplets and low quality or dying cells (with too high mtRNA percentage).</p>
+<section id="by-library-sizes" class="level3">
+<h3 class="anchored" data-anchor-id="by-library-sizes">By library sizes</h3>
+<p>First we check the library size (UMI number) with an empirical cumulative distribution function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ECD.plot</span>(obj,<span class="at">y_cut =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>So to start we drop all cell with library size lower then 6.</p>
+<p>The next plot shows the library size of each cell in a violin and box plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sizes <span class="ot">&lt;-</span> Matrix<span class="sc">::</span><span class="fu">colSums</span>(obj<span class="sc">@</span>raw)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">drop.genes.cells</span>(<span class="at">object =</span> obj,<span class="at">cells =</span> <span class="fu">names</span>(sizes[ sizes <span class="sc">&lt;=</span> <span class="dv">12</span>]))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library.size.plot</span>(obj,<span class="at">split.pattern =</span> <span class="st">"-"</span>,<span class="at">n.col =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Scale for 'y' is already present. Adding another scale for 'y', which will
+replace the existing scale.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We can subset and drop the unwanted cell by library size.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sizes <span class="ot">&lt;-</span> Matrix<span class="sc">::</span><span class="fu">colSums</span>(obj<span class="sc">@</span>raw)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">drop.genes.cells</span>(<span class="at">object =</span> obj,<span class="at">cells =</span> <span class="fu">names</span>(sizes[ sizes <span class="sc">&gt;</span> <span class="dv">15000</span>]))</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library.size.plot</span>(obj,<span class="at">split.pattern =</span> <span class="st">"-"</span>,<span class="at">n.col =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Scale for 'y' is already present. Adding another scale for 'y', which will
+replace the existing scale.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(obj<span class="sc">@</span>raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 19566 20712</code></pre>
+</div>
+</div>
+</section>
+<section id="by-mitochondrial-gene-percentage" class="level3">
+<h3 class="anchored" data-anchor-id="by-mitochondrial-gene-percentage">By mitochondrial gene percentage</h3>
+<p>We will next have a look the the percentage of reads coming from mitochondrial genes. This can help to drop dying cells: these cells will have a percentage of mitochondrial reads particularly high.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">mitochondrial.percentage.plot</span>(obj,<span class="at">split.pattern =</span> <span class="st">"-"</span>,<span class="at">n.col =</span> <span class="dv">2</span>,<span class="at">gene.prefix =</span> <span class="st">"^MT-"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">drop.genes.cells</span>(<span class="at">object =</span> obj,<span class="at">cells =</span> <span class="fu">rownames</span>(df<span class="sc">$</span>sizes[df<span class="sc">$</span>sizes<span class="sc">$</span>mit.percentage <span class="sc">&gt;</span> <span class="dv">10</span>,]))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">mitochondrial.percentage.plot</span>(obj,<span class="at">split.pattern =</span> <span class="st">"-"</span>,<span class="at">n.col =</span> <span class="dv">2</span>,<span class="at">gene.prefix =</span> <span class="st">"^MT-"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We check again the library size plot</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library.size.plot</span>(obj,<span class="at">split.pattern =</span> <span class="st">"-"</span>,<span class="at">n.col =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Scale for 'y' is already present. Adding another scale for 'y', which will
+replace the existing scale.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ECD.plot</span>(obj,<span class="at">y_cut =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="gene-and-library-size-scatter-plot" class="level3">
+<h3 class="anchored" data-anchor-id="gene-and-library-size-scatter-plot">Gene and library size scatter plot</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter.plot</span>(<span class="at">obj =</span> obj,<span class="at">split.pattern =</span> <span class="st">"[-]"</span>,<span class="at">n.col =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Condition "</span>, sample.id ,<span class="at">sep =</span> <span class="st">""</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Condition sample69"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>n_cells <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">get.cell.size</span>(<span class="at">object =</span> obj))</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"n cells"</span>, n_cells, <span class="at">sep =</span> <span class="st">" "</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "n cells 19499"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>n_it <span class="ot">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="cotan-specific-data-cleaning" class="level2">
+<h2 class="anchored" data-anchor-id="cotan-specific-data-cleaning">COTAN specific data cleaning</h2>
+<p>First, we create a directory to store all information regarding the data cleaning.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(out_dir)){</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(<span class="fu">file.path</span>(out_dir))</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in dir.create(file.path(out_dir)): cannot create dir '../../
+Crohn_disease1/data/02_cleaned_data', reason 'No such file or directory'</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">paste</span>(out_dir,<span class="st">"cleaning"</span>, <span class="at">sep =</span> <span class="st">""</span>))){   </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(<span class="fu">file.path</span>(out_dir, <span class="st">"cleaning"</span>))</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in dir.create(file.path(out_dir, "cleaning")): cannot create dir
+'../../Crohn_disease1/data/02_cleaned_data//cleaning', reason 'No such file or
+directory'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>ttm <span class="ot">=</span> <span class="fu">clean</span>(obj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Starting"
+[1] "Cells/genes selection done"
+[1] "Start estimation mu with linear method"
+[1]  7121 19499
+[1] "Fun linear DONE"
+[1] "raw_norm DONE"
+[1] "hclust DONE"
+     rowname AACACGTGTAGCGT-1 AATATCGAATCGTG-1 ACATCACTAAGCCT-1
+5102   IGHG4         75.54716        168.26412         151.0943
+971     IGKC         75.54716        168.26412         339.9622
+6870   IGLC3         37.77358          0.00000           0.0000
+3886  MALAT1          0.00000          0.00000           0.0000
+6868   IGLL5          0.00000         24.03773           0.0000
+5159     B2M          0.00000          0.00000           0.0000
+6869   IGLC2          0.00000          0.00000           0.0000
+2741   HSPB1          0.00000          0.00000           0.0000
+2103    MZB1          0.00000         24.03773           0.0000
+6736     FTL          0.00000          0.00000           0.0000
+3122   RPL10          0.00000          0.00000           0.0000
+2933  TMSB4X          0.00000         48.07546           0.0000
+2366   RPS18          0.00000          0.00000           0.0000
+3259    RPL7          0.00000          0.00000           0.0000
+3113    SSR4          0.00000          0.00000           0.0000
+     ACATCACTATGCTG-1 ACATCACTATTCTC-1 ACCCAGCTTCACCC-1 ACCTATTGTGTCCC-1
+5102     129.59331352       146.124105        114.96306         66.10376
+971      322.28516451       299.206500         34.48892          0.00000
+6870       0.04468735         0.000000        333.39289         33.05188
+3886       4.02186145         0.000000         11.49631          0.00000
+6868       0.00000000         0.000000          0.00000          0.00000
+5159       2.68124097         0.000000          0.00000         33.05188
+6869       0.04468735         0.000000          0.00000          0.00000
+2741       1.42999518         0.000000          0.00000          0.00000
+2103       0.98312169         0.000000          0.00000          0.00000
+6736       3.57498796         3.479145          0.00000          0.00000
+3122       1.56405723         3.479145          0.00000          0.00000
+2933       0.40218615         0.000000          0.00000          0.00000
+2366       0.35749880         0.000000          0.00000          0.00000
+3259       0.26812410         0.000000          0.00000         33.05188
+3113       1.60874458         3.479145          0.00000          0.00000
+     ACGAACACGTTACG-1 AGGAATGATCAGTG-1 AGGATAGACACTTT-1 AGGGAGTGCTCCAC-1
+5102       141.370421        100.72954      131.0594993         132.2075
+971        329.864316        151.09431      180.4113445         231.3632
+6870         0.000000         50.36477        0.7917408           0.0000
+3886         0.000000          0.00000       14.2513350           0.0000
+6868         0.000000          0.00000       61.7030023           0.0000
+5159         0.000000          0.00000        3.8531387           0.0000
+6869         0.000000          0.00000        1.5834817           0.0000
+2741         5.235942          0.00000        1.5306989           0.0000
+2103         0.000000          0.00000        3.4308769           0.0000
+6736         5.235942          0.00000        2.6919188           0.0000
+3122         0.000000          0.00000        1.5834817           0.0000
+2933         0.000000          0.00000        0.1055654           0.0000
+2366         0.000000         25.18239        1.2140026           0.0000
+3259         0.000000          0.00000        0.3694791           0.0000
+3113         0.000000          0.00000        3.0086152           0.0000
+     ATAACAACTTCGTT-1 ATCACTACGCTGAT-1 ATCGCCTGGAATGA-1 ATGGACACATTTCC-1
+5102         117.5178        139.16581        165.25940         145.8842
+971          156.6904        278.33163        280.94099         328.2394
+6870          19.5863          0.00000          0.00000           0.0000
+3886           0.0000          0.00000          0.00000           0.0000
+6868           0.0000          0.00000          0.00000           0.0000
+5159          19.5863          0.00000          0.00000           0.0000
+6869           0.0000          0.00000          0.00000           0.0000
+2741           0.0000          0.00000          0.00000           0.0000
+2103           0.0000          0.00000          0.00000           0.0000
+6736           0.0000         27.83316         16.52594           0.0000
+3122           0.0000          0.00000          0.00000           0.0000
+2933          19.5863          0.00000          0.00000           0.0000
+2366           0.0000          0.00000          0.00000           0.0000
+3259           0.0000          0.00000          0.00000           0.0000
+3113           0.0000          0.00000          0.00000           0.0000
+     ATTATGGAGCAGTT-1 ATTTCCGAGGGCAA-1 ATTTCCGATGCCAA-1 CAACCGCTCACCAA-1
+5102      207.8849334      273.3872142        216.33958        144.22639
+971       130.2537177      137.4324915        192.30185          0.00000
+6870        0.0000000        0.0000000          0.00000          0.00000
+3886       53.6645317       28.7109352         24.03773          0.00000
+6868        0.0000000        0.2111098          0.00000         48.07546
+5159        0.2605074        1.8999884          0.00000         24.03773
+6869        0.5210149        0.0000000          0.00000          0.00000
+2741        1.5630446        3.5888669          0.00000          0.00000
+2103        3.3865967        1.4777687          0.00000          0.00000
+6736        0.5210149        0.8444393          0.00000          0.00000
+3122        1.0420297        0.2111098          0.00000          0.00000
+2933        0.0000000        0.2111098          0.00000          0.00000
+2366        1.3025372        0.6333295         24.03773          0.00000
+3259        0.2605074        0.0000000          0.00000          0.00000
+3113        1.8235520        0.2111098          0.00000          0.00000
+     CAACCGCTCCAGTA-1 CAACCGCTGCAGTT-1 CAACCGCTTCATTC-1 CAACTTTGGAGGAC-1
+5102        183.94090      207.2049153         271.1949       185.330184
+971         183.94090      102.1782648         135.5975       161.365074
+6870          0.00000        1.1514751           0.0000         0.532558
+3886          0.00000        6.7270388           0.0000        29.290690
+6868         45.98523       62.3614676           0.0000         0.000000
+5159          0.00000        9.3936127           0.0000         1.065116
+6869          0.00000        0.7272474           0.0000         0.532558
+2741          0.00000        1.8181186           0.0000         2.130232
+2103          0.00000        1.5150988           0.0000         0.532558
+6736          0.00000        4.3634846           0.0000         0.000000
+3122          0.00000        1.5150988           0.0000         1.065116
+2933          0.00000        1.1514751           0.0000         0.000000
+2366          0.00000        0.5454356           0.0000         1.597674
+3259          0.00000        0.5454356           0.0000         0.000000
+3113          0.00000        3.1514056           0.0000         3.727906
+     CAACTTTGTGTCGA-1 CAGCGGACTAGCCA-1 CCAGATGAAGGCGA-1 CCAGATGATTGCGA-1
+5102        198.31129        162.71695       132.207523         151.0943
+971         264.41505        244.07543       302.188625         264.4150
+6870          0.00000          0.00000         0.000000           0.0000
+3886         33.05188          0.00000         9.443395           0.0000
+6868          0.00000          0.00000         0.000000           0.0000
+5159          0.00000         40.67924         0.000000           0.0000
+6869          0.00000          0.00000         0.000000           0.0000
+2741          0.00000          0.00000         0.000000           0.0000
+2103          0.00000          0.00000         0.000000           0.0000
+6736          0.00000          0.00000         0.000000           0.0000
+3122          0.00000          0.00000         0.000000           0.0000
+2933          0.00000          0.00000         0.000000           0.0000
+2366          0.00000          0.00000         0.000000           0.0000
+3259          0.00000          0.00000         0.000000           0.0000
+3113          0.00000          0.00000         0.000000           0.0000
+     CCAGCACTATGCTG-1 CCAGCGGACTTCTA-1 CCAGCGGATTGCGA-1 CCCAGTTGAAGGCG-1
+5102        117.51780        168.26412     136.54049406     132.27665760
+971         235.03560        276.43391     298.07816929     312.20978349
+6870          0.00000          0.00000       0.22656055       0.13826828
+3886          0.00000          0.00000       6.23041524       5.06983705
+6868          0.00000          0.00000       0.03776009       0.00000000
+5159         29.37945          0.00000       3.43616841       1.88966654
+6869          0.00000          0.00000       0.07552018       0.00000000
+2741          0.00000         12.01887       2.07680508       0.04608943
+2103          0.00000          0.00000       1.43488351       1.19832512
+6736         29.37945          0.00000       1.96352480       2.76536566
+3122          0.00000         12.01887       0.86848212       0.78352027
+2933          0.00000          0.00000       0.86848212       3.64106479
+2366          0.00000         12.01887       0.26432065       0.23044714
+3259          0.00000          0.00000       0.37760092       0.23044714
+3113          0.00000          0.00000       1.66144406       1.47486169
+     CCCAGTTGTTGACG-1 CCTATTGACTCGAA-1 CCTGCAACCGAGTT-1 CGACAAACTGGATC-1
+5102        113.32073       301.504940         93.32296      204.3536104
+971          75.54716        28.714756         93.32296      107.0975012
+6870          0.00000         2.392896         31.10765        0.2894527
+3886          0.00000         0.000000          0.00000       38.4972099
+6868          0.00000        74.179787          0.00000        0.0000000
+5159          0.00000         4.785793          0.00000        0.5789054
+6869          0.00000         0.000000          0.00000        0.2894527
+2741          0.00000         0.000000          0.00000        1.7367162
+2103          0.00000         0.000000          0.00000        2.3156216
+6736          0.00000         0.000000          0.00000        0.8683581
+3122          0.00000         2.392896          0.00000        2.0261689
+2933          0.00000         4.785793          0.00000        1.4472635
+2366          0.00000         0.000000          0.00000        0.5789054
+3259          0.00000         0.000000          0.00000        0.0000000
+3113          0.00000         2.392896          0.00000        3.4734325
+     CGCGGATGTGACAC-1 CGGACTCTAAAGTG-1 CGGGCATGGGTCTA-1 CGTACCTGCATTCT-1
+5102        113.32073        118.98677      164.0903667        132.20752
+971          75.54716        264.41505       98.6242619        165.25940
+6870         37.77358         13.22075        0.0000000          0.00000
+3886          0.00000          0.00000       60.3648499          0.00000
+6868          0.00000          0.00000        0.0000000          0.00000
+5159          0.00000          0.00000        3.4008366         33.05188
+6869          0.00000          0.00000        0.8502092          0.00000
+2741          0.00000          0.00000        0.0000000          0.00000
+2103          0.00000          0.00000        2.5506275          0.00000
+6736          0.00000          0.00000        1.7004183          0.00000
+3122          0.00000          0.00000        1.7004183         66.10376
+2933          0.00000          0.00000        0.8502092          0.00000
+2366          0.00000          0.00000        1.7004183          0.00000
+3259          0.00000         26.44150        0.0000000          0.00000
+3113          0.00000          0.00000        1.7004183          0.00000
+     CTAACTACCTGAGT-1 CTTTAGACAGAACA-1 GAACGTTGTGTCGA-1 GAAGTCTGAGAGGC-1
+5102      148.7824055        137.10410        151.09431      121.3490999
+971        12.5290447        225.24245        302.18863       55.3696713
+6870      143.5619702          9.79315          0.00000        0.6631098
+3886       75.1742680          0.00000          0.00000       62.6638795
+6868        0.0000000          0.00000          0.00000        0.0000000
+5159        1.5661306          9.79315          0.00000        5.6364336
+6869        1.5661306          0.00000          0.00000        0.3315549
+2741        1.5661306          0.00000          0.00000        4.3102139
+2103        2.0881741          0.00000         37.77358        0.9946648
+6736        0.0000000          0.00000          0.00000        1.6577746
+3122        0.5220435          9.79315          0.00000        4.3102139
+2933        0.5220435          0.00000          0.00000        1.9893295
+2366        0.5220435          0.00000          0.00000        3.6471041
+3259        0.0000000          0.00000          0.00000        2.6524393
+3113        0.0000000          0.00000          0.00000        1.6577746
+     GACAGGGACATACG-1 GACTACGAACGTTG-1 GAGGTGGAAAAACG-1 GAGGTTTGTGTCGA-1
+5102         88.13835      180.1607608        141.02136        229.92613
+971         198.31129      280.5488464         35.25534        160.94829
+6870          0.00000        0.0000000        105.76602          0.00000
+3886          0.00000        0.8963222          0.00000          0.00000
+6868          0.00000        0.8963222         35.25534          0.00000
+5159          0.00000        0.0000000          0.00000          0.00000
+6869         66.10376        0.8963222          0.00000          0.00000
+2741         22.03459        0.0000000          0.00000         22.99261
+2103          0.00000        0.0000000         35.25534          0.00000
+6736          0.00000        0.8963222          0.00000          0.00000
+3122          0.00000        0.0000000          0.00000          0.00000
+2933          0.00000        1.7926444          0.00000          0.00000
+2366          0.00000        0.0000000          0.00000          0.00000
+3259          0.00000        0.0000000          0.00000          0.00000
+3113          0.00000        6.2742554          0.00000          0.00000
+     GAGTGACTTTGTGG-1 GATCATCTATGTCG-1 GATCTTTGAGTCGT-1 GATCTTTGTGTCGA-1
+5102        176.27670        124.43061        231.36317     188.96970624
+971         246.78738         93.32296        165.25940     259.22245263
+6870          0.00000         31.10765          0.00000       0.20363115
+3886          0.00000          0.00000         33.05188       3.29882461
+6868          0.00000          0.00000          0.00000       0.00000000
+5159          0.00000          0.00000          0.00000       1.50687050
+6869          0.00000          0.00000          0.00000       0.04072623
+2741          0.00000          0.00000          0.00000       1.95485903
+2103          0.00000          0.00000          0.00000       1.01815574
+6736          0.00000          0.00000          0.00000       0.97742952
+3122          0.00000          0.00000          0.00000       0.52944099
+2933          0.00000          0.00000          0.00000       0.85525083
+2366          0.00000          0.00000         33.05188       0.36653607
+3259         35.25534          0.00000          0.00000       0.08145246
+3113          0.00000          0.00000          0.00000       1.22178689
+     GATCTTTGTGTGGT-1 GCATGTGAATCAGC-1 GCATGTGATTCCGC-1 GCGTAAACTTCCAT-1
+5102        151.09431     146.93641343       107.025138        124.43061
+971         151.09431     271.51512722       220.345872          0.00000
+6870          0.00000       0.20142072         0.000000         62.21531
+3886         25.18239       7.20079065        25.182385         31.10765
+6868          0.00000       0.00000000         0.000000          0.00000
+5159         25.18239       1.56101056         0.000000         31.10765
+6869          0.00000       0.05035518         0.000000          0.00000
+2741          0.00000       1.96385200         0.000000          0.00000
+2103          0.00000       2.11491753         0.000000          0.00000
+6736          0.00000       2.16527271         6.295596          0.00000
+3122          0.00000       1.40994502        12.591193          0.00000
+2933          0.00000       0.10071036         0.000000          0.00000
+2366          0.00000       0.65461733         0.000000          0.00000
+3259          0.00000       0.40284144         0.000000          0.00000
+3113          0.00000       2.92060040        12.591193          0.00000
+     GCGTAAACTTGCAG-1 GGATACTGAACCAC-1 GGATACTGAACCTG-1 GGATACTGACCCTC-1
+5102       119.105877       148.443535     155.21367951         132.2075
+971          4.083630       343.275675     288.71168368         330.5188
+6870       306.952860         0.000000       0.05933245           0.0000
+3886         0.000000         9.277721       5.93324463           0.0000
+6868         0.000000         0.000000       0.00000000           0.0000
+5159         4.764235         0.000000       1.72064094           0.0000
+6869         2.041815         0.000000       0.00000000           0.0000
+2741         0.680605         0.000000       0.88998669           0.0000
+2103         0.680605         0.000000       0.59332446           0.0000
+6736         1.361210         0.000000       2.13596807           0.0000
+3122         0.000000         0.000000       0.88998669           0.0000
+2933         0.000000         0.000000       0.77132180           0.0000
+2366         0.680605         0.000000       0.35599468           0.0000
+3259         0.000000         0.000000       0.23732979           0.0000
+3113         1.361210         0.000000       0.88998669           0.0000
+     GGATAGCTCGTCTC-1 GTCACCTGTTTCTG-1 GTCTGAGATAAGCC-1 GTTAAATGTTTCTG-1
+5102      163.0971317      245.6589623         155.5383        105.76602
+971       154.0361800        4.0256962         279.9689         35.25534
+6870        0.0000000        6.5875029           0.0000         35.25534
+3886       55.1894335       10.7961853           0.0000          0.00000
+6868        0.0000000       68.3453426           0.0000          0.00000
+5159        0.4118614        3.8427100           0.0000          0.00000
+6869        0.0000000        1.3723964           0.0000         35.25534
+2741        0.4118614        0.9149310           0.0000          0.00000
+2103        2.4711687        3.2022584           0.0000          0.00000
+6736        0.0000000        2.5618067           0.0000          0.00000
+3122        0.8237229        2.8362860           0.0000         35.25534
+2933        0.0000000        0.6404517           0.0000          0.00000
+2366        2.4711687        0.6404517           0.0000          0.00000
+3259        0.0000000        0.8234379           0.0000          0.00000
+3113        1.6474458        2.7447929           0.0000          0.00000
+     TAAACAACAAGTAG-1 TAAACAACCATCAG-1 TAAACAACCATGAC-1 TAAAGTTGCGTGTA-1
+5102        132.20752        122.98374       184.289275        105.76602
+971         264.41505        295.16098       284.446490        211.53204
+6870          0.00000          0.00000         0.000000          0.00000
+3886          0.00000          0.00000         4.006289         35.25534
+6868          0.00000          0.00000         0.000000          0.00000
+5159          0.00000          0.00000         0.000000          0.00000
+6869          0.00000          0.00000         0.000000          0.00000
+2741         13.22075         12.29837         0.000000          0.00000
+2103         13.22075          0.00000         0.000000          0.00000
+6736          0.00000          0.00000         4.006289          0.00000
+3122          0.00000          0.00000         0.000000          0.00000
+2933          0.00000          0.00000         0.000000          0.00000
+2366          0.00000          0.00000         0.000000         35.25534
+3259          0.00000          0.00000         0.000000          0.00000
+3113          0.00000          0.00000         0.000000         35.25534
+     TAAAGTTGGGACTT-1 TAAAGTTGGGGATG-1 TAAAGTTGGTGTTG-1 TAAAGTTGGTTCTT-1
+5102        132.20752        176.27670        119.24600         148.4435
+971         132.20752        141.02136        248.86122         324.7202
+6870          0.00000          0.00000          0.00000           0.0000
+3886         33.05188         35.25534          0.00000           0.0000
+6868          0.00000          0.00000          0.00000           0.0000
+5159          0.00000          0.00000          0.00000           0.0000
+6869         33.05188          0.00000          0.00000           0.0000
+2741          0.00000          0.00000          0.00000           0.0000
+2103          0.00000          0.00000          0.00000           0.0000
+6736         33.05188          0.00000          0.00000           0.0000
+3122          0.00000          0.00000          0.00000           0.0000
+2933          0.00000         35.25534          0.00000           0.0000
+2366          0.00000          0.00000         10.36922           0.0000
+3259          0.00000          0.00000          0.00000           0.0000
+3113          0.00000          0.00000          0.00000           0.0000
+     TAATCCACCAGGAG-1 TAATGTGAATCAGC-1 TAATGTGACGAACT-1 TACAATGACCTATT-1
+5102        127.64864        176.27670         70.51068        381.93285
+971         218.82625        235.03560          0.00000          0.00000
+6870          0.00000          0.00000         35.25534          0.00000
+3886         36.47104          0.00000          0.00000          0.00000
+6868          0.00000          0.00000          0.00000          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6869          0.00000          0.00000          0.00000          0.00000
+2741         18.23552          0.00000          0.00000         29.37945
+2103          0.00000          0.00000         35.25534          0.00000
+6736         36.47104          0.00000          0.00000          0.00000
+3122         18.23552          0.00000          0.00000          0.00000
+2933          0.00000          0.00000          0.00000          0.00000
+2366         18.23552          0.00000          0.00000          0.00000
+3259          0.00000          0.00000          0.00000         29.37945
+3113          0.00000         29.37945          0.00000          0.00000
+     TAGAATTGTAGACC-1 TAGGTGTGCGCTAA-1 TATCCTGAATCTCT-1 TATCCTGACCTATT-1
+5102        132.20752         94.43395        166.99898      315.6122933
+971         151.09431          0.00000         83.49949       11.9876479
+6870          0.00000         37.77358          0.00000        0.6243567
+3886         18.88679          0.00000         27.83316        3.4963973
+6868          0.00000          0.00000         55.66633       64.9330930
+5159          0.00000         37.77358          0.00000        4.1831896
+6869          0.00000        113.32073          0.00000        0.6867923
+2741          0.00000         37.77358          0.00000        1.3735847
+2103          0.00000          0.00000          0.00000        1.8730700
+6736          0.00000          0.00000          0.00000        2.2476840
+3122          0.00000          0.00000          0.00000        1.4360203
+2933          0.00000          0.00000         27.83316        0.1248713
+2366          0.00000          0.00000          0.00000        0.5619210
+3259          0.00000          0.00000          0.00000        0.4370497
+3113          0.00000          0.00000          0.00000        2.2476840
+     TATCGTACGTCTGA-1 TATGCGGAATCTCT-1 TATGCGGATTCTGT-1 TATGTCTGCGGGAA-1
+5102      179.6636738      275.7859122         81.35848        113.32073
+971       122.8548515       20.1960145          0.00000          0.00000
+6870        1.8474414        0.5940004          0.00000        113.32073
+3886       52.1902189        7.2128623          0.00000          0.00000
+6868        0.0000000       55.7511829         40.67924          0.00000
+5159        0.4618603        3.7337170          0.00000          0.00000
+6869        0.4618603        0.2545716          0.00000         37.77358
+2741        1.8474414        0.3394288          0.00000          0.00000
+2103        1.3855810        1.4425725         40.67924          0.00000
+6736        0.0000000        1.7820013          0.00000          0.00000
+3122        0.9237207        1.4425725          0.00000          0.00000
+2933        0.4618603        5.2611466          0.00000          0.00000
+2366        1.3855810        0.7637148          0.00000          0.00000
+3259        0.4618603        0.9334292         40.67924          0.00000
+3113        0.0000000        3.9034314          0.00000          0.00000
+     TATTGCTGGCATCA-1 TCCGAGCTTCGACA-1 TCCTAAACAAAGCA-1 TCCTAAACCAACCA-1
+5102         66.10376        198.31129        198.31129       176.276698
+971          66.10376         66.10376         33.05188        20.497290
+6870         33.05188         66.10376          0.00000         0.000000
+3886          0.00000          0.00000         33.05188         8.198916
+6868          0.00000          0.00000          0.00000        28.696207
+5159         33.05188          0.00000          0.00000         0.000000
+6869          0.00000          0.00000          0.00000         0.000000
+2741          0.00000          0.00000          0.00000         0.000000
+2103          0.00000          0.00000          0.00000         4.099458
+6736          0.00000          0.00000          0.00000        12.298374
+3122          0.00000          0.00000          0.00000        12.298374
+2933          0.00000         33.05188          0.00000         4.099458
+2366          0.00000          0.00000          0.00000         0.000000
+3259          0.00000          0.00000          0.00000         0.000000
+3113          0.00000          0.00000          0.00000         0.000000
+     TCCTAAACCAAGCT-1 TCGTAGGAATGTCG-1 TCGTAGGACACTCC-1 TCGTAGGACTGTAG-1
+5102      291.5775599         122.0377         137.1041        181.31318
+971        23.4894519           0.0000           0.0000          0.00000
+6870        0.9069286         406.7924         332.9671        241.75090
+3886        5.8043433           0.0000           0.0000         15.10943
+6868       82.7118926           0.0000           0.0000          0.00000
+5159        5.1694933           0.0000           0.0000          0.00000
+6869        0.3627715           0.0000           0.0000          0.00000
+2741        0.6348501           0.0000          19.5863          0.00000
+2103        1.0883144           0.0000           0.0000          0.00000
+6736        3.5370217           0.0000           0.0000          0.00000
+3122        0.6348501           0.0000           0.0000          0.00000
+2933        0.9976215           0.0000           0.0000          0.00000
+2366        0.5441572           0.0000           0.0000          0.00000
+3259        0.1813857           0.0000           0.0000          0.00000
+3113        1.9952430           0.0000           0.0000          0.00000
+     TCGTAGGACTGTCC-1 TCGTAGGACTTTAC-1 TGATAAACGTTTCT-1 TGATACCTGTTTCT-1
+5102     110.03338749       153.531318        144.22639      132.7734593
+971        1.65576917        17.059035        192.30185      198.6680708
+6870     345.45365840       264.415047          0.00000        0.5413299
+3886       4.62862745         0.000000          0.00000        8.2675838
+6868       0.07526223         0.000000          0.00000       52.3613642
+5159       1.24182688         0.000000          0.00000        5.4625107
+6869       1.91918699         0.000000          0.00000        0.3444827
+2741       1.31708911         8.529518          0.00000        5.0196045
+2103       0.41394229         0.000000          0.00000        2.0668960
+6736       1.20419576         0.000000          0.00000        6.6928060
+3122       0.33868006         0.000000          0.00000        1.3779306
+2933       0.22578670         0.000000          0.00000        5.1672399
+2366       0.30104894         0.000000          0.00000        0.7381771
+3259       0.18815559         0.000000          0.00000        0.2952709
+3113       0.90314682         8.529518         24.03773        2.5098022
+     TGTGAGTGCGTGAT-1 TTAACCACTAGAGA-1 TTAGGGACGTGTCA-1 TTGTACACGTTAGC-1
+5102      275.6402140      189.6203524        105.76602        120.18866
+971        72.9635861       81.6420962         52.88301        192.30185
+6870        1.8708612        2.6336160         26.44150          0.00000
+3886       64.2329006       74.2679713          0.00000         24.03773
+6868        0.0000000        0.0000000          0.00000          0.00000
+5159        0.6236204        1.5801696          0.00000          0.00000
+6869        0.0000000        0.5267232         52.88301          0.00000
+2741        0.6236204        3.6870624          0.00000          0.00000
+2103        0.6236204        2.6336160          0.00000          0.00000
+6736        0.6236204        0.0000000          0.00000          0.00000
+3122        1.2472408        0.5267232          0.00000          0.00000
+2933        0.6236204        2.6336160          0.00000          0.00000
+2366        0.6236204        1.0534464          0.00000          0.00000
+3259        0.0000000        0.0000000          0.00000          0.00000
+3113        1.8708612        3.1603392          0.00000          0.00000
+[1] "PCA start"
+[1] "PCA done"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">=</span> ttm<span class="sc">$</span>object</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>ttm<span class="sc">$</span>pca.cell<span class="fl">.2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>ttm<span class="sc">$</span>genes.plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: ggrepel: 12 unlabeled data points (too many overlaps). Consider
+increasing max.overlaps</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>To color the PCA based on cells’ RNA extraction efficiency</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>ttm<span class="sc">$</span>UDE.plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>UDE (color) should not correlate with principal components! This is very important. The next part is used to remove the cells with efficiency too low.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>nu_df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="st">"nu"</span><span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">get.nu</span>(obj)), <span class="st">"n"</span><span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(<span class="fu">get.nu</span>(obj))))</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nu_df, <span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y=</span>nu)) <span class="sc">+</span> </span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"#8491B4B2"</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">#my_theme #+ ylim(0,1) + xlim(0,70)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can zoom on the smallest values and, if we detect a clear elbow, we can decide to remove the cells.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>yset <span class="ot">=</span> <span class="fl">0.38</span><span class="co">#threshold to remove low UDE cells</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>plot.ude <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nu_df, <span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y=</span>nu)) <span class="sc">+</span> </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"#8491B4B2"</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>     <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>) <span class="sc">+</span> <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">15000</span>) <span class="sc">+</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>yset, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">+</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>, <span class="at">x=</span><span class="dv">200</span>, <span class="at">y=</span><span class="fl">0.25</span>, </span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">label=</span><span class="fu">paste</span>(<span class="st">"to remove cells with nu &lt; "</span>,yset,<span class="at">sep =</span> <span class="st">" "</span>), </span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">color=</span><span class="st">"darkred"</span>, <span class="at">size=</span><span class="fl">4.5</span>)</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>plot.ude</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 4499 rows containing missing values (geom_point).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>For this round of analysis we want to keep the low UMI cells to keep possible cell population with very low amount of RNA ans neutrophils cells. So we don’t drop cells here.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#saveRDS(obj,paste0(out_dir,sample.id,"_obj_cotan.RDS"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
