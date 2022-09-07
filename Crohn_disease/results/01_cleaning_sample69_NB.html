@@ -186,7 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Crohn_disease/results/01_cleaning_sample69_NB.html" class="sidebar-item-text sidebar-link active">Seurat cleaning</a>
+  <a href="../../Crohn_disease/results/01_cleaning_sample69_NB.html" class="sidebar-item-text sidebar-link active">COTAN cleaning</a>
   </div>
 </li>
       </ul>
@@ -259,11 +259,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Define output directory:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="st">"../../Crohn_disease1/"</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="st">"../../Crohn_disease/"</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>out_dir <span class="ot">&lt;-</span> <span class="fu">paste0</span>(root,<span class="st">"data/02_cleaned_data/"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>out_dir</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "../../Crohn_disease1/data/02_cleaned_data/"</code></pre>
+<pre><code>[1] "../../Crohn_disease/data/02_cleaned_data/"</code></pre>
 </div>
 </div>
 <p>The data set is too big but there are a lot of empty cells.</p>
@@ -349,12 +349,15 @@ replace the existing scale.</code></pre>
 <pre><code>Scale for 'y' is already present. Adding another scale for 'y', which will
 replace the existing scale.</code></pre>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+</div>
 <div class="cell-output-display">
 <p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(obj<span class="sc">@</span>raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(obj<span class="sc">@</span>raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 19566 20712</code></pre>
 </div>
@@ -364,25 +367,25 @@ replace the existing scale.</code></pre>
 <h3 class="anchored" data-anchor-id="by-mitochondrial-gene-percentage">By mitochondrial gene percentage</h3>
 <p>We will next have a look the the percentage of reads coming from mitochondrial genes. This can help to drop dying cells: these cells will have a percentage of mitochondrial reads particularly high.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">mitochondrial.percentage.plot</span>(obj,<span class="at">split.pattern =</span> <span class="st">"-"</span>,<span class="at">n.col =</span> <span class="dv">2</span>,<span class="at">gene.prefix =</span> <span class="st">"^MT-"</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">mitochondrial.percentage.plot</span>(obj,<span class="at">split.pattern =</span> <span class="st">"-"</span>,<span class="at">n.col =</span> <span class="dv">2</span>,<span class="at">gene.prefix =</span> <span class="st">"^MT-"</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">drop.genes.cells</span>(<span class="at">object =</span> obj,<span class="at">cells =</span> <span class="fu">rownames</span>(df<span class="sc">$</span>sizes[df<span class="sc">$</span>sizes<span class="sc">$</span>mit.percentage <span class="sc">&gt;</span> <span class="dv">10</span>,]))</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">mitochondrial.percentage.plot</span>(obj,<span class="at">split.pattern =</span> <span class="st">"-"</span>,<span class="at">n.col =</span> <span class="dv">2</span>,<span class="at">gene.prefix =</span> <span class="st">"^MT-"</span>)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">drop.genes.cells</span>(<span class="at">object =</span> obj,<span class="at">cells =</span> <span class="fu">rownames</span>(df<span class="sc">$</span>sizes[df<span class="sc">$</span>sizes<span class="sc">$</span>mit.percentage <span class="sc">&gt;</span> <span class="dv">10</span>,]))</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">mitochondrial.percentage.plot</span>(obj,<span class="at">split.pattern =</span> <span class="st">"-"</span>,<span class="at">n.col =</span> <span class="dv">2</span>,<span class="at">gene.prefix =</span> <span class="st">"^MT-"</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>We check again the library size plot</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library.size.plot</span>(obj,<span class="at">split.pattern =</span> <span class="st">"-"</span>,<span class="at">n.col =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library.size.plot</span>(obj,<span class="at">split.pattern =</span> <span class="st">"-"</span>,<span class="at">n.col =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Scale for 'y' is already present. Adding another scale for 'y', which will
 replace the existing scale.</code></pre>
@@ -392,7 +395,7 @@ replace the existing scale.</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ECD.plot</span>(obj,<span class="at">y_cut =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ECD.plot</span>(obj,<span class="at">y_cut =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -401,23 +404,45 @@ replace the existing scale.</code></pre>
 <section id="gene-and-library-size-scatter-plot" class="level3">
 <h3 class="anchored" data-anchor-id="gene-and-library-size-scatter-plot">Gene and library size scatter plot</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter.plot</span>(<span class="at">obj =</span> obj,<span class="at">split.pattern =</span> <span class="st">"[-]"</span>,<span class="at">n.col =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter.plot</span>(<span class="at">obj =</span> obj,<span class="at">split.pattern =</span> <span class="st">"[-]"</span>,<span class="at">n.col =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>Min gene number</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Condition "</span>, sample.id ,<span class="at">sep =</span> <span class="st">""</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">colSums</span>(obj<span class="sc">@</span>raw <span class="sc">&gt;</span> <span class="dv">0</span>),<span class="at">decreasing =</span> F)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>AAATCAACACCTAG-1 CAAGGACTCGTACA-1 GTGACCCTTCTTAC-1 TTAACCACACACCA-1 
+               1                1                1                1 
+AAAGATCTAAACGA-1 AACCGATGTGAGGG-1 AAGTCCGATTTCGT-1 ACCTCCGATTGTCT-1 
+               2                2                2                2 
+AGCAAAGAACCAGT-1 ATAGTCCTTCAAGC-1 
+               2                2 </code></pre>
+</div>
+</div>
+<p>We decided to drop all cells having less then 5 genes detected</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>to.drop <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">sort</span>(<span class="fu">colSums</span>(obj<span class="sc">@</span>raw <span class="sc">&gt;</span> <span class="dv">0</span>),<span class="at">decreasing =</span> F)[<span class="fu">sort</span>(<span class="fu">colSums</span>(obj<span class="sc">@</span>raw <span class="sc">&gt;</span> <span class="dv">0</span>),<span class="at">decreasing =</span> F) <span class="sc">&lt;</span> <span class="dv">5</span>])</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">drop.genes.cells</span>(<span class="at">object =</span> obj,<span class="at">cells =</span> to.drop)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter.plot</span>(<span class="at">obj =</span> obj,<span class="at">split.pattern =</span> <span class="st">"[-]"</span>,<span class="at">n.col =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Condition "</span>, sample.id ,<span class="at">sep =</span> <span class="st">""</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Condition sample69"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>n_cells <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">get.cell.size</span>(<span class="at">object =</span> obj))</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"n cells"</span>, n_cells, <span class="at">sep =</span> <span class="st">" "</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>n_cells <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">get.cell.size</span>(<span class="at">object =</span> obj))</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"n cells"</span>, n_cells, <span class="at">sep =</span> <span class="st">" "</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "n cells 19499"</code></pre>
+<pre><code>[1] "n cells 19239"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>n_it <span class="ot">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>n_it <span class="ot">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -425,492 +450,1368 @@ replace the existing scale.</code></pre>
 <h2 class="anchored" data-anchor-id="cotan-specific-data-cleaning">COTAN specific data cleaning</h2>
 <p>First, we create a directory to store all information regarding the data cleaning.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(out_dir)){</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(<span class="fu">file.path</span>(out_dir))</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in dir.create(file.path(out_dir)): cannot create dir '../../
-Crohn_disease1/data/02_cleaned_data', reason 'No such file or directory'</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">paste</span>(out_dir,<span class="st">"cleaning"</span>, <span class="at">sep =</span> <span class="st">""</span>))){   </span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(<span class="fu">file.path</span>(out_dir, <span class="st">"cleaning"</span>))</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in dir.create(file.path(out_dir, "cleaning")): cannot create dir
-'../../Crohn_disease1/data/02_cleaned_data//cleaning', reason 'No such file or
-directory'</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(out_dir)){</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(<span class="fu">file.path</span>(out_dir))</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">paste</span>(out_dir,<span class="st">"cleaning"</span>, <span class="at">sep =</span> <span class="st">""</span>))){   </span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(<span class="fu">file.path</span>(out_dir, <span class="st">"cleaning"</span>))</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>ttm <span class="ot">=</span> <span class="fu">clean</span>(obj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>ttm <span class="ot">=</span> <span class="fu">clean</span>(obj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Starting"
 [1] "Cells/genes selection done"
 [1] "Start estimation mu with linear method"
-[1]  7121 19499
+[1]  7121 19239
 [1] "Fun linear DONE"
 [1] "raw_norm DONE"
 [1] "hclust DONE"
-     rowname AACACGTGTAGCGT-1 AATATCGAATCGTG-1 ACATCACTAAGCCT-1
-5102   IGHG4         75.54716        168.26412         151.0943
-971     IGKC         75.54716        168.26412         339.9622
-6870   IGLC3         37.77358          0.00000           0.0000
-3886  MALAT1          0.00000          0.00000           0.0000
-6868   IGLL5          0.00000         24.03773           0.0000
-5159     B2M          0.00000          0.00000           0.0000
-6869   IGLC2          0.00000          0.00000           0.0000
-2741   HSPB1          0.00000          0.00000           0.0000
-2103    MZB1          0.00000         24.03773           0.0000
-6736     FTL          0.00000          0.00000           0.0000
-3122   RPL10          0.00000          0.00000           0.0000
-2933  TMSB4X          0.00000         48.07546           0.0000
-2366   RPS18          0.00000          0.00000           0.0000
-3259    RPL7          0.00000          0.00000           0.0000
-3113    SSR4          0.00000          0.00000           0.0000
-     ACATCACTATGCTG-1 ACATCACTATTCTC-1 ACCCAGCTTCACCC-1 ACCTATTGTGTCCC-1
-5102     129.59331352       146.124105        114.96306         66.10376
-971      322.28516451       299.206500         34.48892          0.00000
-6870       0.04468735         0.000000        333.39289         33.05188
-3886       4.02186145         0.000000         11.49631          0.00000
-6868       0.00000000         0.000000          0.00000          0.00000
-5159       2.68124097         0.000000          0.00000         33.05188
-6869       0.04468735         0.000000          0.00000          0.00000
-2741       1.42999518         0.000000          0.00000          0.00000
-2103       0.98312169         0.000000          0.00000          0.00000
-6736       3.57498796         3.479145          0.00000          0.00000
-3122       1.56405723         3.479145          0.00000          0.00000
-2933       0.40218615         0.000000          0.00000          0.00000
-2366       0.35749880         0.000000          0.00000          0.00000
-3259       0.26812410         0.000000          0.00000         33.05188
-3113       1.60874458         3.479145          0.00000          0.00000
-     ACGAACACGTTACG-1 AGGAATGATCAGTG-1 AGGATAGACACTTT-1 AGGGAGTGCTCCAC-1
-5102       141.370421        100.72954      131.0594993         132.2075
-971        329.864316        151.09431      180.4113445         231.3632
-6870         0.000000         50.36477        0.7917408           0.0000
-3886         0.000000          0.00000       14.2513350           0.0000
-6868         0.000000          0.00000       61.7030023           0.0000
-5159         0.000000          0.00000        3.8531387           0.0000
-6869         0.000000          0.00000        1.5834817           0.0000
-2741         5.235942          0.00000        1.5306989           0.0000
-2103         0.000000          0.00000        3.4308769           0.0000
-6736         5.235942          0.00000        2.6919188           0.0000
-3122         0.000000          0.00000        1.5834817           0.0000
-2933         0.000000          0.00000        0.1055654           0.0000
-2366         0.000000         25.18239        1.2140026           0.0000
-3259         0.000000          0.00000        0.3694791           0.0000
-3113         0.000000          0.00000        3.0086152           0.0000
-     ATAACAACTTCGTT-1 ATCACTACGCTGAT-1 ATCGCCTGGAATGA-1 ATGGACACATTTCC-1
-5102         117.5178        139.16581        165.25940         145.8842
-971          156.6904        278.33163        280.94099         328.2394
-6870          19.5863          0.00000          0.00000           0.0000
-3886           0.0000          0.00000          0.00000           0.0000
-6868           0.0000          0.00000          0.00000           0.0000
-5159          19.5863          0.00000          0.00000           0.0000
-6869           0.0000          0.00000          0.00000           0.0000
-2741           0.0000          0.00000          0.00000           0.0000
-2103           0.0000          0.00000          0.00000           0.0000
-6736           0.0000         27.83316         16.52594           0.0000
-3122           0.0000          0.00000          0.00000           0.0000
-2933          19.5863          0.00000          0.00000           0.0000
-2366           0.0000          0.00000          0.00000           0.0000
-3259           0.0000          0.00000          0.00000           0.0000
-3113           0.0000          0.00000          0.00000           0.0000
-     ATTATGGAGCAGTT-1 ATTTCCGAGGGCAA-1 ATTTCCGATGCCAA-1 CAACCGCTCACCAA-1
-5102      207.8849334      273.3872142        216.33958        144.22639
-971       130.2537177      137.4324915        192.30185          0.00000
-6870        0.0000000        0.0000000          0.00000          0.00000
-3886       53.6645317       28.7109352         24.03773          0.00000
-6868        0.0000000        0.2111098          0.00000         48.07546
-5159        0.2605074        1.8999884          0.00000         24.03773
-6869        0.5210149        0.0000000          0.00000          0.00000
-2741        1.5630446        3.5888669          0.00000          0.00000
-2103        3.3865967        1.4777687          0.00000          0.00000
-6736        0.5210149        0.8444393          0.00000          0.00000
-3122        1.0420297        0.2111098          0.00000          0.00000
-2933        0.0000000        0.2111098          0.00000          0.00000
-2366        1.3025372        0.6333295         24.03773          0.00000
-3259        0.2605074        0.0000000          0.00000          0.00000
-3113        1.8235520        0.2111098          0.00000          0.00000
-     CAACCGCTCCAGTA-1 CAACCGCTGCAGTT-1 CAACCGCTTCATTC-1 CAACTTTGGAGGAC-1
-5102        183.94090      207.2049153         271.1949       185.330184
-971         183.94090      102.1782648         135.5975       161.365074
-6870          0.00000        1.1514751           0.0000         0.532558
-3886          0.00000        6.7270388           0.0000        29.290690
-6868         45.98523       62.3614676           0.0000         0.000000
-5159          0.00000        9.3936127           0.0000         1.065116
-6869          0.00000        0.7272474           0.0000         0.532558
-2741          0.00000        1.8181186           0.0000         2.130232
-2103          0.00000        1.5150988           0.0000         0.532558
-6736          0.00000        4.3634846           0.0000         0.000000
-3122          0.00000        1.5150988           0.0000         1.065116
-2933          0.00000        1.1514751           0.0000         0.000000
-2366          0.00000        0.5454356           0.0000         1.597674
-3259          0.00000        0.5454356           0.0000         0.000000
-3113          0.00000        3.1514056           0.0000         3.727906
-     CAACTTTGTGTCGA-1 CAGCGGACTAGCCA-1 CCAGATGAAGGCGA-1 CCAGATGATTGCGA-1
-5102        198.31129        162.71695       132.207523         151.0943
-971         264.41505        244.07543       302.188625         264.4150
-6870          0.00000          0.00000         0.000000           0.0000
-3886         33.05188          0.00000         9.443395           0.0000
-6868          0.00000          0.00000         0.000000           0.0000
-5159          0.00000         40.67924         0.000000           0.0000
-6869          0.00000          0.00000         0.000000           0.0000
-2741          0.00000          0.00000         0.000000           0.0000
-2103          0.00000          0.00000         0.000000           0.0000
-6736          0.00000          0.00000         0.000000           0.0000
-3122          0.00000          0.00000         0.000000           0.0000
-2933          0.00000          0.00000         0.000000           0.0000
-2366          0.00000          0.00000         0.000000           0.0000
-3259          0.00000          0.00000         0.000000           0.0000
-3113          0.00000          0.00000         0.000000           0.0000
-     CCAGCACTATGCTG-1 CCAGCGGACTTCTA-1 CCAGCGGATTGCGA-1 CCCAGTTGAAGGCG-1
-5102        117.51780        168.26412     136.54049406     132.27665760
-971         235.03560        276.43391     298.07816929     312.20978349
-6870          0.00000          0.00000       0.22656055       0.13826828
-3886          0.00000          0.00000       6.23041524       5.06983705
-6868          0.00000          0.00000       0.03776009       0.00000000
-5159         29.37945          0.00000       3.43616841       1.88966654
-6869          0.00000          0.00000       0.07552018       0.00000000
-2741          0.00000         12.01887       2.07680508       0.04608943
-2103          0.00000          0.00000       1.43488351       1.19832512
-6736         29.37945          0.00000       1.96352480       2.76536566
-3122          0.00000         12.01887       0.86848212       0.78352027
-2933          0.00000          0.00000       0.86848212       3.64106479
-2366          0.00000         12.01887       0.26432065       0.23044714
-3259          0.00000          0.00000       0.37760092       0.23044714
-3113          0.00000          0.00000       1.66144406       1.47486169
-     CCCAGTTGTTGACG-1 CCTATTGACTCGAA-1 CCTGCAACCGAGTT-1 CGACAAACTGGATC-1
-5102        113.32073       301.504940         93.32296      204.3536104
-971          75.54716        28.714756         93.32296      107.0975012
-6870          0.00000         2.392896         31.10765        0.2894527
-3886          0.00000         0.000000          0.00000       38.4972099
-6868          0.00000        74.179787          0.00000        0.0000000
-5159          0.00000         4.785793          0.00000        0.5789054
-6869          0.00000         0.000000          0.00000        0.2894527
-2741          0.00000         0.000000          0.00000        1.7367162
-2103          0.00000         0.000000          0.00000        2.3156216
-6736          0.00000         0.000000          0.00000        0.8683581
-3122          0.00000         2.392896          0.00000        2.0261689
-2933          0.00000         4.785793          0.00000        1.4472635
-2366          0.00000         0.000000          0.00000        0.5789054
-3259          0.00000         0.000000          0.00000        0.0000000
-3113          0.00000         2.392896          0.00000        3.4734325
-     CGCGGATGTGACAC-1 CGGACTCTAAAGTG-1 CGGGCATGGGTCTA-1 CGTACCTGCATTCT-1
-5102        113.32073        118.98677      164.0903667        132.20752
-971          75.54716        264.41505       98.6242619        165.25940
-6870         37.77358         13.22075        0.0000000          0.00000
-3886          0.00000          0.00000       60.3648499          0.00000
-6868          0.00000          0.00000        0.0000000          0.00000
-5159          0.00000          0.00000        3.4008366         33.05188
-6869          0.00000          0.00000        0.8502092          0.00000
-2741          0.00000          0.00000        0.0000000          0.00000
-2103          0.00000          0.00000        2.5506275          0.00000
-6736          0.00000          0.00000        1.7004183          0.00000
-3122          0.00000          0.00000        1.7004183         66.10376
-2933          0.00000          0.00000        0.8502092          0.00000
-2366          0.00000          0.00000        1.7004183          0.00000
-3259          0.00000         26.44150        0.0000000          0.00000
-3113          0.00000          0.00000        1.7004183          0.00000
-     CTAACTACCTGAGT-1 CTTTAGACAGAACA-1 GAACGTTGTGTCGA-1 GAAGTCTGAGAGGC-1
-5102      148.7824055        137.10410        151.09431      121.3490999
-971        12.5290447        225.24245        302.18863       55.3696713
-6870      143.5619702          9.79315          0.00000        0.6631098
-3886       75.1742680          0.00000          0.00000       62.6638795
-6868        0.0000000          0.00000          0.00000        0.0000000
-5159        1.5661306          9.79315          0.00000        5.6364336
-6869        1.5661306          0.00000          0.00000        0.3315549
-2741        1.5661306          0.00000          0.00000        4.3102139
-2103        2.0881741          0.00000         37.77358        0.9946648
-6736        0.0000000          0.00000          0.00000        1.6577746
-3122        0.5220435          9.79315          0.00000        4.3102139
-2933        0.5220435          0.00000          0.00000        1.9893295
-2366        0.5220435          0.00000          0.00000        3.6471041
-3259        0.0000000          0.00000          0.00000        2.6524393
-3113        0.0000000          0.00000          0.00000        1.6577746
-     GACAGGGACATACG-1 GACTACGAACGTTG-1 GAGGTGGAAAAACG-1 GAGGTTTGTGTCGA-1
-5102         88.13835      180.1607608        141.02136        229.92613
-971         198.31129      280.5488464         35.25534        160.94829
-6870          0.00000        0.0000000        105.76602          0.00000
-3886          0.00000        0.8963222          0.00000          0.00000
-6868          0.00000        0.8963222         35.25534          0.00000
-5159          0.00000        0.0000000          0.00000          0.00000
-6869         66.10376        0.8963222          0.00000          0.00000
-2741         22.03459        0.0000000          0.00000         22.99261
-2103          0.00000        0.0000000         35.25534          0.00000
-6736          0.00000        0.8963222          0.00000          0.00000
-3122          0.00000        0.0000000          0.00000          0.00000
-2933          0.00000        1.7926444          0.00000          0.00000
-2366          0.00000        0.0000000          0.00000          0.00000
-3259          0.00000        0.0000000          0.00000          0.00000
-3113          0.00000        6.2742554          0.00000          0.00000
-     GAGTGACTTTGTGG-1 GATCATCTATGTCG-1 GATCTTTGAGTCGT-1 GATCTTTGTGTCGA-1
-5102        176.27670        124.43061        231.36317     188.96970624
-971         246.78738         93.32296        165.25940     259.22245263
-6870          0.00000         31.10765          0.00000       0.20363115
-3886          0.00000          0.00000         33.05188       3.29882461
-6868          0.00000          0.00000          0.00000       0.00000000
-5159          0.00000          0.00000          0.00000       1.50687050
-6869          0.00000          0.00000          0.00000       0.04072623
-2741          0.00000          0.00000          0.00000       1.95485903
-2103          0.00000          0.00000          0.00000       1.01815574
-6736          0.00000          0.00000          0.00000       0.97742952
-3122          0.00000          0.00000          0.00000       0.52944099
-2933          0.00000          0.00000          0.00000       0.85525083
-2366          0.00000          0.00000         33.05188       0.36653607
-3259         35.25534          0.00000          0.00000       0.08145246
-3113          0.00000          0.00000          0.00000       1.22178689
-     GATCTTTGTGTGGT-1 GCATGTGAATCAGC-1 GCATGTGATTCCGC-1 GCGTAAACTTCCAT-1
-5102        151.09431     146.93641343       107.025138        124.43061
-971         151.09431     271.51512722       220.345872          0.00000
-6870          0.00000       0.20142072         0.000000         62.21531
-3886         25.18239       7.20079065        25.182385         31.10765
-6868          0.00000       0.00000000         0.000000          0.00000
-5159         25.18239       1.56101056         0.000000         31.10765
-6869          0.00000       0.05035518         0.000000          0.00000
-2741          0.00000       1.96385200         0.000000          0.00000
-2103          0.00000       2.11491753         0.000000          0.00000
-6736          0.00000       2.16527271         6.295596          0.00000
-3122          0.00000       1.40994502        12.591193          0.00000
-2933          0.00000       0.10071036         0.000000          0.00000
-2366          0.00000       0.65461733         0.000000          0.00000
-3259          0.00000       0.40284144         0.000000          0.00000
-3113          0.00000       2.92060040        12.591193          0.00000
-     GCGTAAACTTGCAG-1 GGATACTGAACCAC-1 GGATACTGAACCTG-1 GGATACTGACCCTC-1
-5102       119.105877       148.443535     155.21367951         132.2075
-971          4.083630       343.275675     288.71168368         330.5188
-6870       306.952860         0.000000       0.05933245           0.0000
-3886         0.000000         9.277721       5.93324463           0.0000
-6868         0.000000         0.000000       0.00000000           0.0000
-5159         4.764235         0.000000       1.72064094           0.0000
-6869         2.041815         0.000000       0.00000000           0.0000
-2741         0.680605         0.000000       0.88998669           0.0000
-2103         0.680605         0.000000       0.59332446           0.0000
-6736         1.361210         0.000000       2.13596807           0.0000
-3122         0.000000         0.000000       0.88998669           0.0000
-2933         0.000000         0.000000       0.77132180           0.0000
-2366         0.680605         0.000000       0.35599468           0.0000
-3259         0.000000         0.000000       0.23732979           0.0000
-3113         1.361210         0.000000       0.88998669           0.0000
-     GGATAGCTCGTCTC-1 GTCACCTGTTTCTG-1 GTCTGAGATAAGCC-1 GTTAAATGTTTCTG-1
-5102      163.0971317      245.6589623         155.5383        105.76602
-971       154.0361800        4.0256962         279.9689         35.25534
-6870        0.0000000        6.5875029           0.0000         35.25534
-3886       55.1894335       10.7961853           0.0000          0.00000
-6868        0.0000000       68.3453426           0.0000          0.00000
-5159        0.4118614        3.8427100           0.0000          0.00000
-6869        0.0000000        1.3723964           0.0000         35.25534
-2741        0.4118614        0.9149310           0.0000          0.00000
-2103        2.4711687        3.2022584           0.0000          0.00000
-6736        0.0000000        2.5618067           0.0000          0.00000
-3122        0.8237229        2.8362860           0.0000         35.25534
-2933        0.0000000        0.6404517           0.0000          0.00000
-2366        2.4711687        0.6404517           0.0000          0.00000
-3259        0.0000000        0.8234379           0.0000          0.00000
-3113        1.6474458        2.7447929           0.0000          0.00000
-     TAAACAACAAGTAG-1 TAAACAACCATCAG-1 TAAACAACCATGAC-1 TAAAGTTGCGTGTA-1
-5102        132.20752        122.98374       184.289275        105.76602
-971         264.41505        295.16098       284.446490        211.53204
-6870          0.00000          0.00000         0.000000          0.00000
-3886          0.00000          0.00000         4.006289         35.25534
-6868          0.00000          0.00000         0.000000          0.00000
-5159          0.00000          0.00000         0.000000          0.00000
-6869          0.00000          0.00000         0.000000          0.00000
-2741         13.22075         12.29837         0.000000          0.00000
-2103         13.22075          0.00000         0.000000          0.00000
-6736          0.00000          0.00000         4.006289          0.00000
-3122          0.00000          0.00000         0.000000          0.00000
-2933          0.00000          0.00000         0.000000          0.00000
-2366          0.00000          0.00000         0.000000         35.25534
-3259          0.00000          0.00000         0.000000          0.00000
-3113          0.00000          0.00000         0.000000         35.25534
-     TAAAGTTGGGACTT-1 TAAAGTTGGGGATG-1 TAAAGTTGGTGTTG-1 TAAAGTTGGTTCTT-1
-5102        132.20752        176.27670        119.24600         148.4435
-971         132.20752        141.02136        248.86122         324.7202
-6870          0.00000          0.00000          0.00000           0.0000
-3886         33.05188         35.25534          0.00000           0.0000
-6868          0.00000          0.00000          0.00000           0.0000
-5159          0.00000          0.00000          0.00000           0.0000
-6869         33.05188          0.00000          0.00000           0.0000
-2741          0.00000          0.00000          0.00000           0.0000
-2103          0.00000          0.00000          0.00000           0.0000
-6736         33.05188          0.00000          0.00000           0.0000
-3122          0.00000          0.00000          0.00000           0.0000
-2933          0.00000         35.25534          0.00000           0.0000
-2366          0.00000          0.00000         10.36922           0.0000
-3259          0.00000          0.00000          0.00000           0.0000
-3113          0.00000          0.00000          0.00000           0.0000
-     TAATCCACCAGGAG-1 TAATGTGAATCAGC-1 TAATGTGACGAACT-1 TACAATGACCTATT-1
-5102        127.64864        176.27670         70.51068        381.93285
-971         218.82625        235.03560          0.00000          0.00000
-6870          0.00000          0.00000         35.25534          0.00000
-3886         36.47104          0.00000          0.00000          0.00000
-6868          0.00000          0.00000          0.00000          0.00000
-5159          0.00000          0.00000          0.00000          0.00000
+     rowname AAACCGTGGCATCA-1 AAACGGCTACCTAG-1 AAAGAGACTTCGCC-1
+2933  TMSB4X         82.42089        123.63134         93.17144
+971     IGKC        123.63134         41.21045         69.87858
+6870   IGLC3          0.00000         41.21045         23.29286
+6869   IGLC2          0.00000          0.00000          0.00000
+3122   RPL10          0.00000          0.00000          0.00000
+3886  MALAT1          0.00000          0.00000          0.00000
+5159     B2M          0.00000          0.00000          0.00000
+6736     FTL         41.21045          0.00000          0.00000
+2366   RPS18          0.00000          0.00000          0.00000
+6743  RPL13A          0.00000          0.00000          0.00000
+3404    RPS6          0.00000          0.00000         23.29286
+5627   RPL13          0.00000          0.00000          0.00000
+2455  EEF1A1          0.00000          0.00000          0.00000
+3829    FTH1          0.00000          0.00000          0.00000
+6968    RPL3          0.00000          0.00000          0.00000
+     AAAGATCTCTTGCC-1 AAAGGCCTACTCAG-1 AAATACTGGTACAC-1 AACAAACTCCTTAT-1
+2933         89.28930         84.58986        123.63134         94.54161
+971          44.64465         84.58986         82.42089         31.51387
+6870         44.64465          0.00000         41.21045          0.00000
 6869          0.00000          0.00000          0.00000          0.00000
-2741         18.23552          0.00000          0.00000         29.37945
-2103          0.00000          0.00000         35.25534          0.00000
-6736         36.47104          0.00000          0.00000          0.00000
-3122         18.23552          0.00000          0.00000          0.00000
-2933          0.00000          0.00000          0.00000          0.00000
-2366         18.23552          0.00000          0.00000          0.00000
-3259          0.00000          0.00000          0.00000         29.37945
-3113          0.00000         29.37945          0.00000          0.00000
-     TAGAATTGTAGACC-1 TAGGTGTGCGCTAA-1 TATCCTGAATCTCT-1 TATCCTGACCTATT-1
-5102        132.20752         94.43395        166.99898      315.6122933
-971         151.09431          0.00000         83.49949       11.9876479
-6870          0.00000         37.77358          0.00000        0.6243567
-3886         18.88679          0.00000         27.83316        3.4963973
-6868          0.00000          0.00000         55.66633       64.9330930
-5159          0.00000         37.77358          0.00000        4.1831896
-6869          0.00000        113.32073          0.00000        0.6867923
-2741          0.00000         37.77358          0.00000        1.3735847
-2103          0.00000          0.00000          0.00000        1.8730700
-6736          0.00000          0.00000          0.00000        2.2476840
-3122          0.00000          0.00000          0.00000        1.4360203
-2933          0.00000          0.00000         27.83316        0.1248713
-2366          0.00000          0.00000          0.00000        0.5619210
-3259          0.00000          0.00000          0.00000        0.4370497
-3113          0.00000          0.00000          0.00000        2.2476840
-     TATCGTACGTCTGA-1 TATGCGGAATCTCT-1 TATGCGGATTCTGT-1 TATGTCTGCGGGAA-1
-5102      179.6636738      275.7859122         81.35848        113.32073
-971       122.8548515       20.1960145          0.00000          0.00000
-6870        1.8474414        0.5940004          0.00000        113.32073
-3886       52.1902189        7.2128623          0.00000          0.00000
-6868        0.0000000       55.7511829         40.67924          0.00000
-5159        0.4618603        3.7337170          0.00000          0.00000
-6869        0.4618603        0.2545716          0.00000         37.77358
-2741        1.8474414        0.3394288          0.00000          0.00000
-2103        1.3855810        1.4425725         40.67924          0.00000
-6736        0.0000000        1.7820013          0.00000          0.00000
-3122        0.9237207        1.4425725          0.00000          0.00000
-2933        0.4618603        5.2611466          0.00000          0.00000
-2366        1.3855810        0.7637148          0.00000          0.00000
-3259        0.4618603        0.9334292         40.67924          0.00000
-3113        0.0000000        3.9034314          0.00000          0.00000
-     TATTGCTGGCATCA-1 TCCGAGCTTCGACA-1 TCCTAAACAAAGCA-1 TCCTAAACCAACCA-1
-5102         66.10376        198.31129        198.31129       176.276698
-971          66.10376         66.10376         33.05188        20.497290
-6870         33.05188         66.10376          0.00000         0.000000
-3886          0.00000          0.00000         33.05188         8.198916
-6868          0.00000          0.00000          0.00000        28.696207
-5159         33.05188          0.00000          0.00000         0.000000
-6869          0.00000          0.00000          0.00000         0.000000
-2741          0.00000          0.00000          0.00000         0.000000
-2103          0.00000          0.00000          0.00000         4.099458
-6736          0.00000          0.00000          0.00000        12.298374
-3122          0.00000          0.00000          0.00000        12.298374
-2933          0.00000         33.05188          0.00000         4.099458
-2366          0.00000          0.00000          0.00000         0.000000
-3259          0.00000          0.00000          0.00000         0.000000
-3113          0.00000          0.00000          0.00000         0.000000
-     TCCTAAACCAAGCT-1 TCGTAGGAATGTCG-1 TCGTAGGACACTCC-1 TCGTAGGACTGTAG-1
-5102      291.5775599         122.0377         137.1041        181.31318
-971        23.4894519           0.0000           0.0000          0.00000
-6870        0.9069286         406.7924         332.9671        241.75090
-3886        5.8043433           0.0000           0.0000         15.10943
-6868       82.7118926           0.0000           0.0000          0.00000
-5159        5.1694933           0.0000           0.0000          0.00000
-6869        0.3627715           0.0000           0.0000          0.00000
-2741        0.6348501           0.0000          19.5863          0.00000
-2103        1.0883144           0.0000           0.0000          0.00000
-6736        3.5370217           0.0000           0.0000          0.00000
-3122        0.6348501           0.0000           0.0000          0.00000
-2933        0.9976215           0.0000           0.0000          0.00000
-2366        0.5441572           0.0000           0.0000          0.00000
-3259        0.1813857           0.0000           0.0000          0.00000
-3113        1.9952430           0.0000           0.0000          0.00000
-     TCGTAGGACTGTCC-1 TCGTAGGACTTTAC-1 TGATAAACGTTTCT-1 TGATACCTGTTTCT-1
-5102     110.03338749       153.531318        144.22639      132.7734593
-971        1.65576917        17.059035        192.30185      198.6680708
-6870     345.45365840       264.415047          0.00000        0.5413299
-3886       4.62862745         0.000000          0.00000        8.2675838
-6868       0.07526223         0.000000          0.00000       52.3613642
-5159       1.24182688         0.000000          0.00000        5.4625107
-6869       1.91918699         0.000000          0.00000        0.3444827
-2741       1.31708911         8.529518          0.00000        5.0196045
-2103       0.41394229         0.000000          0.00000        2.0668960
-6736       1.20419576         0.000000          0.00000        6.6928060
-3122       0.33868006         0.000000          0.00000        1.3779306
-2933       0.22578670         0.000000          0.00000        5.1672399
-2366       0.30104894         0.000000          0.00000        0.7381771
-3259       0.18815559         0.000000          0.00000        0.2952709
-3113       0.90314682         8.529518         24.03773        2.5098022
-     TGTGAGTGCGTGAT-1 TTAACCACTAGAGA-1 TTAGGGACGTGTCA-1 TTGTACACGTTAGC-1
-5102      275.6402140      189.6203524        105.76602        120.18866
-971        72.9635861       81.6420962         52.88301        192.30185
-6870        1.8708612        2.6336160         26.44150          0.00000
-3886       64.2329006       74.2679713          0.00000         24.03773
-6868        0.0000000        0.0000000          0.00000          0.00000
-5159        0.6236204        1.5801696          0.00000          0.00000
-6869        0.0000000        0.5267232         52.88301          0.00000
-2741        0.6236204        3.6870624          0.00000          0.00000
-2103        0.6236204        2.6336160          0.00000          0.00000
-6736        0.6236204        0.0000000          0.00000          0.00000
-3122        1.2472408        0.5267232          0.00000          0.00000
-2933        0.6236204        2.6336160          0.00000          0.00000
-2366        0.6236204        1.0534464          0.00000          0.00000
-3259        0.0000000        0.0000000          0.00000          0.00000
-3113        1.8708612        3.1603392          0.00000          0.00000
+3122          0.00000         28.19662          0.00000          0.00000
+3886          0.00000          0.00000          0.00000          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000         31.51387
+3404          0.00000          0.00000         41.21045          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000         28.19662          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968         44.64465          0.00000          0.00000         63.02774
+     AACAAACTGGTCAT-1 AACACTCTGTCCTC-1 AACAGAGATTGCAG-1 AACAGCACCTGACA-1
+2933       49.8431783         71.43144          59.5262         82.42089
+971         1.5673955         71.43144          59.5262         82.42089
+6870        0.0000000          0.00000           0.0000         82.42089
+6869        0.0000000          0.00000           0.0000          0.00000
+3122        5.0156657          0.00000          29.7631          0.00000
+3886       10.3448106          0.00000           0.0000          0.00000
+5159       10.3448106          0.00000           0.0000          0.00000
+6736        3.4482702          0.00000           0.0000          0.00000
+2366        2.1943538          0.00000           0.0000          0.00000
+6743        1.8808747          0.00000           0.0000          0.00000
+3404        0.9404373          0.00000           0.0000          0.00000
+5627        3.7617493          0.00000          29.7631          0.00000
+2455        0.6269582          0.00000          29.7631          0.00000
+3829        4.7021866          0.00000           0.0000          0.00000
+6968        0.9404373          0.00000           0.0000         41.21045
+     AACATTGAACACAC-1 AACCGCCTACCACA-1 AACGCATGGAACCT-1 AACGGTACTTTCTG-1
+2933         82.42089         64.28830         71.43144         107.1472
+971           0.00000          0.00000         35.71572           0.0000
+6870         41.21045          0.00000         35.71572         142.8629
+6869          0.00000          0.00000          0.00000           0.0000
+3122          0.00000         21.42943          0.00000           0.0000
+3886          0.00000          0.00000          0.00000           0.0000
+5159          0.00000          0.00000          0.00000           0.0000
+6736          0.00000          0.00000         35.71572           0.0000
+2366          0.00000          0.00000          0.00000           0.0000
+6743          0.00000          0.00000          0.00000           0.0000
+3404          0.00000          0.00000          0.00000           0.0000
+5627          0.00000         21.42943          0.00000           0.0000
+2455          0.00000          0.00000         35.71572           0.0000
+3829          0.00000          0.00000          0.00000           0.0000
+6968          0.00000         21.42943          0.00000           0.0000
+     AACGTCGATCGTTT-1 AACGTTCTACGTAC-1 AAGATGGAAACGTC-1 AAGATTACAGTCAC-1
+2933         63.02774         76.53369          59.5262          59.5262
+971          31.51387         38.26684           0.0000          59.5262
+6870         31.51387          0.00000           0.0000           0.0000
+6869          0.00000          0.00000           0.0000           0.0000
+3122          0.00000          0.00000          29.7631           0.0000
+3886         31.51387          0.00000           0.0000           0.0000
+5159          0.00000          0.00000          29.7631           0.0000
+6736          0.00000          0.00000           0.0000           0.0000
+2366          0.00000          0.00000           0.0000           0.0000
+6743          0.00000         38.26684          29.7631           0.0000
+3404          0.00000          0.00000           0.0000           0.0000
+5627          0.00000          0.00000           0.0000           0.0000
+2455          0.00000          0.00000          29.7631          29.7631
+3829          0.00000          0.00000           0.0000           0.0000
+6968          0.00000          0.00000           0.0000           0.0000
+     AAGCAAGAAGTCTG-1 AAGTTCCTTCCTCG-1 AATCCTTGCACAAC-1 AATCCTTGGGCATT-1
+2933         63.02774         63.02774         82.42089         71.43144
+971          31.51387         63.02774          0.00000         35.71572
+6870         31.51387        126.05548         41.21045        142.86288
+6869          0.00000         31.51387          0.00000          0.00000
+3122          0.00000          0.00000          0.00000          0.00000
+3886          0.00000          0.00000          0.00000          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000         31.51387         41.21045          0.00000
+2366         31.51387         31.51387          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000         31.51387          0.00000          0.00000
+     AATGGCTGACAGTC-1 AATTGTGATCTTCA-1 ACAATTGACATGCA-1 ACAGCAACAAGGGC-1
+2933         66.96697         76.53369         66.96697         63.02774
+971         167.41744          0.00000          0.00000         31.51387
+6870         33.48349          0.00000          0.00000          0.00000
+6869          0.00000          0.00000          0.00000          0.00000
+3122          0.00000          0.00000          0.00000          0.00000
+3886          0.00000          0.00000          0.00000          0.00000
+5159          0.00000         38.26684          0.00000          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000         31.51387
+5627          0.00000          0.00000          0.00000         31.51387
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     ACAGTCGAACCATG-1 ACAGTGTGCCCTAC-1 ACATCACTCGTAAC-1 ACCCAAGACAGTCA-1
+2933         71.43144        68.391804         84.58986         82.42089
+971           0.00000         1.036239         28.19662         41.21045
+6870          0.00000         0.000000         28.19662         41.21045
+6869          0.00000         1.036239          0.00000         41.21045
+3122          0.00000         1.036239          0.00000         41.21045
+3886          0.00000         8.289916          0.00000          0.00000
+5159         35.71572        13.471113          0.00000          0.00000
+6736          0.00000         1.036239          0.00000          0.00000
+2366          0.00000         1.036239          0.00000          0.00000
+6743         35.71572         7.253676          0.00000          0.00000
+3404          0.00000         1.036239          0.00000          0.00000
+5627          0.00000         2.072479          0.00000          0.00000
+2455          0.00000         0.000000          0.00000          0.00000
+3829          0.00000         2.072479          0.00000          0.00000
+6968          0.00000         0.000000          0.00000          0.00000
+     ACCCGTTGTAGACC-1 ACCGAAACAAAGTG-1 ACCGCGGAAGGTCT-1 ACCTCGTGGGGTGA-1
+2933         94.54161         76.53369         82.42089         56.39324
+971         157.56935         76.53369         41.21045          0.00000
+6870         31.51387          0.00000          0.00000          0.00000
+6869         31.51387          0.00000         41.21045          0.00000
+3122          0.00000          0.00000          0.00000         56.39324
+3886          0.00000          0.00000          0.00000          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000         38.26684          0.00000          0.00000
+3404         31.51387          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000         28.19662
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     ACCTTTGACTCGAA-1 ACGATCGAACACAC-1 ACGCCACTAGCAAA-1 ACGCCGGAACTCTT-1
+2933         63.02774         66.96697         76.53369         76.53369
+971         315.13870          0.00000         76.53369          0.00000
+6870         31.51387          0.00000          0.00000          0.00000
+6869          0.00000          0.00000          0.00000          0.00000
+3122          0.00000          0.00000          0.00000          0.00000
+3886          0.00000          0.00000         38.26684          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000         38.26684          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     ACGCGGTGATTTCC-1 ACGTTTACGAATAG-1 ACTACGGACTTGAG-1 ACTGAGACGTTGAC-1
+2933         76.53369         71.43144          89.2893         71.43144
+971           0.00000        250.01004         119.0524         71.43144
+6870          0.00000          0.00000          29.7631          0.00000
+6869          0.00000          0.00000           0.0000          0.00000
+3122          0.00000          0.00000           0.0000          0.00000
+3886          0.00000          0.00000           0.0000          0.00000
+5159          0.00000          0.00000           0.0000          0.00000
+6736         38.26684          0.00000           0.0000          0.00000
+2366          0.00000          0.00000          29.7631          0.00000
+6743          0.00000          0.00000           0.0000         35.71572
+3404          0.00000          0.00000          29.7631          0.00000
+5627         38.26684          0.00000           0.0000          0.00000
+2455         38.26684          0.00000           0.0000          0.00000
+3829         38.26684          0.00000           0.0000          0.00000
+6968          0.00000          0.00000           0.0000          0.00000
+     ACTTAAGATGAGGG-1 ACTTAGCTTTCGTT-1 ACTTCCCTTACTTC-1 AGAATACTACCAAC-1
+2933        267.86790        166.67336         76.53369         76.53369
+971          33.48349         11.90524         38.26684        267.86790
+6870         33.48349         23.81048          0.00000          0.00000
+6869          0.00000         23.81048         76.53369          0.00000
+3122          0.00000          0.00000          0.00000          0.00000
+3886          0.00000         11.90524          0.00000          0.00000
+5159          0.00000         23.81048          0.00000          0.00000
+6736          0.00000         23.81048          0.00000          0.00000
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455         33.48349          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000         38.26684          0.00000
+     AGAATACTCAATCG-1 AGAATACTTTGCTT-1 AGACTTCTCTAGAC-1 AGAGAAACTTATCC-1
+2933         82.42089         58.23215         76.53369         95.66711
+971           0.00000          0.00000        153.06737         57.40026
+6870          0.00000         11.64643          0.00000          0.00000
+6869         41.21045          0.00000          0.00000          0.00000
+3122         41.21045         11.64643          0.00000          0.00000
+3886         41.21045          0.00000          0.00000          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000         19.13342
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000         11.64643          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000         23.29286          0.00000          0.00000
+3829          0.00000          0.00000          0.00000         19.13342
+6968          0.00000          0.00000         38.26684         19.13342
+     AGAGATGAACTACG-1 AGAGTCTGAGAACA-1 AGCACAACCTGTTT-1 AGCATTCTGGTCAT-1
+2933        100.45046         82.42089         82.42089         71.43144
+971          33.48349         82.42089          0.00000        107.14716
+6870         33.48349         41.21045          0.00000          0.00000
+6869         33.48349         41.21045          0.00000          0.00000
+3122         33.48349          0.00000          0.00000          0.00000
+3886          0.00000          0.00000          0.00000         35.71572
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366         33.48349          0.00000          0.00000         35.71572
+6743         33.48349          0.00000          0.00000          0.00000
+3404          0.00000          0.00000         41.21045          0.00000
+5627          0.00000          0.00000         41.21045          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     AGCCAATGTCTTCA-1 AGCCACCTCGTGAT-1 AGCTTTACCTGAGT-1 AGGAAATGTCAGAC-1
+2933         71.43144        100.45046         76.53369         82.42089
+971           0.00000         66.96697         76.53369          0.00000
+6870          0.00000         33.48349         38.26684          0.00000
+6869          0.00000        100.45046          0.00000          0.00000
+3122          0.00000          0.00000         38.26684          0.00000
+3886          0.00000          0.00000          0.00000         41.21045
+5159          0.00000          0.00000          0.00000          0.00000
+6736         35.71572          0.00000          0.00000         41.21045
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000         38.26684          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829         71.43144          0.00000          0.00000         41.21045
+6968          0.00000          0.00000          0.00000          0.00000
+     AGGACACTTGGTAC-1 AGGCCTCTCCGAAT-1 AGGCCTCTCTTGCC-1 AGGCTAACACCCTC-1
+2933         82.42089         66.96697         71.43144         82.42089
+971         206.05223        133.93395          0.00000          0.00000
+6870         41.21045          0.00000         35.71572          0.00000
+6869          0.00000         33.48349          0.00000          0.00000
+3122          0.00000          0.00000          0.00000         82.42089
+3886          0.00000         66.96697         35.71572          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000         35.71572          0.00000
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000         35.71572         41.21045
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     AGGGACGAGTTGCA-1 AGGTGTTGCTGGTA-1 AGGTTGTGTGTCTT-1 AGTAATTGAGTTCG-1
+2933         76.53369         66.96697         76.53369         71.43144
+971          76.53369        133.93395         38.26684          0.00000
+6870        114.80053          0.00000          0.00000         35.71572
+6869          0.00000          0.00000         38.26684          0.00000
+3122          0.00000          0.00000          0.00000          0.00000
+3886          0.00000          0.00000          0.00000          0.00000
+5159          0.00000         33.48349          0.00000         35.71572
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000          0.00000          0.00000
+6743         38.26684          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     AGTACGTGAGATGA-1 AGTCCAGATTGAGC-1 AGTCGAACTACTTC-1 AGTGACACATCTCT-1
+2933        114.80053         76.53369         71.43144         76.53369
+971         114.80053        114.80053          0.00000        114.80053
+6870         38.26684         38.26684          0.00000          0.00000
+6869          0.00000         38.26684          0.00000          0.00000
+3122          0.00000         38.26684         35.71572          0.00000
+3886          0.00000          0.00000          0.00000          0.00000
+5159          0.00000          0.00000         35.71572          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000         35.71572         38.26684
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000         35.71572          0.00000
+5627          0.00000         38.26684          0.00000          0.00000
+2455          0.00000          0.00000          0.00000         38.26684
+3829         38.26684          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     AGTTCTTGTCCTAT-1 AGTTGTCTGAGACG-1 AGTTTGCTGCGATT-1 ATAAGTTGTAACCG-1
+2933         114.8005        153.06737         61.81567         89.28930
+971          153.0674          0.00000          0.00000         89.28930
+6870           0.0000          0.00000          0.00000          0.00000
+6869           0.0000          0.00000          0.00000          0.00000
+3122           0.0000          0.00000          0.00000         44.64465
+3886           0.0000          0.00000          0.00000          0.00000
+5159           0.0000          0.00000          0.00000          0.00000
+6736           0.0000          0.00000          0.00000          0.00000
+2366           0.0000          0.00000          0.00000          0.00000
+6743           0.0000          0.00000          0.00000          0.00000
+3404           0.0000          0.00000          0.00000          0.00000
+5627           0.0000         38.26684          0.00000          0.00000
+2455           0.0000          0.00000         20.60522          0.00000
+3829           0.0000         38.26684          0.00000          0.00000
+6968           0.0000          0.00000          0.00000          0.00000
+     ATACAATGAACAGA-1 ATACAATGACACTG-1 ATAGATTGTGCAGT-1 ATATAGTGATTTCC-1
+2933          59.5262         66.96697         53.57358         63.02774
+971           29.7631        100.45046         53.57358         31.51387
+6870          89.2893         66.96697          0.00000         63.02774
+6869           0.0000          0.00000          0.00000         63.02774
+3122           0.0000          0.00000          0.00000          0.00000
+3886           0.0000         33.48349          0.00000          0.00000
+5159           0.0000          0.00000          0.00000          0.00000
+6736           0.0000          0.00000          0.00000          0.00000
+2366           0.0000          0.00000          0.00000          0.00000
+6743           0.0000          0.00000          0.00000          0.00000
+3404           0.0000          0.00000         53.57358          0.00000
+5627           0.0000          0.00000          0.00000          0.00000
+2455           0.0000          0.00000          0.00000         31.51387
+3829           0.0000          0.00000          0.00000          0.00000
+6968           0.0000          0.00000          0.00000          0.00000
+     ATCACGGAACACCA-1 ATCACGGAATCGTG-1 ATCGGTGATCTTTG-1 ATCTACACTGAACC-1
+2933         47.27081         63.02774         63.02774         57.40026
+971          63.02774        126.05548         94.54161         76.53369
+6870         15.75694          0.00000          0.00000         19.13342
+6869          0.00000          0.00000         63.02774          0.00000
+3122          0.00000          0.00000          0.00000          0.00000
+3886          0.00000          0.00000         31.51387          0.00000
+5159          0.00000         31.51387          0.00000         19.13342
+6736          0.00000          0.00000          0.00000          0.00000
+2366         15.75694          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968         15.75694         31.51387          0.00000          0.00000
+     ATGAGAGACAACCA-1 ATGATATGACGCAT-1 ATGCGCCTCTGAGT-1 ATGTAAACGCTGTA-1
+2933         63.02774         82.42089         82.42089        123.63134
+971           0.00000        164.84178          0.00000         41.21045
+6870          0.00000          0.00000          0.00000          0.00000
+6869          0.00000          0.00000          0.00000          0.00000
+3122          0.00000          0.00000          0.00000          0.00000
+3886          0.00000          0.00000          0.00000          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000          0.00000         41.21045
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455         31.51387          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000         41.21045          0.00000
+     ATTACCACGGAGCA-1 ATTCAGCTAGTTCG-1 ATTCCATGATTGGC-1 ATTGAAACGCTACA-1
+2933         76.53369        100.45046         82.42089          59.5262
+971          38.26684         33.48349         82.42089           0.0000
+6870         38.26684          0.00000          0.00000           0.0000
+6869          0.00000          0.00000          0.00000           0.0000
+3122          0.00000          0.00000          0.00000           0.0000
+3886          0.00000          0.00000          0.00000           0.0000
+5159          0.00000          0.00000          0.00000           0.0000
+6736          0.00000          0.00000         41.21045           0.0000
+2366          0.00000         33.48349          0.00000           0.0000
+6743          0.00000          0.00000          0.00000           0.0000
+3404          0.00000          0.00000          0.00000           0.0000
+5627          0.00000          0.00000          0.00000           0.0000
+2455          0.00000          0.00000          0.00000           0.0000
+3829          0.00000         33.48349         82.42089           0.0000
+6968          0.00000          0.00000          0.00000           0.0000
+     ATTGAATGGAGATA-1 ATTGAATGGCCATA-1 ATTGTAGATGGAAA-1 ATTTAGGAGAATAG-1
+2933         71.43144        107.14716         82.42089         76.53369
+971           0.00000         35.71572        123.63134        191.33421
+6870          0.00000          0.00000         41.21045          0.00000
+6869          0.00000         35.71572         82.42089          0.00000
+3122         35.71572         35.71572         82.42089         38.26684
+3886          0.00000          0.00000          0.00000         38.26684
+5159          0.00000          0.00000          0.00000         38.26684
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627         35.71572          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000         35.71572          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     CAAAGCTGCTGACA-1 CAAAGCTGCTTGAG-1 CAAGCTGACTAGCA-1 CAAGGTTGGGTGAG-1
+2933         56.39324         63.02774         73.89459         63.02774
+971          56.39324         63.02774          0.00000         63.02774
+6870          0.00000          0.00000          0.00000          0.00000
+6869         28.19662          0.00000          0.00000          0.00000
+3122          0.00000          0.00000          0.00000          0.00000
+3886          0.00000          0.00000          0.00000         31.51387
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000         63.02774          0.00000          0.00000
+2366          0.00000          0.00000         18.47365          0.00000
+6743          0.00000          0.00000          0.00000         63.02774
+3404          0.00000          0.00000          0.00000         63.02774
+5627          0.00000          0.00000          0.00000          0.00000
+2455         28.19662          0.00000          0.00000         31.51387
+3829          0.00000         31.51387          0.00000          0.00000
+6968          0.00000          0.00000         18.47365          0.00000
+     CAAGTTCTCCAATG-1 CAATATGACCCACT-1 CAATCTACTAAAGG-1 CAATGGACCACAAC-1
+2933        100.45046         63.02774         82.42089          59.5262
+971          33.48349        189.08322         10.30261          89.2893
+6870         66.96697          0.00000          0.00000           0.0000
+6869         33.48349          0.00000          0.00000           0.0000
+3122          0.00000          0.00000          0.00000           0.0000
+3886          0.00000          0.00000          0.00000           0.0000
+5159          0.00000          0.00000          0.00000          59.5262
+6736          0.00000          0.00000         41.21045           0.0000
+2366          0.00000          0.00000          0.00000          29.7631
+6743          0.00000          0.00000         10.30261           0.0000
+3404          0.00000          0.00000          0.00000           0.0000
+5627          0.00000          0.00000         10.30261           0.0000
+2455          0.00000          0.00000          0.00000           0.0000
+3829          0.00000          0.00000         51.51306           0.0000
+6968          0.00000          0.00000          0.00000           0.0000
+     CACCACTGACCCAA-1 CACCCATGGGTCTA-1 CACTCCGAATGTCG-1 CACTGCTGCTTATC-1
+2933         64.93767         69.87858         71.43144         66.96697
+971           0.00000         69.87858          0.00000         66.96697
+6870          0.00000         93.17144          0.00000          0.00000
+6869         32.46884          0.00000         35.71572         33.48349
+3122          0.00000          0.00000         35.71572          0.00000
+3886          0.00000          0.00000          0.00000         33.48349
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000         23.29286          0.00000          0.00000
+2366          0.00000         23.29286          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627         16.23442          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     CAGACAACCATGAC-1 CAGACCCTAGGGTG-1 CAGATGACGCTACA-1 CAGCATGATGAGAA-1
+2933         76.53369         82.42089          89.2893         56.39324
+971           0.00000          0.00000           0.0000          0.00000
+6870          0.00000         41.21045           0.0000         56.39324
+6869        102.04491          0.00000          29.7631         28.19662
+3122          0.00000          0.00000           0.0000          0.00000
+3886          0.00000          0.00000           0.0000          0.00000
+5159          0.00000          0.00000           0.0000         28.19662
+6736          0.00000          0.00000           0.0000          0.00000
+2366          0.00000          0.00000           0.0000          0.00000
+6743          0.00000          0.00000          29.7631          0.00000
+3404          0.00000          0.00000           0.0000          0.00000
+5627          0.00000          0.00000           0.0000          0.00000
+2455         25.51123          0.00000           0.0000          0.00000
+3829          0.00000          0.00000           0.0000          0.00000
+6968          0.00000          0.00000           0.0000          0.00000
+     CAGCCTACTGGTAC-1 CAGGTAACGACAGG-1 CATCCCGACTGAGT-1 CATCCCGAGGCAAG-1
+2933         53.57358         63.02774         82.42089        100.45046
+971          13.39339          0.00000         82.42089        100.45046
+6870          0.00000         31.51387          0.00000          0.00000
+6869          0.00000          0.00000          0.00000         33.48349
+3122         13.39339          0.00000          0.00000          0.00000
+3886         26.78679          0.00000          0.00000          0.00000
+5159          0.00000          0.00000         41.21045          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404         13.39339          0.00000          0.00000          0.00000
+5627          0.00000         63.02774          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968         13.39339         63.02774          0.00000          0.00000
+     CATGTTTGAACGGG-1 CATGTTTGCCGCTT-1 CATTGGGAGCTTCC-1 CCACGGGACAGAGG-1
+2933         82.42089         56.39324         71.43144         82.42089
+971          82.42089          0.00000          0.00000         82.42089
+6870         82.42089          0.00000          0.00000          0.00000
+6869          0.00000          0.00000          0.00000          0.00000
+3122          0.00000          0.00000          0.00000          0.00000
+3886          0.00000          0.00000         35.71572          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000         41.21045
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000         41.21045
+2455          0.00000          0.00000          0.00000          0.00000
+3829         41.21045          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     CCACTGACGCTGAT-1 CCAGCACTCCTCAC-1 CCATCCGATGGTTG-1 CCATCGTGACCTCC-1
+2933         89.28930         65.33363         66.96697         76.53369
+971           0.00000          0.00000         33.48349         38.26684
+6870         44.64465         13.06673         33.48349         38.26684
+6869          0.00000          0.00000          0.00000          0.00000
+3122          0.00000         13.06673          0.00000          0.00000
+3886          0.00000         52.26691          0.00000          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000         38.26684
+2366          0.00000         13.06673          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404         44.64465          0.00000          0.00000          0.00000
+5627          0.00000         13.06673          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     CCCTACGAAAGAGT-1 CCCTGATGTTCAGG-1 CCGAAAACGCGATT-1 CCGCTATGACACGT-1
+2933         85.71773         82.42089         66.96697         94.54161
+971          64.28830         41.21045         33.48349         31.51387
+6870         42.85886          0.00000         33.48349         63.02774
+6869         21.42943          0.00000         33.48349          0.00000
+3122          0.00000          0.00000          0.00000          0.00000
+3886          0.00000          0.00000          0.00000          0.00000
+5159          0.00000         41.21045          0.00000         31.51387
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000         41.21045         33.48349          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     CCGGTACTGACGAG-1 CCGTAAGAGCGAAG-1 CCTTCACTGTCTGA-1 CGAAGGGAACTCAG-1
+2933         76.53369         63.02774        107.14716         84.58986
+971           0.00000         31.51387         71.43144         28.19662
+6870         38.26684          0.00000          0.00000          0.00000
+6869          0.00000          0.00000         35.71572          0.00000
+3122          0.00000          0.00000         35.71572         28.19662
+3886          0.00000          0.00000          0.00000          0.00000
+5159          0.00000          0.00000          0.00000         28.19662
+6736          0.00000          0.00000          0.00000         56.39324
+2366         38.26684          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000         31.51387          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455         38.26684          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000         28.19662
+6968          0.00000          0.00000          0.00000          0.00000
+     CGAAGGGATCCTTA-1 CGACAAACTCGCAA-1 CGACCTTGGCCTTC-1 CGCCATACACACAC-1
+2933         82.42089         133.9339        107.14716        114.80053
+971          41.21045           0.0000         35.71572          0.00000
+6870          0.00000         133.9339          0.00000          0.00000
+6869          0.00000           0.0000          0.00000          0.00000
+3122          0.00000           0.0000          0.00000          0.00000
+3886         41.21045           0.0000          0.00000          0.00000
+5159          0.00000           0.0000          0.00000         38.26684
+6736          0.00000           0.0000          0.00000          0.00000
+2366         82.42089           0.0000          0.00000          0.00000
+6743          0.00000           0.0000          0.00000          0.00000
+3404          0.00000           0.0000          0.00000          0.00000
+5627          0.00000           0.0000          0.00000          0.00000
+2455          0.00000           0.0000          0.00000          0.00000
+3829          0.00000           0.0000          0.00000         38.26684
+6968          0.00000           0.0000          0.00000          0.00000
+     CGCCATACCAAGCT-1 CGCCTAACGGAAGC-1 CGGATATGTCTCCG-1 CGGCATCTGTCTAG-1
+2933         82.42089         82.42089         82.42089         71.43144
+971           0.00000         82.42089         41.21045          0.00000
+6870          0.00000          0.00000         41.21045         35.71572
+6869         41.21045          0.00000          0.00000         71.43144
+3122          0.00000          0.00000         41.21045          0.00000
+3886          0.00000          0.00000          0.00000          0.00000
+5159         41.21045          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000         41.21045          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000         41.21045         35.71572
+5627        123.63134          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000         35.71572
+     CGGCGAACACCCAA-1 CGGTCACTTCAGGT-1 CGTACCACAGAGAT-1 CGTGAATGCGCAAT-1
+2933         71.43144         71.43144         82.42089        123.63134
+971         107.14716         35.71572          0.00000         41.21045
+6870          0.00000          0.00000          0.00000        123.63134
+6869          0.00000          0.00000          0.00000          0.00000
+3122          0.00000          0.00000         41.21045          0.00000
+3886          0.00000          0.00000         41.21045         41.21045
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     CGTGATGAGGACGA-1 CGTTATACCTAGAC-1 CTAATAGACACTTT-1 CTACCTCTTTCGTT-1
+2933         56.39324         71.43144         51.02246          59.5262
+971          56.39324         71.43144         25.51123          29.7631
+6870          0.00000          0.00000          0.00000           0.0000
+6869         56.39324          0.00000          0.00000           0.0000
+3122          0.00000          0.00000          0.00000          59.5262
+3886         28.19662          0.00000         25.51123           0.0000
+5159          0.00000         35.71572          0.00000           0.0000
+6736          0.00000          0.00000          0.00000           0.0000
+2366         28.19662          0.00000          0.00000           0.0000
+6743          0.00000          0.00000          0.00000          29.7631
+3404          0.00000          0.00000          0.00000           0.0000
+5627          0.00000          0.00000         51.02246           0.0000
+2455          0.00000          0.00000         25.51123           0.0000
+3829          0.00000          0.00000          0.00000           0.0000
+6968          0.00000          0.00000          0.00000           0.0000
+     CTACCTCTTTTCTG-1 CTAGGCCTTCAGGT-1 CTATCCCTCTCGCT-1 CTATGTACGGATTC-1
+2933         57.40026          59.5262         82.42089         97.40651
+971          95.66711           0.0000         82.42089         97.40651
+6870          0.00000           0.0000          0.00000          0.00000
+6869          0.00000           0.0000          0.00000          0.00000
+3122          0.00000           0.0000         41.21045          0.00000
+3886          0.00000          29.7631          0.00000          0.00000
+5159          0.00000           0.0000          0.00000          0.00000
+6736          0.00000           0.0000          0.00000         24.35163
+2366          0.00000           0.0000         41.21045          0.00000
+6743          0.00000           0.0000          0.00000          0.00000
+3404          0.00000           0.0000          0.00000          0.00000
+5627          0.00000           0.0000          0.00000          0.00000
+2455          0.00000           0.0000          0.00000          0.00000
+3829          0.00000           0.0000          0.00000         24.35163
+6968          0.00000           0.0000          0.00000          0.00000
+     CTCAATTGGGATCT-1 CTGACCACCCACCT-1 CTGAGCCTGGTCTA-1 CTGATTTGTACTGG-1
+2933         82.42089         82.42089         42.85886         51.02246
+971           0.00000         41.21045         64.28830         12.75561
+6870          0.00000         41.21045          0.00000         12.75561
+6869          0.00000         41.21045          0.00000          0.00000
+3122          0.00000          0.00000          0.00000         12.75561
+3886          0.00000         41.21045         21.42943         12.75561
+5159          0.00000          0.00000          0.00000         12.75561
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000         21.42943          0.00000
+6743          0.00000          0.00000         21.42943          0.00000
+3404          0.00000          0.00000          0.00000         12.75561
+5627          0.00000          0.00000          0.00000          0.00000
+2455         41.21045          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000         12.75561
+6968          0.00000          0.00000          0.00000          0.00000
+     CTGTAACTGTTCGA-1 CTTAAGCTTAAGCC-1 CTTGAGGAGGCATT-1 CTTGAGGATGGTCA-1
+2933         76.53369         76.53369         56.39324         82.42089
+971           0.00000          0.00000          0.00000          0.00000
+6870          0.00000          0.00000          0.00000         82.42089
+6869          0.00000          0.00000          0.00000          0.00000
+3122          0.00000          0.00000          0.00000          0.00000
+3886          0.00000          0.00000         28.19662          0.00000
+5159          0.00000          0.00000         28.19662          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366         38.26684          0.00000          0.00000          0.00000
+6743          0.00000         38.26684          0.00000          0.00000
+3404          0.00000          0.00000         84.58986         41.21045
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     GAAACAGAGGACTT-1 GAAAGTGAGGTTTG-1 GAACAGCTGTGCAT-1 GAACCTGATTTCAC-1
+2933        123.63134         76.53369         82.42089        107.14716
+971           0.00000         38.26684        206.05223         26.78679
+6870          0.00000          0.00000          0.00000          0.00000
+6869         41.21045          0.00000          0.00000          0.00000
+3122         41.21045          0.00000          0.00000         26.78679
+3886          0.00000         38.26684          0.00000          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000         41.21045          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000         26.78679
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000         26.78679
+     GACAACACGGACGA-1 GACAACTGGTACAC-1 GACCATGAACTGTG-1 GACGTAACCCTCGT-1
+2933         66.96697         82.42089         76.53369        163.05003
+971           0.00000        123.63134        114.80053          0.00000
+6870         33.48349          0.00000          0.00000         23.29286
+6869          0.00000         82.42089          0.00000          0.00000
+3122          0.00000          0.00000         38.26684          0.00000
+3886          0.00000          0.00000          0.00000         23.29286
+5159          0.00000          0.00000         38.26684          0.00000
+6736          0.00000          0.00000          0.00000         23.29286
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404         33.48349          0.00000          0.00000         23.29286
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     GACGTAACCGCCTT-1 GACGTCCTTCCAAG-1 GAGAAATGAATCGC-1 GAGCGGCTTGCCTC-1
+2933         82.42089         76.53369         82.42089         66.96697
+971           0.00000         76.53369         41.21045          0.00000
+6870          0.00000         38.26684          0.00000          0.00000
+6869          0.00000         76.53369         41.21045          0.00000
+3122          0.00000          0.00000         82.42089         33.48349
+3886          0.00000          0.00000          0.00000         16.74174
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000         41.21045         16.74174
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000         33.48349
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000         41.21045          0.00000
+     GAGGCCACCAACTG-1 GAGGGAACCCTTGC-1 GAGGGAACGACACT-1 GAGGTGGATGGTTG-1
+2933         63.02774         71.43144         63.02774         66.96697
+971           0.00000         35.71572        220.59709         33.48349
+6870          0.00000         35.71572          0.00000          0.00000
+6869          0.00000          0.00000          0.00000          0.00000
+3122          0.00000         35.71572         31.51387          0.00000
+3886         31.51387          0.00000          0.00000          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366         31.51387          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     GATAAGGAGAGAGC-1 GATAATACGTTTCT-1 GATATATGACACAC-1 GATATTGATTCCAT-1
+2933         82.42089         76.53369         82.42089         76.53369
+971         164.84178         38.26684        123.63134          0.00000
+6870         41.21045          0.00000          0.00000          0.00000
+6869         82.42089          0.00000          0.00000          0.00000
+3122          0.00000         38.26684         41.21045          0.00000
+3886          0.00000          0.00000          0.00000          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000          0.00000         38.26684
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000         41.21045          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     GATCCCTGGTCATG-1 GATCGAACCCATAG-1 GATGCCCTTCTCTA-1 GATGCCCTTTCGGA-1
+2933         76.53369         89.28930         76.53369         66.96697
+971          76.53369          0.00000         76.53369        156.25627
+6870          0.00000         44.64465          0.00000         44.64465
+6869         38.26684         89.28930          0.00000          0.00000
+3122          0.00000          0.00000          0.00000          0.00000
+3886          0.00000          0.00000          0.00000          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000         76.53369         22.32232
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455         38.26684          0.00000          0.00000          0.00000
+3829          0.00000          0.00000         38.26684          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     GATTCTACGTTGGT-1 GATTCTTGTTTCGT-1 GATTTGCTTGGGAG-1 GCAAACTGCACTGA-1
+2933         82.42089          59.5262         63.02774        123.63134
+971          41.21045           0.0000         63.02774         82.42089
+6870          0.00000           0.0000          0.00000          0.00000
+6869         41.21045           0.0000         63.02774          0.00000
+3122          0.00000           0.0000          0.00000          0.00000
+3886          0.00000           0.0000         31.51387          0.00000
+5159          0.00000           0.0000          0.00000          0.00000
+6736          0.00000           0.0000          0.00000         82.42089
+2366          0.00000           0.0000          0.00000          0.00000
+6743          0.00000           0.0000          0.00000          0.00000
+3404          0.00000           0.0000          0.00000          0.00000
+5627          0.00000           0.0000          0.00000          0.00000
+2455          0.00000           0.0000          0.00000          0.00000
+3829          0.00000           0.0000          0.00000          0.00000
+6968          0.00000           0.0000          0.00000          0.00000
+     GCACCACTCCCAAA-1 GCAGGGCTGTTTGG-1 GCAGTTGACGTACA-1 GCATGTGACCTCCA-1
+2933        114.80053         48.70325         51.02246         76.53369
+971           0.00000         48.70325         25.51123          0.00000
+6870          0.00000          0.00000         25.51123          0.00000
+6869          0.00000          0.00000         25.51123         38.26684
+3122          0.00000         97.40651          0.00000          0.00000
+3886         38.26684          0.00000         25.51123          0.00000
+5159         38.26684          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366         38.26684          0.00000         25.51123          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000         25.51123          0.00000
+5627         38.26684         48.70325          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968         38.26684          0.00000          0.00000          0.00000
+     GCCATGCTTCTTCA-1 GCCTGACTAGCAAA-1 GCGCGAACGGTGTT-1 GCTACCTGGGATCT-1
+2933        123.63134         48.70325        123.63134        107.14716
+971          41.21045         48.70325          0.00000          0.00000
+6870          0.00000          0.00000          0.00000         35.71572
+6869         41.21045          0.00000          0.00000         35.71572
+3122          0.00000          0.00000          0.00000          0.00000
+3886          0.00000          0.00000          0.00000          0.00000
+5159         41.21045          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000          0.00000         35.71572
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000         35.71572
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000         82.42089         35.71572
+6968          0.00000         48.70325          0.00000         35.71572
+     GCTATACTATACCG-1 GCTCACTGAAAGCA-1 GCTTGAGACAAGCT-1 GGACGCTGTGCAAC-1
+2933         82.42089         51.02246         76.53369         71.43144
+971          41.21045          0.00000          0.00000        142.86288
+6870          0.00000         25.51123          0.00000         35.71572
+6869          0.00000          0.00000          0.00000          0.00000
+3122          0.00000          0.00000          0.00000          0.00000
+3886          0.00000          0.00000          0.00000          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000         35.71572
+2455         41.21045          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     GGAGCCACAGTCTG-1 GGAGGCCTTCCTGC-1 GGATGTTGGGTGTT-1 GGATGTTGTGGATC-1
+2933         76.53369         39.68413         89.28930         71.43144
+971         114.80053         79.36827         44.64465         71.43144
+6870          0.00000          0.00000          0.00000         71.43144
+6869         38.26684          0.00000          0.00000         71.43144
+3122          0.00000          0.00000          0.00000         35.71572
+3886          0.00000         19.84207          0.00000          0.00000
+5159          0.00000          0.00000         44.64465          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829         76.53369          0.00000          0.00000          0.00000
+6968         38.26684          0.00000          0.00000         35.71572
+     GGCAAGGATCGACA-1 GGCACGTGTCCCGT-1 GGCTCACTCGGGAA-1 GGGTAACTTCCGAA-1
+2933         82.42089         66.96697         71.43144         80.36037
+971         123.63134         33.48349         35.71572          0.00000
+6870          0.00000         33.48349          0.00000         26.78679
+6869          0.00000         33.48349          0.00000         26.78679
+3122         41.21045          0.00000          0.00000          0.00000
+3886          0.00000          0.00000          0.00000         26.78679
+5159          0.00000          0.00000          0.00000         26.78679
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000         71.43144          0.00000
+2455          0.00000          0.00000          0.00000         26.78679
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000         35.71572          0.00000
+     GTAACGTGGCTGAT-1 GTACAGTGCAACCA-1 GTACTACTCACTGA-1 GTACTACTGAATGA-1
+2933         82.42089         94.54161         66.96697          59.5262
+971         123.63134          0.00000          0.00000           0.0000
+6870          0.00000          0.00000          0.00000           0.0000
+6869         41.21045          0.00000          0.00000           0.0000
+3122          0.00000         63.02774          0.00000          29.7631
+3886          0.00000          0.00000          0.00000           0.0000
+5159          0.00000          0.00000          0.00000          29.7631
+6736          0.00000          0.00000          0.00000           0.0000
+2366          0.00000         31.51387          0.00000           0.0000
+6743          0.00000          0.00000         33.48349          29.7631
+3404          0.00000          0.00000          0.00000           0.0000
+5627          0.00000          0.00000          0.00000           0.0000
+2455         41.21045         31.51387         33.48349           0.0000
+3829          0.00000          0.00000          0.00000           0.0000
+6968          0.00000          0.00000          0.00000          29.7631
+     GTACTACTTCCTGC-1 GTCACAGACGTTAG-1 GTCATACTGTACAC-1 GTCCCATGCACTTT-1
+2933         82.42089         71.43144         82.42089         63.02774
+971         123.63134        107.14716         41.21045         63.02774
+6870          0.00000         35.71572          0.00000          0.00000
+6869          0.00000          0.00000          0.00000         31.51387
+3122          0.00000          0.00000         41.21045          0.00000
+3886          0.00000          0.00000          0.00000          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000         41.21045          0.00000
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000         41.21045          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     GTCTAACTTAACGC-1 GTGACAACTTACCT-1 GTGCCACTAAAAGC-1 GTGGATTGGGGTGA-1
+2933        123.63134        51.476393         82.42089         71.43144
+971           0.00000         0.000000          0.00000          0.00000
+6870          0.00000         0.000000         82.42089         71.43144
+6869          0.00000         0.000000        164.84178          0.00000
+3122         82.42089         9.532665          0.00000          0.00000
+3886          0.00000        17.158798         41.21045          0.00000
+5159         41.21045         9.532665          0.00000          0.00000
+6736          0.00000         5.719599         41.21045          0.00000
+2366          0.00000         9.532665          0.00000          0.00000
+6743          0.00000         3.813066          0.00000         35.71572
+3404          0.00000         3.813066          0.00000          0.00000
+5627          0.00000         3.813066          0.00000          0.00000
+2455          0.00000         1.906533          0.00000          0.00000
+3829         41.21045         5.719599          0.00000          0.00000
+6968          0.00000         0.000000          0.00000         35.71572
+     GTGTATCTTGATGC-1 GTTACTACAACAGA-1 GTTCAACTCAGCTA-1 GTTTAAGACCAGTA-1
+2933         66.96697         76.53369         66.96697         82.42089
+971         100.45046          0.00000        133.93395         41.21045
+6870          0.00000          0.00000          0.00000          0.00000
+6869          0.00000          0.00000          0.00000         82.42089
+3122         33.48349          0.00000          0.00000          0.00000
+3886          0.00000         38.26684          0.00000          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000         41.21045
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000         38.26684         33.48349          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     TAAATGTGTCGCAA-1 TAAGATACGAGGGT-1 TAAGATTGTGTCGA-1 TAAGGGCTCCTCAC-1
+2933         94.54161         164.8418          89.2893        123.63134
+971          31.51387           0.0000           0.0000          0.00000
+6870          0.00000           0.0000           0.0000          0.00000
+6869          0.00000           0.0000          29.7631         82.42089
+3122         31.51387           0.0000           0.0000          0.00000
+3886          0.00000           0.0000           0.0000          0.00000
+5159          0.00000           0.0000          29.7631          0.00000
+6736          0.00000           0.0000           0.0000          0.00000
+2366         31.51387           0.0000           0.0000          0.00000
+6743          0.00000           0.0000          29.7631          0.00000
+3404         31.51387           0.0000           0.0000          0.00000
+5627         31.51387           0.0000           0.0000          0.00000
+2455          0.00000           0.0000           0.0000          0.00000
+3829          0.00000           0.0000           0.0000          0.00000
+6968          0.00000           0.0000           0.0000          0.00000
+     TAAGTCCTAGAGAT-1 TAATCGCTTTGTCT-1 TAATGTGAGTGCAT-1 TAATGTGATAGTCG-1
+2933         53.57358          59.5262         66.96697         71.43144
+971          26.78679         178.5786        100.45046          0.00000
+6870          0.00000           0.0000        100.45046         35.71572
+6869          0.00000           0.0000         33.48349          0.00000
+3122          0.00000           0.0000          0.00000          0.00000
+3886          0.00000           0.0000          0.00000          0.00000
+5159          0.00000          29.7631          0.00000          0.00000
+6736          0.00000           0.0000          0.00000          0.00000
+2366          0.00000           0.0000          0.00000          0.00000
+6743         26.78679           0.0000          0.00000         35.71572
+3404         26.78679           0.0000          0.00000          0.00000
+5627          0.00000          29.7631          0.00000          0.00000
+2455          0.00000           0.0000          0.00000          0.00000
+3829          0.00000           0.0000          0.00000          0.00000
+6968         26.78679           0.0000          0.00000          0.00000
+     TACATAGACACTTT-1 TACATAGATGTAGC-1 TACCGAGAAAGTGA-1 TACCGGCTTTGTCT-1
+2933         71.43144         66.96697         84.58986         71.43144
+971          35.71572         66.96697         28.19662         71.43144
+6870          0.00000          0.00000         28.19662         35.71572
+6869          0.00000          0.00000          0.00000          0.00000
+3122          0.00000          0.00000         28.19662         71.43144
+3886          0.00000          0.00000          0.00000         35.71572
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     TACGAGTGCCCAAA-1 TACGCCACGGTATC-1 TACGCGCTGAACTC-1 TACTAAGAACCTTT-1
+2933        114.80053         71.43144         63.02774         76.53369
+971         114.80053         35.71572         63.02774          0.00000
+6870          0.00000         35.71572          0.00000          0.00000
+6869          0.00000          0.00000          0.00000          0.00000
+3122          0.00000          0.00000          0.00000          0.00000
+3886          0.00000          0.00000          0.00000          0.00000
+5159          0.00000          0.00000          0.00000         38.26684
+6736         38.26684          0.00000          0.00000          0.00000
+2366          0.00000          0.00000         31.51387          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000         38.26684
+5627          0.00000         35.71572          0.00000          0.00000
+2455         38.26684          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     TACTGTTGCTCGCT-1 TAGACGTGCCTCCA-1 TAGATTGATCTTCA-1 TAGCCGCTAGCCTA-1
+2933         76.53369          59.5262         82.42089          89.2893
+971         191.33421         148.8155         41.21045           0.0000
+6870        114.80053           0.0000          0.00000           0.0000
+6869          0.00000           0.0000          0.00000           0.0000
+3122          0.00000          29.7631          0.00000           0.0000
+3886          0.00000           0.0000          0.00000          29.7631
+5159          0.00000           0.0000          0.00000           0.0000
+6736          0.00000           0.0000          0.00000           0.0000
+2366          0.00000           0.0000         41.21045           0.0000
+6743          0.00000           0.0000          0.00000           0.0000
+3404          0.00000           0.0000          0.00000           0.0000
+5627          0.00000          29.7631          0.00000           0.0000
+2455          0.00000           0.0000          0.00000           0.0000
+3829          0.00000           0.0000          0.00000           0.0000
+6968          0.00000           0.0000          0.00000           0.0000
+     TAGCCGCTTCCGTC-1 TAGTAATGGGTCAT-1 TAGTAATGTAGTCG-1 TAGTTAGACACACA-1
+2933         73.89459         82.42089         82.42089         82.42089
+971          55.42094         82.42089         41.21045         41.21045
+6870          0.00000         41.21045          0.00000          0.00000
+6869          0.00000          0.00000          0.00000          0.00000
+3122         18.47365          0.00000          0.00000          0.00000
+3886         36.94730          0.00000          0.00000          0.00000
+5159         36.94730          0.00000          0.00000          0.00000
+6736          0.00000          0.00000         41.21045          0.00000
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000         41.21045
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000         41.21045
+3829         36.94730          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     TATACCACCAACCA-1 TATACGCTCTGAGT-1 TATACGCTGTCATG-1 TCAGACGACCATGA-1
+2933         63.02774         57.40026         66.96697         76.53369
+971           0.00000         76.53369         66.96697          0.00000
+6870          0.00000          0.00000          0.00000          0.00000
+6869          0.00000         38.26684          0.00000          0.00000
+3122          0.00000          0.00000          0.00000          0.00000
+3886          0.00000         19.13342          0.00000          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366         63.02774          0.00000          0.00000          0.00000
+6743          0.00000         19.13342          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     TCAGAGACAGAACA-1 TCAGTACTGTTTCT-1 TCATTGACTCCTTA-1 TCCACTCTTCAGAC-1
+2933         82.42089         82.42089        107.14716         76.53369
+971          82.42089         41.21045          0.00000          0.00000
+6870          0.00000          0.00000          0.00000          0.00000
+6869          0.00000          0.00000          0.00000         38.26684
+3122         82.42089          0.00000          0.00000          0.00000
+3886          0.00000          0.00000          0.00000          0.00000
+5159          0.00000          0.00000         35.71572          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000          0.00000          0.00000
+6743          0.00000          0.00000          0.00000          0.00000
+3404          0.00000          0.00000         35.71572          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     TCCAGAGAACAGCT-1 TCCTAATGTGCAGT-1 TCGCACTGAACGTC-1 TCGGACCTGCCTTC-1
+2933         53.57358         89.28930         82.42089         82.42089
+971          26.78679         89.28930         41.21045         82.42089
+6870          0.00000          0.00000          0.00000          0.00000
+6869         26.78679         89.28930          0.00000          0.00000
+3122          0.00000         44.64465          0.00000          0.00000
+3886          0.00000          0.00000          0.00000          0.00000
+5159         26.78679          0.00000         82.42089          0.00000
+6736          0.00000          0.00000          0.00000         41.21045
+2366          0.00000          0.00000          0.00000          0.00000
+6743         26.78679         44.64465         41.21045          0.00000
+3404         26.78679          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000         41.21045
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     TCGTTATGATCGAC-1 TCTAACTGAATGCC-1 TCTCAAACCCTCCA-1 TGACTTACTCCTTA-1
+2933          89.2893         71.43144         76.53369         82.42089
+971           59.5262         71.43144        153.06737         41.21045
+6870           0.0000          0.00000          0.00000          0.00000
+6869           0.0000          0.00000          0.00000          0.00000
+3122          29.7631          0.00000          0.00000          0.00000
+3886           0.0000          0.00000         38.26684          0.00000
+5159           0.0000          0.00000          0.00000          0.00000
+6736           0.0000          0.00000          0.00000         41.21045
+2366           0.0000          0.00000          0.00000          0.00000
+6743          29.7631         35.71572          0.00000          0.00000
+3404           0.0000          0.00000          0.00000          0.00000
+5627          29.7631          0.00000          0.00000          0.00000
+2455           0.0000          0.00000          0.00000          0.00000
+3829           0.0000          0.00000          0.00000          0.00000
+6968           0.0000          0.00000          0.00000          0.00000
+     TGAGCTGATATGGC-1 TGATAAACACCGAT-1 TGATATGATCCCAC-1 TGCACAGATTGCAG-1
+2933         100.4505         76.53369         76.53369         82.42089
+971          167.4174        153.06737         38.26684          0.00000
+6870           0.0000          0.00000          0.00000          0.00000
+6869           0.0000          0.00000          0.00000          0.00000
+3122           0.0000          0.00000          0.00000          0.00000
+3886           0.0000          0.00000         38.26684         41.21045
+5159           0.0000          0.00000          0.00000         41.21045
+6736           0.0000         38.26684          0.00000          0.00000
+2366           0.0000          0.00000          0.00000          0.00000
+6743           0.0000         38.26684          0.00000          0.00000
+3404           0.0000          0.00000          0.00000          0.00000
+5627           0.0000          0.00000          0.00000          0.00000
+2455           0.0000          0.00000          0.00000          0.00000
+3829           0.0000          0.00000          0.00000          0.00000
+6968           0.0000          0.00000          0.00000          0.00000
+     TGCCAGCTAATCGC-1 TGCGAAACTATGGC-1 TGCGATGATTTGGG-1 TGGAGGGACACAAC-1
+2933         76.53369        107.14716         66.96697          59.5262
+971          38.26684         71.43144         22.32232          29.7631
+6870         38.26684         35.71572          0.00000           0.0000
+6869          0.00000         35.71572          0.00000           0.0000
+3122          0.00000          0.00000          0.00000           0.0000
+3886          0.00000          0.00000          0.00000           0.0000
+5159          0.00000         35.71572          0.00000          29.7631
+6736          0.00000          0.00000          0.00000           0.0000
+2366          0.00000          0.00000          0.00000           0.0000
+6743          0.00000          0.00000          0.00000           0.0000
+3404          0.00000          0.00000          0.00000           0.0000
+5627         38.26684          0.00000          0.00000           0.0000
+2455          0.00000          0.00000          0.00000           0.0000
+3829          0.00000          0.00000          0.00000           0.0000
+6968          0.00000          0.00000          0.00000           0.0000
+     TGGTAGACAGCTCA-1 TGGTAGTGACGCAT-1 TGGTAGTGCCGAAT-1 TGGTAGTGGGAGGT-1
+2933         66.96697          59.5262        142.86288         82.42089
+971           0.00000          59.5262         71.43144         41.21045
+6870         33.48349           0.0000         35.71572         41.21045
+6869         66.96697          29.7631          0.00000         41.21045
+3122          0.00000          59.5262          0.00000          0.00000
+3886         33.48349           0.0000          0.00000          0.00000
+5159          0.00000           0.0000          0.00000          0.00000
+6736          0.00000           0.0000          0.00000          0.00000
+2366          0.00000           0.0000          0.00000          0.00000
+6743          0.00000           0.0000          0.00000          0.00000
+3404          0.00000           0.0000          0.00000          0.00000
+5627          0.00000           0.0000          0.00000          0.00000
+2455         33.48349           0.0000          0.00000          0.00000
+3829          0.00000           0.0000          0.00000         82.42089
+6968          0.00000           0.0000          0.00000          0.00000
+     TGTAAAACGCTATG-1 TGTAAAACGCTGTA-1 TGTAGTCTCCAACA-1 TGTATCTGATCTTC-1
+2933          59.5262         82.42089          59.5262         63.02774
+971           59.5262         82.42089          29.7631         31.51387
+6870           0.0000          0.00000           0.0000         31.51387
+6869          29.7631          0.00000          29.7631          0.00000
+3122          29.7631          0.00000           0.0000         31.51387
+3886          29.7631          0.00000           0.0000          0.00000
+5159          29.7631          0.00000           0.0000          0.00000
+6736           0.0000          0.00000           0.0000          0.00000
+2366           0.0000          0.00000           0.0000          0.00000
+6743           0.0000          0.00000           0.0000          0.00000
+3404           0.0000          0.00000           0.0000         31.51387
+5627           0.0000          0.00000           0.0000          0.00000
+2455           0.0000          0.00000          29.7631          0.00000
+3829           0.0000          0.00000           0.0000          0.00000
+6968           0.0000          0.00000           0.0000          0.00000
+     TGTGACGAATGTGC-1 TGTGAGACCTAGCA-1 TGTTACTGTAGAGA-1 TTACAGCTCCGCTT-1
+2933         82.42089        107.14716         82.42089         89.28930
+971          41.21045          0.00000         41.21045         44.64465
+6870          0.00000          0.00000          0.00000          0.00000
+6869          0.00000          0.00000         41.21045          0.00000
+3122         41.21045          0.00000          0.00000          0.00000
+3886          0.00000         26.78679          0.00000          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000         26.78679          0.00000          0.00000
+6743          0.00000         26.78679          0.00000          0.00000
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000          0.00000
+     TTACTCGACGTGTA-1 TTAGAATGGAGAGC-1 TTATCCGACATTTC-1 TTCAGTACTCGTGA-1
+2933         97.40651         53.57358         89.28930         76.53369
+971          48.70325        250.01004         89.28930         76.53369
+6870          0.00000          0.00000         44.64465         38.26684
+6869         48.70325         17.85786          0.00000         38.26684
+3122         48.70325          0.00000          0.00000          0.00000
+3886          0.00000          0.00000         44.64465          0.00000
+5159          0.00000          0.00000          0.00000         38.26684
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000          0.00000         38.26684
+6743          0.00000          0.00000          0.00000         38.26684
+3404          0.00000          0.00000          0.00000          0.00000
+5627          0.00000         17.85786          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000         44.64465          0.00000
+     TTCAGTTGCGTTGA-1 TTGACACTACACAC-1 TTGACACTTGCCAA-1 TTGATCTGGTATCG-1
+2933         82.42089         51.02246         71.43144         63.02774
+971          41.21045        102.04491          0.00000         31.51387
+6870          0.00000         25.51123         35.71572         31.51387
+6869          0.00000          0.00000          0.00000         31.51387
+3122          0.00000          0.00000          0.00000          0.00000
+3886          0.00000          0.00000         35.71572          0.00000
+5159          0.00000          0.00000          0.00000          0.00000
+6736          0.00000          0.00000          0.00000          0.00000
+2366          0.00000          0.00000          0.00000          0.00000
+6743         41.21045          0.00000          0.00000          0.00000
+3404          0.00000          0.00000          0.00000         94.54161
+5627          0.00000          0.00000          0.00000          0.00000
+2455          0.00000          0.00000          0.00000          0.00000
+3829          0.00000          0.00000          0.00000          0.00000
+6968          0.00000          0.00000          0.00000         63.02774
 [1] "PCA start"
 [1] "PCA done"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">=</span> ttm<span class="sc">$</span>object</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>ttm<span class="sc">$</span>pca.cell<span class="fl">.2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">=</span> ttm<span class="sc">$</span>object</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>ttm<span class="sc">$</span>pca.cell<span class="fl">.2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>ttm<span class="sc">$</span>genes.plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>ttm<span class="sc">$</span>genes.plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: ggrepel: 12 unlabeled data points (too many overlaps). Consider
 increasing max.overlaps</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>To color the PCA based on cells’ RNA extraction efficiency</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>ttm<span class="sc">$</span>UDE.plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>UDE (color) should not correlate with principal components! This is very important. The next part is used to remove the cells with efficiency too low.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>nu_df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="st">"nu"</span><span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">get.nu</span>(obj)), <span class="st">"n"</span><span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(<span class="fu">get.nu</span>(obj))))</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nu_df, <span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y=</span>nu)) <span class="sc">+</span> </span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"#8491B4B2"</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">#my_theme #+ ylim(0,1) + xlim(0,70)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>We can zoom on the smallest values and, if we detect a clear elbow, we can decide to remove the cells.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>yset <span class="ot">=</span> <span class="fl">0.38</span><span class="co">#threshold to remove low UDE cells</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>plot.ude <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nu_df, <span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y=</span>nu)) <span class="sc">+</span> </span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"#8491B4B2"</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>     <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>) <span class="sc">+</span> <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">15000</span>) <span class="sc">+</span></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>yset, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">+</span></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>, <span class="at">x=</span><span class="dv">200</span>, <span class="at">y=</span><span class="fl">0.25</span>, </span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">label=</span><span class="fu">paste</span>(<span class="st">"to remove cells with nu &lt; "</span>,yset,<span class="at">sep =</span> <span class="st">" "</span>), </span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">color=</span><span class="st">"darkred"</span>, <span class="at">size=</span><span class="fl">4.5</span>)</span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>plot.ude</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 4499 rows containing missing values (geom_point).</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>ttm<span class="sc">$</span>UDE.plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>For this round of analysis we want to keep the low UMI cells to keep possible cell population with very low amount of RNA ans neutrophils cells. So we don’t drop cells here.</p>
+<p>UDE (color) should not correlate with principal components! This is very important. The next part is used to remove the cells with efficiency too low.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#saveRDS(obj,paste0(out_dir,sample.id,"_obj_cotan.RDS"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>nu_df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="st">"nu"</span><span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">get.nu</span>(obj)), <span class="st">"n"</span><span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(<span class="fu">get.nu</span>(obj))))</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nu_df, <span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y=</span>nu)) <span class="sc">+</span> </span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"#8491B4B2"</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">#my_theme #+ ylim(0,1) + xlim(0,70)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can zoom on the smallest values and, if we detect a clear elbow, we can decide to remove the cells.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>yset <span class="ot">=</span> <span class="fl">0.024</span><span class="co">#threshold to remove low UDE cells</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>plot.ude <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(nu_df, <span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y=</span>nu)) <span class="sc">+</span> </span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"#8491B4B2"</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>     <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="fl">0.1</span>) <span class="sc">+</span> <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">5000</span>) <span class="sc">+</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>yset, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">+</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="at">geom=</span><span class="st">"text"</span>, <span class="at">x=</span><span class="dv">200</span>, <span class="at">y=</span><span class="fl">0.05</span>, </span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">label=</span><span class="fu">paste</span>(<span class="st">"to remove cells with nu &lt; "</span>,yset,<span class="at">sep =</span> <span class="st">" "</span>), </span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">color=</span><span class="st">"darkred"</span>, <span class="at">size=</span><span class="fl">4.5</span>)</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>plot.ude</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 14239 rows containing missing values (geom_point).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>For this round of analysis, we want to keep the low UMI cells to keep a cell population with very low amounts of RNA as neutrophil cells. So we drop only cell with a nu lower then 0.024 here.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">=</span> <span class="fu">add.row.to.meta</span>(obj,<span class="fu">c</span>(<span class="st">"Threshold low UDE cells:"</span>,yset)) </span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>to_rem <span class="ot">=</span> <span class="fu">rownames</span>(nu_df[<span class="fu">which</span>(nu_df<span class="sc">$</span>nu <span class="sc">&lt;</span> yset),])</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">=</span> <span class="fu">drop.genes.cells</span>(<span class="at">object =</span> obj, <span class="at">genes =</span> <span class="fu">c</span>(),<span class="at">cells =</span>  to_rem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Condition "</span>, sample.id ,<span class="at">sep =</span> <span class="st">""</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Condition sample69"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>n_cells <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">get.cell.size</span>(<span class="at">object =</span> obj))</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"n cells"</span>, n_cells, <span class="at">sep =</span> <span class="st">" "</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "n cells 18685"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>n_it <span class="ot">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>ttm <span class="ot">=</span> <span class="fu">clean</span>(obj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Starting"
+[1] "Cells/genes selection done"
+[1] "Start estimation mu with linear method"
+[1]  7121 18685
+[1] "Fun linear DONE"
+[1] "raw_norm DONE"
+[1] "hclust DONE"
+      rowname ATTTCCGAGGGCAA-1 CAACCGCTTCATTC-1 CCTATTGACTCGAA-1
+5102    IGHG4      284.9868066        282.70150       314.297545
+971      IGKC      143.2636379        141.35075        29.933099
+6868    IGLL5        0.2200670          0.00000        77.327174
+3886   MALAT1       29.9291164          0.00000         0.000000
+6862 IGLV3-21        0.0000000          0.00000         2.494425
+2741    HSPB1        3.7411395          0.00000         0.000000
+4529    RPL41        0.2200670          0.00000         0.000000
+3259     RPL7        0.0000000          0.00000         0.000000
+5159      B2M        1.9806033          0.00000         4.988850
+6859 IGLV1-40        0.0000000          0.00000         0.000000
+4733      UBC        1.3204022         14.13507         0.000000
+6968     RPL3        0.8802681         14.13507         0.000000
+5103    IGHG2        4.6214077          0.00000         4.988850
+6878    DERL3        0.2200670         14.13507         0.000000
+2622     ACTB        0.0000000         14.13507         0.000000
+     GTCACCTGTTTCTG-1 TACAATGACCTATT-1 TATCCTGACCTATT-1 TATGCGGAATCTCT-1
+5102     256.08206799        398.13794     329.00346075     287.48727939
+971        4.19650316          0.00000      12.49627388      21.05291461
+6868      71.24517869          0.00000      67.68815018      58.11665925
+3886      11.25425848          0.00000       3.64474655       7.51889808
+6862       0.09537507         61.25199      14.64407095       0.08845762
+2741       0.95375072         30.62600       1.43186472       0.35383050
+4529       0.57225043         30.62600       0.19525428       1.06149149
+3259       0.85837565         30.62600       0.45559332       0.97303387
+5159       4.00575302          0.00000       4.36067891       3.89213547
+6859      23.27151754          0.00000       0.06508476       0.00000000
+4733       2.76587708          0.00000       1.17152568       0.26537287
+6968       1.14450086          0.00000       0.58576284       1.85761011
+5103       1.23987593          0.00000       4.36067891       1.32686437
+6878       1.23987593          0.00000       0.58576284       0.44228812
+2622       1.04912579          0.00000       0.58576284       0.26537287
+     TCCTAAACCAAGCT-1 TGTGAGTGCGTGAT-1
+5102     303.94895355      287.3353993
+971       24.48608988       76.0593704
+6868      86.22128947        0.0000000
+3886       6.05061680       66.9582492
+6862       0.09454089        0.0000000
+2741       0.66178621        0.6500801
+4529       0.47270444        0.0000000
+3259       0.18908178        0.0000000
+5159       5.38883059        0.6500801
+6859       0.00000000        0.0000000
+4733       1.32357243        0.6500801
+6968       1.32357243        1.3001602
+5103       1.32357243        1.3001602
+6878       0.37816355        0.0000000
+2622       0.09454089        0.0000000
+[1] "PCA start"
+[1] "PCA done"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">=</span> ttm<span class="sc">$</span>object</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>ttm<span class="sc">$</span>pca.cell<span class="fl">.2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>ttm<span class="sc">$</span>genes.plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: ggrepel: 12 unlabeled data points (too many overlaps). Consider
+increasing max.overlaps</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>ttm<span class="sc">$</span>UDE.plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ECD.plot</span>(obj,<span class="at">y_cut =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter.plot</span>(<span class="at">obj =</span> obj,<span class="at">split.pattern =</span> <span class="st">"[-]"</span>,<span class="at">n.col =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_sample69_NB_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co">#saveRDS(obj,paste0(out_dir,sample.id,"_obj_cotan.RDS"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
