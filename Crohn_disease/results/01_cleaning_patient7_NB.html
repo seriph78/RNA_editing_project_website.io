@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>RNA editing project - Cleaning notebook patient 5</title>
+<title>RNA editing project - Cleaning notebook patient 7</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -148,7 +148,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Cleaning notebook patient 5</h1>
+      <h1 class="quarto-secondary-nav-title">Cleaning notebook patient 7</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -199,12 +199,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Crohn_disease/results/01_cleaning_patient5_NB.html" class="sidebar-item-text sidebar-link active">patient 5 ileum</a>
+  <a href="../../Crohn_disease/results/01_cleaning_patient5_NB.html" class="sidebar-item-text sidebar-link">patient 5 ileum</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Crohn_disease/results/01_cleaning_patient7_NB.html" class="sidebar-item-text sidebar-link">patient 7 ileum</a>
+  <a href="../../Crohn_disease/results/01_cleaning_patient7_NB.html" class="sidebar-item-text sidebar-link active">patient 7 ileum</a>
   </div>
 </li>
       </ul>
@@ -244,7 +244,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Cleaning notebook patient 5</h1>
+<h1 class="title d-none d-lg-block">Cleaning notebook patient 7</h1>
 </div>
 
 
@@ -289,9 +289,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="import-data" class="level1">
 <h1>Import data</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>patient <span class="ot">&lt;-</span> <span class="st">"patient5_ileum"</span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>patient <span class="ot">&lt;-</span> <span class="st">"patient7_ileum"</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">"../data/tables-mmc2.xlsx"</span>,<span class="at">sheet =</span> <span class="dv">1</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(metadata[metadata<span class="sc">$</span>Patient.ID <span class="sc">==</span> <span class="st">"pat. 5"</span> <span class="sc">&amp;</span> metadata<span class="sc">$</span>status <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Uninvolved"</span>,<span class="st">"Involved"</span>),])</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(metadata[metadata<span class="sc">$</span>Patient.ID <span class="sc">==</span> <span class="st">"pat. 7"</span> <span class="sc">&amp;</span> metadata<span class="sc">$</span>status <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Uninvolved"</span>,<span class="st">"Involved"</span>),])</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> metadata[<span class="sc">!</span><span class="fu">is.na</span>(metadata<span class="sc">$</span>Sample_ID),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
@@ -317,19 +317,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>as(&lt;dgTMatrix&gt;, "dgCMatrix") is deprecated since Matrix 1.5-0; do as(., "CsparseMatrix") instead</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "68 dimension 33694 144813"
-[1] "69 dimension 33694 103544"</code></pre>
+<pre><code>[1] "128 dimension 33694 88054"
+[1] "129 dimension 33694 81564"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(raw)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5271066 281.6   10165848 543.0  8196157 437.8
-Vcells 33077085 252.4   76585874 584.4 63754893 486.5</code></pre>
+Ncells  5192338 277.4   10165992 543.0  8196168 437.8
+Vcells 27714325 211.5   56740985 432.9 53133331 405.4</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(raw.total)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  33694 248357</code></pre>
+<pre><code>[1]  33694 169618</code></pre>
 </div>
 </div>
 <p>Define output directory:</p>
@@ -345,7 +345,7 @@ Vcells 33077085 252.4   76585874 584.4 63754893 486.5</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(Matrix<span class="sc">::</span><span class="fu">rowSums</span>(raw.total) <span class="sc">&lt;=</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 14083</code></pre>
+<pre><code>[1] 13486</code></pre>
 </div>
 </div>
 <p>And drop the empty rows.</p>
@@ -353,7 +353,7 @@ Vcells 33077085 252.4   76585874 584.4 63754893 486.5</code></pre>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>raw.total <span class="ot">&lt;-</span> raw.total[<span class="sc">!</span>(<span class="fu">rowSums</span>(raw.total) <span class="sc">&lt;=</span> <span class="dv">1</span>),]</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(raw.total)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  19611 248357</code></pre>
+<pre><code>[1]  20208 169618</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -364,7 +364,7 @@ Vcells 33077085 252.4   76585874 584.4 63754893 486.5</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(obj<span class="sc">@</span>raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  19611 248357</code></pre>
+<pre><code>[1]  20208 169618</code></pre>
 </div>
 </div>
 <section id="general-cleaning" class="level2">
@@ -376,7 +376,7 @@ Vcells 33077085 252.4   76585874 584.4 63754893 486.5</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ECD.plot</span>(obj,<span class="at">y_cut =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>So to start we drop all cell with library size lower then 6.</p>
@@ -384,24 +384,9 @@ Vcells 33077085 252.4   76585874 584.4 63754893 486.5</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>sizes <span class="ot">&lt;-</span> Matrix<span class="sc">::</span><span class="fu">colSums</span>(obj<span class="sc">@</span>raw)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">drop.genes.cells</span>(<span class="at">object =</span> obj,<span class="at">cells =</span> <span class="fu">names</span>(sizes[ sizes <span class="sc">&lt;</span> <span class="dv">800</span>]))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">drop.genes.cells</span>(<span class="at">object =</span> obj,<span class="at">cells =</span> <span class="fu">names</span>(sizes[ sizes <span class="sc">&lt;</span> <span class="dv">100</span>]))</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library.size.plot</span>(obj,<span class="at">split.pattern =</span> <span class="st">"_"</span>,<span class="at">n.col =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Scale for 'y' is already present. Adding another scale for 'y', which will
-replace the existing scale.</code></pre>
-</div>
-<div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>We can subset and drop the unwanted cell by library size.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>sizes <span class="ot">&lt;-</span> Matrix<span class="sc">::</span><span class="fu">colSums</span>(obj<span class="sc">@</span>raw)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">drop.genes.cells</span>(<span class="at">object =</span> obj,<span class="at">cells =</span> <span class="fu">names</span>(sizes[ sizes <span class="sc">&gt;</span> <span class="dv">10000</span>]))</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library.size.plot</span>(obj,<span class="at">split.pattern =</span> <span class="st">"_"</span>,<span class="at">n.col =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Scale for 'y' is already present. Adding another scale for 'y', which will
 replace the existing scale.</code></pre>
@@ -410,13 +395,28 @@ replace the existing scale.</code></pre>
 <pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We can subset and drop the unwanted cell by library size.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>sizes <span class="ot">&lt;-</span> Matrix<span class="sc">::</span><span class="fu">colSums</span>(obj<span class="sc">@</span>raw)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">drop.genes.cells</span>(<span class="at">object =</span> obj,<span class="at">cells =</span> <span class="fu">names</span>(sizes[ sizes <span class="sc">&gt;</span> <span class="dv">10000</span>]))</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library.size.plot</span>(obj,<span class="at">split.pattern =</span> <span class="st">"_"</span>,<span class="at">n.col =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Scale for 'y' is already present. Adding another scale for 'y', which will
+replace the existing scale.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(obj<span class="sc">@</span>raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 19611  9894</code></pre>
+<pre><code>[1] 20208  7719</code></pre>
 </div>
 </div>
 </section>
@@ -428,7 +428,7 @@ replace the existing scale.</code></pre>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
@@ -437,7 +437,7 @@ replace the existing scale.</code></pre>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>We check again the library size plot</p>
@@ -447,63 +447,65 @@ replace the existing scale.</code></pre>
 <pre><code>Scale for 'y' is already present. Adding another scale for 'y', which will
 replace the existing scale.</code></pre>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+</div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ECD.plot</span>(obj,<span class="at">y_cut =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ECD.plot</span>(obj,<span class="at">y_cut =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 <section id="gene-and-library-size-scatter-plot" class="level3">
 <h3 class="anchored" data-anchor-id="gene-and-library-size-scatter-plot">Gene and library size scatter plot</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter.plot</span>(<span class="at">obj =</span> obj,<span class="at">split.pattern =</span> <span class="st">"[_]"</span>,<span class="at">n.col =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter.plot</span>(<span class="at">obj =</span> obj,<span class="at">split.pattern =</span> <span class="st">"[_]"</span>,<span class="at">n.col =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Min gene number</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">colSums</span>(obj<span class="sc">@</span>raw <span class="sc">&gt;</span> <span class="dv">0</span>),<span class="at">decreasing =</span> F)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">colSums</span>(obj<span class="sc">@</span>raw <span class="sc">&gt;</span> <span class="dv">0</span>),<span class="at">decreasing =</span> F)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>69_CATTGACTTAGTCG-1 69_ACGATGACTGCAGT-1 69_CATTGACTTAAAGG-1 69_AGCCACCTCTGTTT-1 
-                 21                  23                  24                  25 
-69_ATCGAGTGAGGTTC-1 69_GGTAAAGAGGTTCA-1 69_AACCACGATTGTCT-1 69_CCCAACACTCCTTA-1 
-                 26                  26                  28                  28 
-69_GGACCTCTTGCCAA-1 69_TAGTCACTCTTATC-1 
-                 28                  28 </code></pre>
+<pre><code>128_TTCCCAGCAGGTCTCG-1 128_ACCGTAAAGGACACCA-1 128_CTCGTACAGAGGGCTT-1 
+                    15                     17                     17 
+128_CTTAACTGTTCGTCTC-1 129_CTAACTTGTCGCTTTC-1 128_AAAGTAGTCGCTGATA-1 
+                    17                     18                     19 
+128_GCGCGATAGGTGATTA-1 128_ACAGCTAGTCCGAACC-1 128_CACAGTATCAGAAATG-1 
+                    21                     22                     22 
+128_GACAGAGGTGTCCTCT-1 
+                    22 </code></pre>
 </div>
 </div>
 <p>We decided to drop all cells having less then 10 genes detected</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>to.drop <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">sort</span>(<span class="fu">colSums</span>(obj<span class="sc">@</span>raw <span class="sc">&gt;</span> <span class="dv">0</span>),<span class="at">decreasing =</span> F)[<span class="fu">sort</span>(<span class="fu">colSums</span>(obj<span class="sc">@</span>raw <span class="sc">&gt;</span> <span class="dv">0</span>),<span class="at">decreasing =</span> F) <span class="sc">&lt;</span> <span class="dv">10</span>])</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">drop.genes.cells</span>(<span class="at">object =</span> obj,<span class="at">cells =</span> to.drop)</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter.plot</span>(<span class="at">obj =</span> obj,<span class="at">split.pattern =</span> <span class="st">"[_]"</span>,<span class="at">n.col =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>to.drop <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">sort</span>(<span class="fu">colSums</span>(obj<span class="sc">@</span>raw <span class="sc">&gt;</span> <span class="dv">0</span>),<span class="at">decreasing =</span> F)[<span class="fu">sort</span>(<span class="fu">colSums</span>(obj<span class="sc">@</span>raw <span class="sc">&gt;</span> <span class="dv">0</span>),<span class="at">decreasing =</span> F) <span class="sc">&lt;</span> <span class="dv">10</span>])</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">drop.genes.cells</span>(<span class="at">object =</span> obj,<span class="at">cells =</span> to.drop)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter.plot</span>(<span class="at">obj =</span> obj,<span class="at">split.pattern =</span> <span class="st">"[_]"</span>,<span class="at">n.col =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library.size.plot</span>(obj,<span class="at">split.pattern =</span> <span class="st">"_"</span>,<span class="at">n.col =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library.size.plot</span>(obj,<span class="at">split.pattern =</span> <span class="st">"_"</span>,<span class="at">n.col =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Scale for 'y' is already present. Adding another scale for 'y', which will
 replace the existing scale.</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
-</div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">initRaw</span>(obj,<span class="at">GEO=</span><span class="st">"GSM3972009"</span>,<span class="at">sc.method=</span><span class="st">"10X"</span>,</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">cond =</span> <span class="st">"patient.5 ileum"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">cond =</span> <span class="st">"patient.7 ileum"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Initializing S4 object"</code></pre>
 </div>
@@ -511,13 +513,13 @@ replace the existing scale.</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Condition "</span>, patient ,<span class="at">sep =</span> <span class="st">""</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Condition patient5_ileum"</code></pre>
+<pre><code>[1] "Condition patient7_ileum"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>n_cells <span class="ot">=</span> <span class="fu">length</span>(<span class="fu">get.cell.size</span>(<span class="at">object =</span> obj))</span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"n cells"</span>, n_cells, <span class="at">sep =</span> <span class="st">" "</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "n cells 9742"</code></pre>
+<pre><code>[1] "n cells 5463"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>n_it <span class="ot">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -538,83 +540,67 @@ replace the existing scale.</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>           used  (Mb) gc trigger   (Mb)  max used   (Mb)
-Ncells  5419194 289.5   10165848  543.0  10165848  543.0
-Vcells 49977138 381.3  151816515 1158.3 157711343 1203.3</code></pre>
+<pre><code>           used  (Mb) gc trigger  (Mb)  max used  (Mb)
+Ncells  5341059 285.3   10165992 543.0  10165992 543.0
+Vcells 38817813 296.2  123442607 941.8 102425144 781.5</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>ttm <span class="ot">=</span> <span class="fu">clean</span>(obj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Starting"
 [1] "Cells/genes selection done"
 [1] "Start estimation mu with linear method"
-[1] 11246  9742
+[1] 12422  5463
 [1] "Fun linear DONE"
 [1] "raw_norm DONE"
 [1] "hclust DONE"
-       rowname 68_AAGTTATGAGTGCT-1 68_ACTACGGAGTTGCA-1 68_ATTCTGACGTCAAC-1
-10882    IGLC7         1317.077819         1527.538708        1688.9457692
-8018     IGHA1          453.831800          656.348890         534.7259123
-2718    JCHAIN          115.871949          123.517108         137.9198797
-8022      IGHM            0.000000            0.000000           0.4582056
-1487      IGKC           13.518394          186.589674           2.7492335
-6066    MALAT1           59.867174           28.908259          49.0279971
-8013     IGHA2            3.862398            1.971018         114.0931895
-4890     RPL10           52.142377           12.483112           6.8730837
-8151       B2M            5.793597           11.169100          13.7461674
-8890     RPL13           19.311991            1.971018           2.2910279
-10860 IGLV5-45            0.000000           39.420354           0.0000000
-11012     RPL3           15.449593            2.628024           1.8328223
-3657     RPS18            7.724797            3.285029           4.1238502
-8263     RPLP1            5.793597            1.314012           5.4984670
-3796    EEF1A1           15.449593            3.285029           2.2910279
-      68_CAGAAGCTGGTACT-1 68_CATACTACTTCGCC-1 68_CGCCGAGAGAGAGC-1
-10882         1318.613009         1797.515336         1410.852649
-8018           616.465111          509.267561            7.646898
-2718           180.384817           92.180274          147.585128
-8022             1.352886            0.000000          713.455567
-1487            92.898181           13.087323            6.882208
-6066            28.861571           21.053519           44.352007
-8013             2.254810           95.594358            0.000000
-4890            19.842330           10.811267           15.293796
-8151            17.136558            8.535211           22.940693
-8890            13.077899            6.828168            8.411588
-10860            0.000000           34.140842            0.000000
-11012            7.215393            6.828168            4.588139
-3657             7.666355            2.276056            3.058759
-8263            11.274051            4.552112            6.882208
-3796             9.470203            4.552112            8.411588
-      68_CTAAGGTGCCTCCA-1 68_GAGTCTGATTGTCT-1 68_GTTATAGATGCCTC-1
-10882         1561.954667        1804.9900309        1341.1890993
-8018           363.221342         328.5413047         662.3216125
-2718           155.372302         200.0392621          95.3820985
-8022             1.028956           0.6623817           0.4866434
-1487            41.158226          31.7943198          11.6794406
-6066            37.042403          19.2090682          47.6910492
-8013             1.028956          60.2767313           2.9198602
-4890            13.376423           9.2733433          19.9523777
-8151            19.550157           4.6366716          26.2787414
-8890            12.347468           5.2990533          11.6794406
-10860            0.000000          41.0676631           0.0000000
-11012           14.405379          11.2604883           7.7862938
-3657             9.260601           5.2990533          11.1927973
-8263             6.173734           3.9742900          11.6794406
-3796            11.318512           3.9742900           7.7862938
-      68_TACACACTTTCCGC-1 68_TGTAATGATATTCC-1 68_TTCGATTGGTTCGA-1
-10882         1155.679245         1453.789436         1537.399927
-8018             4.120069          437.735302          535.449995
-2718           144.202401           95.908297          155.292922
-8022           135.962264           13.935394            0.000000
-1487            94.761578           47.134419           54.041937
-6066           103.001715           33.199026           29.195069
-8013             0.000000            1.229594            3.727030
-4890            35.020583           29.100381           19.877494
-8151            39.140652           18.853768           24.225696
-8890            24.720412           13.525529            9.317575
-10860            0.000000            0.000000            0.000000
-11012           10.300172           15.574852            4.969374
-3657            22.660377           10.656477            9.938747
-8263            18.540309           11.066342            6.832889
-3796            10.300172           10.246613            4.969374
+        rowname 128_AAGGTTCGTCCGAATT-1 128_ACAGCTAGTGTTGAGG-1
+8831       IGHM             617.264901            696.6934837
+1631       IGKC               5.922584            982.3627831
+6703     MALAT1              92.348445             30.4647330
+12006     IGLL5             279.238884              0.0000000
+3006     JCHAIN              66.683913             12.4855463
+11982 IGLV10-54               0.219355              0.0000000
+12000  IGLV2-14              92.567800              0.0000000
+5399       SSR4              22.374207              3.4959530
+8975        B2M              26.322597              7.9907496
+9103      RPLP1              22.154853              0.4994219
+12410    MT-CO1              12.283879              9.4890152
+3633       MZB1               6.361294              9.4890152
+12411    MT-CO2               5.922584              9.4890152
+5409      RPL10               8.554844              1.4982656
+12409    MT-ND2               7.896779              6.4924841
+      128_CATCGGGTCTTAGAGC-1 128_CCCAGTTTCTTCATGT-1 128_CCTTCGAGTGGTAACG-1
+8831              919.897658            654.6353681            703.7801729
+1631              286.987570             29.4189400            883.7597118
+6703              156.305730            156.3041070             48.9609992
+12006               0.000000            248.3981799              0.2735251
+3006              125.557062              7.6745061             45.4051724
+11982               0.000000            219.2350568              0.0000000
+12000               0.000000              0.2558169              0.0000000
+5399               10.249556             22.2560676              3.5558268
+8975                0.000000             15.6048290             14.2233070
+9103                5.124778             14.5815615              1.3676257
+12410               0.000000              5.1163374              6.5646032
+3633                2.562389              8.4419567              8.7528043
+12411               2.562389              3.8372530              6.8381284
+5409                7.687167              4.6047036              1.6411508
+12409               0.000000              5.1163374              3.2823016
+      128_TAGTGGTGTTACGGAG-1 129_AACTCTTAGTAGTGCG-1
+8831             591.7891767            1216.392468
+1631             793.7718004               6.118674
+6703              94.0225795             126.044692
+12006              0.4424592              20.803493
+3006              54.2012517              66.081683
+11982              0.0000000               0.000000
+12000              0.0000000               0.000000
+5399               7.5218064               7.342409
+8975               4.6458216               3.671205
+9103              16.3709903               1.223735
+12410              0.0000000              17.132288
+3633               4.8670512               3.671205
+12411              0.0000000              13.461084
+5409               7.0793472               3.671205
+12409              0.0000000               9.789879
 [1] "PCA start"
 [1] "PCA done"</code></pre>
 </div>
@@ -622,7 +608,7 @@ Vcells 49977138 381.3  151816515 1158.3 157711343 1203.3</code></pre>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>ttm<span class="sc">$</span>pca.cell<span class="fl">.2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
@@ -631,14 +617,14 @@ Vcells 49977138 381.3  151816515 1158.3 157711343 1203.3</code></pre>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ttm<span class="sc">$</span>pca_cells, <span class="fu">aes</span>(<span class="at">x=</span>PC1, <span class="at">y=</span>PC2,<span class="at">colour =</span>code)) <span class="sc">+</span></span>
 <span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ttm<span class="sc">$</span>pca_cells, <span class="fu">aes</span>(<span class="at">x=</span>PC1, <span class="at">y=</span>PC3,<span class="at">colour =</span>code)) <span class="sc">+</span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
@@ -648,14 +634,14 @@ Vcells 49977138 381.3  151816515 1158.3 157711343 1203.3</code></pre>
 increasing max.overlaps</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>To color the PCA based on cells’ RNA extraction efficiency</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>ttm<span class="sc">$</span>UDE.plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>UDE (color) should not correlate with principal components! This is very important. The next part is used to remove the cells with efficiency too low.</p>
@@ -665,7 +651,7 @@ increasing max.overlaps</code></pre>
 <span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nu_df, <span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y=</span>nu)) <span class="sc">+</span> </span>
 <span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"#8491B4B2"</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">#my_theme #+ ylim(0,1) + xlim(0,70)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -682,10 +668,10 @@ increasing max.overlaps</code></pre>
 <span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>plot.ude</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 9742 rows containing missing values (geom_point).</code></pre>
+<pre><code>Warning: Removed 5021 rows containing missing values (geom_point).</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>For this round of analysis, we want to keep the low UMI cells to keep a cell population with very low amounts of RNA as neutrophil cells. So we drop only cell with a nu lower then 0.024 here.</p>
@@ -718,25 +704,25 @@ increasing max.overlaps</code></pre>
 increasing max.overlaps</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>ttm<span class="sc">$</span>UDE.plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ECD.plot</span>(obj,<span class="at">y_cut =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter.plot</span>(<span class="at">obj =</span> obj,<span class="at">split.pattern =</span> <span class="st">"[_]"</span>,<span class="at">n.col =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01_cleaning_patient5_NB_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid" width="672"></p>
+<p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
