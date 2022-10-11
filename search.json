@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "RNA editing report website",
     "section": "",
-    "text": "flowchart TB\n  \n \n  \n  A[(Raw data)] --- t1(01.Cleaning notebook) \n  t1 --> B[(Cleaned data)]\n  B --- t2(02A.COTAN analysis src)  --> C[(COTAN obj)]\n  \n  C --- t3(03.COTAN clustering src) --> D[(Clustered COTAN obj)] \n  \n  \n  E --- t3\n  \n  t3 --> CD[(Seurat obj with COTAN cl.)]\n  \n  CD --> t5(Data exploration + Markers +cluster identification notebook) \n  \n  D --> t5\n  \n  t5 --> G[(Seurat obj with cell id)]\n  t5 --> H[(COTAN obj with cell id)]\n  \n  G -->  t6(Exploration & Conclusion notebook) \n  H --> t6\n  \n  \n  classDef src fill:#66cc33;\n  classDef notebook fill:#cc99ff;\n  \n  class t1,t5,t6 notebook;\n  class t2,t3,t4 src;"
+    "text": "flowchart TB\n  \n \n  \n  A[(Raw data)] --- t1(01.Cleaning notebook) \n  t1 --> B[(Cleaned data)]\n  B --- t2(02A.COTAN analysis src)  --> C[(COTAN obj)]\n  \n  C --- t3(03.COTAN clustering src) --> D[(Clustered COTAN obj)] \n  \n  \n  t3 --> CD[(Seurat obj with COTAN cl.)]\n  \n  CD --> t5(Data exploration + Markers +cluster identification notebook) \n  \n  D --> t5\n  \n  t5 --> G[(Seurat obj with cell id)]\n  t5 --> H[(COTAN obj with cell id)]\n  \n  G -->  t6(Exploration & Conclusion notebook) \n  H --> t6\n  \n  \n  classDef src fill:#66cc33;\n  classDef notebook fill:#cc99ff;\n  \n  class t1,t5,t6 notebook;\n  class t2,t3,t4 src;"
   },
   {
     "objectID": "about.html",
