@@ -192,13 +192,12 @@ ul.task-list{list-style: none;}
   
  
   
-  A[(Raw data)] --- t1(cleaning notebook) 
+  A[(Raw data)] --- t1(01.Cleaning notebook) 
   t1 --&gt; B[(Cleaned data)]
-  B --- t2(COTAN analysis src)  --&gt; C[(COTAN obj)]
+  B --- t2(02A.COTAN analysis src)  --&gt; C[(COTAN obj)]
   
-  C --- t3(COTAN clustering src) --&gt; D[(Clustered COTAN obj)] 
+  C --- t3(03.COTAN clustering src) --&gt; D[(Clustered COTAN obj)] 
   
-  B --- t4(Seurat analysis src) --&gt; E[(Seurat obj)]
   
   E --- t3
   
