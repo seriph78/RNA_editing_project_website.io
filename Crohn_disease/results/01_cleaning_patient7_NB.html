@@ -324,7 +324,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           used  (Mb) gc trigger  (Mb) max used  (Mb)
-Ncells  5192174 277.3    8954265 478.3  8163901 436.0
+Ncells  5192174 277.3    8954257 478.3  8163901 436.0
 Vcells 27730707 211.6   52989041 404.3 52989041 404.3</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(raw.total)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -447,9 +447,6 @@ replace the existing scale.</code></pre>
 <pre><code>Scale for 'y' is already present. Adding another scale for 'y', which will
 replace the existing scale.</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
-</div>
 <div class="cell-output-display">
 <p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -458,14 +455,14 @@ replace the existing scale.</code></pre>
 <section id="gene-and-library-size-scatter-plot" class="level3">
 <h3 class="anchored" data-anchor-id="gene-and-library-size-scatter-plot">Gene and library size scatter plot</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter.plot</span>(<span class="at">obj =</span> obj,<span class="at">split.pattern =</span> <span class="st">"[_]"</span>,<span class="at">n.col =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter.plot</span>(<span class="at">obj =</span> obj,<span class="at">split.pattern =</span> <span class="st">"[_]"</span>,<span class="at">n.col =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Min gene number</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">colSums</span>(obj<span class="sc">@</span>raw <span class="sc">&gt;</span> <span class="dv">0</span>),<span class="at">decreasing =</span> F)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">colSums</span>(obj<span class="sc">@</span>raw <span class="sc">&gt;</span> <span class="dv">0</span>),<span class="at">decreasing =</span> F)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>128_CATGGCGTCAGCGATT-1 128_CGAGCCAGTACTTGAC-1 128_GATCGATCATCACAAC-1 
                      4                      5                      5 
@@ -479,19 +476,22 @@ replace the existing scale.</code></pre>
 </div>
 <p>We decided to drop all cells having less then 10 genes detected</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>to.drop <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">sort</span>(<span class="fu">colSums</span>(obj<span class="sc">@</span>raw <span class="sc">&gt;</span> <span class="dv">0</span>),<span class="at">decreasing =</span> F)[<span class="fu">sort</span>(<span class="fu">colSums</span>(obj<span class="sc">@</span>raw <span class="sc">&gt;</span> <span class="dv">0</span>),<span class="at">decreasing =</span> F) <span class="sc">&lt;</span> <span class="dv">15</span>])</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">drop.genes.cells</span>(<span class="at">object =</span> obj,<span class="at">cells =</span> to.drop)</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter.plot</span>(<span class="at">obj =</span> obj,<span class="at">split.pattern =</span> <span class="st">"[_]"</span>,<span class="at">n.col =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>to.drop <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">sort</span>(<span class="fu">colSums</span>(obj<span class="sc">@</span>raw <span class="sc">&gt;</span> <span class="dv">0</span>),<span class="at">decreasing =</span> F)[<span class="fu">sort</span>(<span class="fu">colSums</span>(obj<span class="sc">@</span>raw <span class="sc">&gt;</span> <span class="dv">0</span>),<span class="at">decreasing =</span> F) <span class="sc">&lt;</span> <span class="dv">15</span>])</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">drop.genes.cells</span>(<span class="at">object =</span> obj,<span class="at">cells =</span> to.drop)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter.plot</span>(<span class="at">obj =</span> obj,<span class="at">split.pattern =</span> <span class="st">"[_]"</span>,<span class="at">n.col =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library.size.plot</span>(obj,<span class="at">split.pattern =</span> <span class="st">"_"</span>,<span class="at">n.col =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library.size.plot</span>(obj,<span class="at">split.pattern =</span> <span class="st">"_"</span>,<span class="at">n.col =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Scale for 'y' is already present. Adding another scale for 'y', which will
 replace the existing scale.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="01_cleaning_patient7_NB_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
@@ -535,7 +535,7 @@ replace the existing scale.</code></pre>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           used  (Mb) gc trigger   (Mb)  max used   (Mb)
-Ncells  5340463 285.3    8954265  478.3   8163901  436.0
+Ncells  5340463 285.3    8954257  478.3   8163901  436.0
 Vcells 38940353 297.1  137146905 1046.4 142429502 1086.7</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>ttm <span class="ot">=</span> <span class="fu">clean</span>(obj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
