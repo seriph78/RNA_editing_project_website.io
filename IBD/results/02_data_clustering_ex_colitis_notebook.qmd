@@ -59,7 +59,7 @@ DimPlot(seurat.data, label = T, group.by = "cotan") + theme(legend.position="non
 This are the marker used also in the original paper.
 
 | Cell type           | Markers                                                                                                                                                        |
-|--------------|----------------------------------------------------------|
+|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | B cells             | "MS4A1", "CD79A", "VPREB3", "CD37", "BANK1", "LY9"                                                                                                             |
 | Plasma              | "JCHAIN", "IGHA2", "IGHA1", "IGKC"                                                                                                                             |
 | T & NK cells        | "CCL5", "CD7", "CD3E", "CD3D", "NKG7", "CST7", "FYB", "CD8A", "HCST"                                                                                           |

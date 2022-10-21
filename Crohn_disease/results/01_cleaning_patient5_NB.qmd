@@ -1,0 +1,547 @@
+---
+title: "Cleaning notebook patient 5"
+editor: visual
+execute: 
+  freeze: true
+---
+
+Last compiled
+
+```{r}
+today <- Sys.Date()
+format(today, format = "%A %d %B %Y")
+```
+
+```{r}
+#library(COTAN)
+library(data.table)
+library(Matrix)
+library(ggrepel)
+#library(factoextra)
+#library(Rtsne)
+library(utils)
+#library(plotly)
+#library(tidyverse)
+#library(htmlwidgets)
+#library(MASS)
+library(Seurat)
+#library(dendextend)
+devtools::load_all("../../../COTAN/")
+```
+
+# Import data
+
+After a previous exploration in which we found that the two ileum samples for patient 5 are quite different, we try to clean them separately.
+
+## Uninvolved sample
+
+```{r}
+patient <- "patient5_ileum"
+metadata <- readxl::read_excel("../data/tables-mmc2.xlsx",sheet = 1)
+metadata <- as.data.frame(metadata[metadata$Patient.ID == "pat. 5" & metadata$status %in% c("Uninvolved"),])
+metadata <- metadata[!is.na(metadata$Sample_ID),]
+```
+
+```{r}
+raw.total <- NA
+for (sample in metadata$Sample_ID) {
+  raw <- Seurat::Read10X(paste0("../data/01_raw_data/",sample,"/"),gene.column = 2)
+  colnames(raw) <- paste0(sample,"_",colnames(raw))
+  raw <- raw[,!(Matrix::colSums(raw) <= 1)]
+  print(paste0(sample," dimension ",dim(raw)[1]," ",dim(raw)[2]))
+  if(is.null(dim(raw.total))){
+    raw.total <- raw
+  }else{
+    if ( identical(rownames(raw),rownames(raw.total) )) {
+      raw.total <- cbind(raw.total,raw)  
+    }else{
+      print("Problem!")
+      break
+    }
+    
+  }
+}
+rm(raw)
+gc()
+
+dim(raw.total)
+
+```
+
+Define output directory:
+
+```{r}
+root <- "../../Crohn_disease/"
+out_dir <- paste0(root,"data/02_cleaned_data/")
+out_dir
+```
+
+We check also the genes
+
+```{r}
+sum(Matrix::rowSums(raw.total) <= 1)
+```
+
+And drop the empty rows.
+
+```{r}
+raw.total <- raw.total[!(rowSums(raw.total) <= 1),]
+dim(raw.total)
+```
+
+```{r}
+obj <- methods::new("scCOTAN",raw = raw.total)
+```
+
+```{r}
+dim(obj@raw)
+```
+
+### General cleaning
+
+We want to remove cell doublets or multiplets and low-quality or dying cells (with too high mtRNA percentage).
+
+#### By library sizes
+
+First we check the library size (UMI number) with an empirical cumulative distribution function.
+
+```{r}
+ECD.plot(obj,y_cut = 12)
+
+```
+
+So to start we drop all cell with library size lower then 12.
+
+The next plot shows the library size of each cell in a violin and box plot.
+
+```{r}
+sizes <- Matrix::colSums(obj@raw)
+
+obj <- drop.genes.cells(object = obj,cells = names(sizes[ sizes < 12]))
+
+library.size.plot(obj,split.pattern = "_",n.col = 1)
+```
+
+We can subset and drop the unwanted cell by library size.
+
+```{r}
+sizes <- Matrix::colSums(obj@raw)
+
+obj <- drop.genes.cells(object = obj,cells = names(sizes[ sizes > 6000]))
+
+library.size.plot(obj,split.pattern = "_",n.col = 1)
+```
+
+```{r}
+dim(obj@raw)
+```
+
+#### By mitochondrial gene percentage
+
+We will next have a look the percentage of reads coming from mitochondrial genes. This can help to drop dying cells: these cells will have a percentage of mitochondrial reads particularly high.
+
+```{r}
+df <- mitochondrial.percentage.plot(obj,split.pattern = "_",n.col = 1,gene.prefix = "^MT-")
+
+df$plot
+```
+
+```{r}
+obj <- drop.genes.cells(object = obj,cells = rownames(df$sizes[df$sizes$mit.percentage > 20,]))
+df <- mitochondrial.percentage.plot(obj,split.pattern = "_",n.col = 1,gene.prefix = "^MT-")
+
+df$plot
+```
+
+We check again the library size plot
+
+```{r}
+library.size.plot(obj,split.pattern = "_",n.col = 1)
+```
+
+```{r}
+ECD.plot(obj,y_cut = 12)
+```
+
+### Gene and library size scatter plot
+
+```{r}
+scatter.plot(obj = obj,split.pattern = "[_]",n.col = 1)
+
+```
+
+```{r}
+library.size.plot(obj,split.pattern = "_",n.col = 1)
+```
+
+```{r}
+uninvolved.obj <- obj
+```
+
+## Involved sample
+
+```{r}
+metadata <- readxl::read_excel("../data/tables-mmc2.xlsx",sheet = 1)
+metadata <- as.data.frame(metadata[metadata$Patient.ID == "pat. 5" & metadata$status %in% c("Involved"),])
+metadata <- metadata[!is.na(metadata$Sample_ID),]
+```
+
+```{r}
+raw.total <- NA
+for (sample in metadata$Sample_ID) {
+  raw <- Seurat::Read10X(paste0("../data/01_raw_data/",sample,"/"),gene.column = 2)
+  colnames(raw) <- paste0(sample,"_",colnames(raw))
+  raw <- raw[,!(Matrix::colSums(raw) <= 1)]
+  print(paste0(sample," dimension ",dim(raw)[1]," ",dim(raw)[2]))
+  if(is.null(dim(raw.total))){
+    raw.total <- raw
+  }else{
+    if ( identical(rownames(raw),rownames(raw.total) )) {
+      raw.total <- cbind(raw.total,raw)  
+    }else{
+      print("Problem!")
+      break
+    }
+    
+  }
+}
+rm(raw)
+gc()
+
+dim(raw.total)
+
+```
+
+We check also the genes
+
+```{r}
+sum(Matrix::rowSums(raw.total) <= 1)
+```
+
+And drop the empty rows.
+
+```{r}
+raw.total <- raw.total[!(rowSums(raw.total) <= 1),]
+dim(raw.total)
+```
+
+```{r}
+obj <- methods::new("scCOTAN",raw = raw.total)
+```
+
+```{r}
+dim(obj@raw)
+```
+
+### General cleaning
+
+We want to remove cell doublets or multiplets and low-quality or dying cells (with too high mtRNA percentage).
+
+#### By library sizes
+
+First we check the library size (UMI number) with an empirical cumulative distribution function.
+
+```{r}
+ECD.plot(obj,y_cut = 12)
+
+```
+
+So to start we drop all cell with library size lower then 12.
+
+The next plot shows the library size of each cell in a violin and box plot.
+
+```{r}
+sizes <- Matrix::colSums(obj@raw)
+
+obj <- drop.genes.cells(object = obj,cells = names(sizes[ sizes < 12]))
+
+library.size.plot(obj,split.pattern = "_",n.col = 1)
+```
+
+We can subset and drop the unwanted cell by library size.
+
+```{r}
+sizes <- Matrix::colSums(obj@raw)
+
+obj <- drop.genes.cells(object = obj,cells = names(sizes[ sizes > 1500]))
+
+library.size.plot(obj,split.pattern = "_",n.col = 1)
+```
+
+```{r}
+dim(obj@raw)
+```
+
+#### By mitochondrial gene percentage
+
+We will next have a look the percentage of reads coming from mitochondrial genes. This can help to drop dying cells: these cells will have a percentage of mitochondrial reads particularly high.
+
+```{r}
+df <- mitochondrial.percentage.plot(obj,split.pattern = "_",n.col = 1,gene.prefix = "^MT-")
+
+df$plot
+```
+
+```{r}
+obj <- drop.genes.cells(object = obj,cells = rownames(df$sizes[df$sizes$mit.percentage > 10,]))
+df <- mitochondrial.percentage.plot(obj,split.pattern = "_",n.col = 1,gene.prefix = "^MT-")
+
+df$plot
+```
+
+We check again the library size plot
+
+```{r}
+library.size.plot(obj,split.pattern = "_",n.col = 1)
+```
+
+```{r}
+ECD.plot(obj,y_cut = 12)
+```
+
+### Gene and library size scatter plot
+
+```{r}
+scatter.plot(obj = obj,split.pattern = "[_]",n.col = 1)
+
+```
+
+```{r}
+library.size.plot(obj,split.pattern = "_",n.col = 1)
+```
+
+```{r}
+involved.obj <- obj
+```
+
+# Merge the two samples
+
+```{r}
+dim(uninvolved.obj@raw)
+```
+
+```{r}
+dim(involved.obj@raw)
+```
+
+There are some genes detected only in one sample.
+
+```{r}
+intersection.genes <- intersect(rownames(uninvolved.obj@raw),rownames(involved.obj@raw))
+
+raw <- cbind(uninvolved.obj@raw[rownames(uninvolved.obj@raw) %in% intersection.genes,],involved.obj@raw[rownames(involved.obj@raw) %in% intersection.genes,])
+
+dim(raw)
+```
+
+```{r}
+exc.univolved <- uninvolved.obj@raw[!rownames(uninvolved.obj@raw) %in% intersection.genes,]
+dim(exc.univolved)
+```
+
+```{r}
+temp <- matrix(data = 0,nrow = dim(exc.univolved)[1],ncol = dim(involved.obj@raw)[2])
+colnames(temp) <- colnames(involved.obj@raw)
+exc.univolved <- cbind(exc.univolved,temp)
+dim(exc.univolved)
+```
+
+```{r}
+exc.ivolved <- involved.obj@raw[!rownames(involved.obj@raw) %in% intersection.genes,]
+dim(exc.ivolved)
+```
+
+```{r}
+temp <- matrix(data = 0,nrow = dim(exc.ivolved)[1],ncol = dim(uninvolved.obj@raw)[2])
+colnames(temp) <- colnames(uninvolved.obj@raw)
+exc.ivolved <- cbind(temp,exc.ivolved)
+dim(exc.ivolved)
+```
+
+```{r}
+identical(colnames(exc.ivolved),colnames(exc.univolved))
+```
+
+```{r}
+temp <- rbind(exc.ivolved,exc.univolved)
+raw <- rbind(raw,temp)
+dim(raw)
+```
+
+```{r}
+obj <- methods::new("scCOTAN",raw = raw)
+```
+
+# Merged plots
+
+```{r}
+ECD.plot(obj,y_cut = 12)
+```
+
+```{r}
+library.size.plot(obj,split.pattern = "_",n.col = 1)
+```
+
+```{r}
+df <- mitochondrial.percentage.plot(obj,split.pattern = "_",n.col = 1,gene.prefix = "^MT-")
+
+df$plot
+```
+
+```{r}
+scatter.plot(obj = obj,split.pattern = "[_]",n.col = 1)
+```
+
+Min gene number
+
+```{r}
+sort(colSums(obj@raw > 0),decreasing = F)[1:10]
+```
+
+We decided to drop all cells having less then 10 genes detected
+
+```{r}
+to.drop <- names(sort(colSums(obj@raw > 0),decreasing = F)[sort(colSums(obj@raw > 0),decreasing = F) < 10])
+
+obj <- drop.genes.cells(object = obj,cells = to.drop)
+scatter.plot(obj = obj,split.pattern = "[_]",n.col = 1)
+```
+
+```{r}
+obj <- initRaw(obj,GEO="GSM3972010_GSM3972009",sc.method="10X",
+             cond = "patient.5 ileum")
+```
+
+```{r}
+
+print(paste("Condition ", patient ,sep = ""))
+#--------------------------------------
+n_cells = length(get.cell.size(object = obj))
+print(paste("n cells", n_cells, sep = " "))
+
+n_it = 1
+```
+
+## COTAN specific data cleaning
+
+First, we create a directory to store all information regarding the data cleaning.
+
+```{r}
+if(!file.exists(out_dir)){
+  dir.create(file.path(out_dir))
+}
+
+if(!file.exists(paste(out_dir,"cleaning", sep = ""))){   
+  dir.create(file.path(out_dir, "cleaning"))
+}
+```
+
+```{r}
+gc()
+ttm = clean(obj)
+
+obj = ttm$object
+
+ttm$pca.cell.2
+```
+
+```{r}
+ttm$pca_cells$code <- str_split(rownames(ttm$pca_cells),pattern = "_",simplify = T)[,1]
+
+ggplot(ttm$pca_cells, aes(x=PC1, y=PC2,colour =code)) +
+                  geom_point(alpha = 0.5, size=2)
+```
+
+```{r}
+ggplot(ttm$pca_cells, aes(x=PC1, y=PC3,colour =code)) +
+                  geom_point(alpha = 0.5, size=2)
+```
+
+```{r}
+ttm$genes.plot
+```
+
+To color the PCA based on cells' RNA extraction efficiency
+
+```{r}
+ttm$UDE.plot
+```
+
+UDE (color) should not correlate with principal components! This is very important. The next part is used to remove the cells with efficiency too low.
+
+```{r}
+nu_df = data.frame("nu"= sort(get.nu(obj)), "n"=c(1:length(get.nu(obj))))
+
+ggplot(nu_df, aes(x = n, y=nu)) + 
+    geom_point(colour = "#8491B4B2", size=1)
+    #my_theme #+ ylim(0,1) + xlim(0,70)
+
+```
+
+We can zoom on the smallest values and, if we detect a clear elbow, we can decide to remove the cells.
+
+```{r}
+yset = 0.026#threshold to remove low UDE cells
+plot.ude <- ggplot(nu_df, aes(x = n, y=nu)) + 
+    geom_point(colour = "#8491B4B2", size=1) + 
+     ylim(0,0.1) + xlim(0,5000) +
+    geom_hline(yintercept=yset, linetype="dashed", color = "darkred") +
+    annotate(geom="text", x=200, y=0.05, 
+             label=paste("to remove cells with nu < ",yset,sep = " "), 
+             color="darkred", size=4.5)
+
+plot.ude
+```
+
+For this round of analysis, we want to keep the low UMI cells to keep a cell population with very low amounts of RNA as neutrophil cells. So we drop only cell with a nu lower then 0.024 here.
+
+```{r}
+obj = add.row.to.meta(obj,c("Threshold low UDE cells:",yset)) 
+
+to_rem = rownames(nu_df[which(nu_df$nu < yset),])
+
+obj = drop.genes.cells(object = obj, genes = c(),cells =  to_rem)
+```
+
+```{r}
+print(paste("Condition ", patient ,sep = ""))
+#--------------------------------------
+n_cells = length(get.cell.size(object = obj))
+print(paste("n cells", n_cells, sep = " "))
+
+n_it = 1
+```
+
+```{r}
+ttm = clean(obj)
+obj = ttm$object
+ttm$pca.cell.2
+```
+
+```{r}
+ttm$genes.plot
+```
+
+```{r}
+ttm$UDE.plot
+
+```
+
+```{r}
+ECD.plot(obj,y_cut = 12)
+
+```
+
+```{r}
+scatter.plot(obj = obj,split.pattern = "[_]",n.col = 1)
+```
+
+```{r}
+#saveRDS(obj,paste0(out_dir,patient,"_obj_cotan.RDS"))
+```
+
+##### Session info
+
+```{r}
+sessionInfo()
+```

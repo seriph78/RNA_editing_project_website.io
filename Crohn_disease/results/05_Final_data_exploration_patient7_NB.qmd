@@ -1,0 +1,76 @@
+---
+title: "Final report patient 7"
+editor: visual
+---
+
+```{r}
+############################
+ISG.genes <- read.csv("../../ISG_fixed.txt",header = T)
+colnames(ISG.genes) <- "genes"
+
+expression.cl <- read.csv(paste0(out_dir,sample.id,"_expression_clusters.csv"),row.names = 1)
+
+genes <- list("ISG.genes" = ISG.genes$genes)
+
+df2 <- as.data.frame(matrix(nrow = 1,ncol = ncol(obj@cluster_data)))
+rownames(df2) <- names(genes)
+colnames(df2) <- colnames(obj@cluster_data)
+teta <- -1/0.1 * (log(0.25))
+#not_ass_clusters <- NA
+for (ro in colnames(df2)) {
+  for (m in names(genes)) {
+    #pv <- p_value[unlist(genes[[m]]),ro]
+    #co <- obj@cluster_data[unlist(genes[[m]]),ro]
+    ex <- expression.cl[rownames(expression.cl) %in% genes[[m]],ro]
+    ex[ex < 0 & !is.na(ex)] <- 0
+    
+    ex <- 1-exp(- teta * ex)
+    n.genes <- sum(rownames(obj@raw) %in% genes[[m]])
+    df2[m,ro] <- sum(ex,na.rm = T)/n.genes
+  }
+}
+
+df2 <- round(df2,digits = 1)
+#write.csv(df2,file = paste(out_dir,sample.id,"_ISG_clusters_expression.csv", sep = ""))
+
+#write.csv(rbind(df,df2),file = paste(out_dir,sample.id,"_markers_clusters_expression_with_ISG.csv", sep = ""))
+
+```
+
+```{r}
+cluster_data <- obj@cluster_data
+
+######## This is the best: cosine dissimilarity
+Matrix <- as.matrix(t(cluster_data))
+sim <- Matrix / sqrt(rowSums(Matrix * Matrix))
+sim <- sim %*% t(sim)
+D_sim <- as.dist(1 - sim)
+tree <- hclust(D_sim,method = "ward.D2")
+
+```
+
+```{r}
+dend <- as.dendrogram(tree)
+#colnames(df) <- str_remove_all(colnames(df), pattern = "cl.")
+cut = cutree(tree, k = 9)
+dend =branches_color(dend,k=9,col=c("#4DBBD5FF","#91D1C2FF","#E64B35FF","gray80","#3C5488FF","#F39B7FFF","gray80"),groupLabels = T)
+dend =color_labels(dend,k=9)
+```
+
+```{r,fig.height=5, fig.width=15}
+col_fun = colorRamp2(c(0, 1), c( "lightblue", "red"))
+Heatmap(df2, rect_gp = gpar(col = "white", lwd = 1),
+        cluster_rows = F,
+        #cluster_columns = FALSE,
+        show_heatmap_legend = F,
+         col = col_fun,
+        column_dend_height = unit(4, "cm"),
+        #width =  unit(24, "cm"),
+        #height = unit(6, "cm"),
+        cluster_columns = dend,
+        row_names_gp = gpar(fontsize = 7),
+        column_names_gp = gpar(fontsize = 7),
+        cell_fun = function(j, i, x, y, width, height, fill) {
+        grid.text(sprintf("%.1f", df[i, j]), x, y, gp = gpar(fontsize = 5))
+})
+```

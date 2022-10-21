@@ -4,21 +4,17 @@ title: "RNA editing report website"
 
 Schematic workflow for the analysis. To be applied to every dataset.
 
-
 ```{mermaid}
 flowchart TB
   
  
   
-  A[(Raw data)] --- t1(cleaning notebook) 
+  A[(Raw data)] --- t1(01.Cleaning notebook) 
   t1 --> B[(Cleaned data)]
-  B --- t2(COTAN analysis src)  --> C[(COTAN obj)]
+  B --- t2(02A.COTAN analysis src)  --> C[(COTAN obj)]
   
-  C --- t3(COTAN clustering src) --> D[(Clustered COTAN obj)] 
+  C --- t3(03.COTAN clustering src) --> D[(Clustered COTAN obj)] 
   
-  B --- t4(Seurat analysis src) --> E[(Seurat obj)]
-  
-  E --- t3
   
   t3 --> CD[(Seurat obj with COTAN cl.)]
   
@@ -40,3 +36,5 @@ flowchart TB
   class t2,t3,t4 src;
 
 ```
+
+NOTE: in the Crohn disease data set the epithelial cells are already dropped.

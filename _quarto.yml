@@ -4,6 +4,8 @@ project:
     - index.qmd
     - about.qmd
     - IBD/results/01A_Seurat_import_clean.qmd
+    - Crohn_disease/results/01_cleaning_patient5_NB.qmd
+    - Crohn_disease/results/01_cleaning_patient7_NB.qmd
 
  
 website:
@@ -27,7 +29,21 @@ website:
           - href: IBD/results/01A_Seurat_import_clean.qmd
             text: "Seurat cleaning"
       
-
+      - section: "Crohn disease dataset"
+        contents:
+            
+            - section: "COTAN cleaning"
+              contents:
+                - href: Crohn_disease/results/01_cleaning_patient5_NB.qmd
+                  text: "patient 5 ileum"
+                - href: Crohn_disease/results/01_cleaning_patient7_NB.qmd
+                  text: "patient 7 ileum"
+                  
+            - section: "Data exploration & Cluster identification"
+            
+                  
+            - section: "Summary and Conclusion"
+      
 
 format:
   html:

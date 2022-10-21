@@ -1,9 +1,9 @@
 devtools::load_all("../COTAN/")
 
-setwd("asuna/4.RNA_Editing_AI/")
-out_dir = "data/IBD/clustering/"
+getwd()
+out_dir = "Crohn_disease/data/03_clustred_data/"
 
-obj <- cell_homogeneous_clustering(cond = "control",out_dir = out_dir, 
+obj <- cell_homogeneous_clustering2(cond = "control",out_dir = out_dir, 
                                    in_dir = "data/IBD/check_clean/COTAN_clean/", 
                                    cores = 12, 
                                    dataset_type = "COTAN", dataset_name = "control.cotan.RDS", 
