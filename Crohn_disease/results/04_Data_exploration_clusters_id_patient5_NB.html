@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>RNA editing project - Data exploration patient 5</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">RNA editing project</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">Home</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">About</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Data exploration patient 5</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">IBD dataset</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../IBD/results/01A_Seurat_import_clean.html" class="sidebar-item-text sidebar-link">Seurat cleaning</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Crohn disease dataset</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">COTAN cleaning</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Crohn_disease/results/01_cleaning_patient5_NB.html" class="sidebar-item-text sidebar-link">patient 5 ileum</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Crohn_disease/results/01_cleaning_patient7_NB.html" class="sidebar-item-text sidebar-link">patient 7 ileum</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Crohn_disease/results/01_cleaning_patient8_NB.html" class="sidebar-item-text sidebar-link">patient 8 ileum</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Data exploration &amp; Cluster identification</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Crohn_disease/results/04_Data_exploration_clusters_id_patient5_NB.html" class="sidebar-item-text sidebar-link active">patient 5 ileum</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Crohn_disease/results/04_Data_exploration_clusters_id_patient7_NB.html" class="sidebar-item-text sidebar-link">patient 7 ileum</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">Summary and Conclusion</span>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#ileum-samples" id="toc-ileum-samples" class="nav-link active" data-scroll-target="#ileum-samples">Ileum samples</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Data exploration patient 5</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: viridisLite</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dendextend)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+---------------------
+Welcome to dendextend version 1.16.0
+Type citation('dendextend') for how to cite the package.
+
+Type browseVignettes(package = 'dendextend') for the package vignette.
+The github page is: https://github.com/talgalili/dendextend/
+
+Suggestions and bug-reports can be submitted at: https://github.com/talgalili/dendextend/issues
+You may ask questions at stackoverflow, use the r and dendextend tags: 
+     https://stackoverflow.com/questions/tagged/dendextend
+
+    To suppress this message use:  suppressPackageStartupMessages(library(dendextend))
+---------------------</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dendextend'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:stats':
+
+    cutree</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>(<span class="st">"../../../COTAN/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Loading COTAN</code></pre>
+</div>
+</div>
+<section id="ileum-samples" class="level1">
+<h1>Ileum samples</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>out_dir <span class="ot">&lt;-</span> <span class="st">"../../Crohn_disease/data/04_cluster_identification/"</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sample.id <span class="ot">=</span> <span class="st">"patient5_ileum"</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">paste0</span>(<span class="st">"../../Crohn_disease/data/03_clustred_data/"</span>,sample.id,<span class="st">"_merged_cotan.RDS"</span>))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>srt <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">paste0</span>(<span class="st">"../data/03_clustred_data/Seurat_obj_"</span>,sample.id,<span class="st">"_with_cotan_clusters_merged.RDS"</span>))</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#obj &lt;- readRDS(paste0("../../Crohn_disease/data/03_clustred_data/",sample.id,".cotan.clustered.RDS"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>cluster assignment with expression increment</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>expression.cl <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">paste0</span>(out_dir,sample.id,<span class="st">"_expression_clusters.csv"</span>),<span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>markers <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">"../../Marker_genes.xlsx"</span>,<span class="at">sheet =</span> <span class="dv">2</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>markers <span class="ot">&lt;-</span> <span class="fu">as.list</span>(markers)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>markers <span class="ot">&lt;-</span> markers[<span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(markers)]</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (nv <span class="cf">in</span> <span class="fu">names</span>(markers)) {</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  markers[[nv]] <span class="ot">&lt;-</span> <span class="fu">unique</span>(markers[[nv]][<span class="sc">!</span><span class="fu">is.na</span>(markers[[nv]])])</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>COEX.markers <span class="ot">&lt;-</span> <span class="fu">extract.coex</span>(<span class="at">object =</span> obj,<span class="at">genes =</span> <span class="fu">unlist</span>(markers)[<span class="fu">unlist</span>(markers,) <span class="sc">%in%</span> <span class="fu">rownames</span>(obj<span class="sc">@</span>raw)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>good.markers <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (v <span class="cf">in</span> <span class="fu">colnames</span>(COEX.markers)) {</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  max.coex <span class="ot">&lt;-</span> <span class="fu">max</span>(COEX.markers[,v])</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (max.coex <span class="sc">&gt;=</span> <span class="fl">0.4</span>) {</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(paste0(v," max coex ",max.coex))  </span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    good.markers <span class="ot">&lt;-</span> <span class="fu">c</span>(good.markers,v)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (m <span class="cf">in</span> <span class="fu">names</span>(markers)) {</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  markers[[m]] <span class="ot">&lt;-</span> markers[[m]][markers[[m]] <span class="sc">%in%</span> good.markers]</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>to.keep <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (v <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(markers)) {</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">#print(markers[[v]])</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(markers[[v]])<span class="sc">&gt;</span><span class="dv">0</span>) {</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    to.keep <span class="ot">&lt;-</span> <span class="fu">c</span>(to.keep,v)</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>to.keep <span class="ot">&lt;-</span> to.keep[<span class="sc">!</span><span class="fu">is.na</span>(to.keep)]</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>markers <span class="ot">&lt;-</span> markers[to.keep]</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>markers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`T cell genes`
+[1] "CD3D" "CD2"  "CD7"  "CD3G" "CD3E" "CD4" 
+
+$`B cell genes`
+[1] "MS4A1"    "HLA-DRB1" "HLA-DQA1" "CD19"     "CD79A"    "CD79B"    "BANK1"   
+[8] "IRF8"    
+
+$`Plasma Cells`
+ [1] "SDC1"     "CD38"     "CD27"     "SSR4"     "FKBP11"   "HSP90B1" 
+ [7] "SEC11C"   "SDF2L1"   "DERL3"    "XBP1"     "MZB1"     "TNFRSF17"
+
+$`Mononuclear Phagocytes`
+[1] "HLA-DRB1" "HLA-DQA1" "LYZ"     
+
+$`Conventional Dendridic Cells`
+ [1] "PPP1R14A" "LSP1"     "MZT2A"    "SLC38A1"  "CST7"     "DUSP4"   
+ [7] "FAM118A"  "TOMM34"   "IRF7"     "GZMB"     "HLA-DRB1" "HLA-DQB1"
+[13] "HLA-DRA" 
+
+$Macrophages
+ [1] "CD14"     "CFD"      "C1QB"     "CTSD"     "GLUL"     "C1QA"    
+ [7] "C1QC"     "ACP5"     "CTSC"     "PLD3"     "MS4A4A"   "VSIG4"   
+[13] "C5AR1"    "C3AR1"    "MS4A7"    "CD163"    "MAFB"     "DAB2"    
+[19] "LIPA"     "TFRC"     "CD68"     "HLA-DRB1" "HLA-DQB1" "HLA-DRA" 
+
+$`ILCs - Cytotoxic natural killer`
+[1] "TBX21" "GZMA"  "PRF1"  "GNLY"  "KLRD1" "NKG7" 
+
+$ILC1s
+ [1] "KLRB1" "TBX21" "IFNG"  "IL7R"  "CD3G"  "CD3E"  "CD3D"  "CD4"   "CD5"  
+[10] "CD27"  "LEF1" 
+
+$ILC2s
+[1] "KLRB1"   "IL7R"    "GATA3"   "MAF"     "HPGD"    "HPGDS"   "TNFSF10"
+
+$ILC3
+[1] "KLRB1" "IL7R"  "IL17A" "IL22"  "IL1R1"
+
+$`Mast cells`
+[1] "TPSAB1" "FCER1A" "TPSB2" 
+
+$`Stroma/glia`
+[1] "PLVAP"  "VWF"    "COL3A1" "COL1A1" "ACTA2"  "GPM6B"  "S100B" 
+
+$`CD36 endothelial`
+[1] "CD36"    "TNFSF10"
+
+$Fibroblast
+[1] "CXCL14" "IL17A"  "CXCL12" "CCL8"   "CCL13"  "CCL2"  
+
+$Neutrophils
+[1] "NAMPT" "MNDA" </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="fu">length</span>(<span class="fu">names</span>(markers)),<span class="at">ncol =</span> <span class="fu">ncol</span>(expression.cl)))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(df) <span class="ot">&lt;-</span> <span class="fu">names</span>(markers)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(expression.cl)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> df</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>teta <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="fl">0.1</span> <span class="sc">*</span> (<span class="fu">log</span>(<span class="fl">0.25</span>))</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#not_ass_clusters &lt;- NA</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (ro <span class="cf">in</span> <span class="fu">colnames</span>(df)) {</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (m <span class="cf">in</span> <span class="fu">names</span>(markers)) {</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(m)</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">#pv &lt;- p_value[unlist(markers[[m]]),ro]</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">#co &lt;- obj@cluster_data[unlist(markers[[m]]),ro]</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    ex <span class="ot">&lt;-</span> expression.cl[<span class="fu">rownames</span>(expression.cl) <span class="sc">%in%</span> markers[[m]],ro]</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    ex[ex <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(ex)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    ex <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span><span class="fu">exp</span>(<span class="sc">-</span> teta <span class="sc">*</span> ex)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    n.markers <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">rownames</span>(obj<span class="sc">@</span>raw) <span class="sc">%in%</span> markers[[m]])</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    df[m,ro] <span class="ot">&lt;-</span> <span class="fu">sum</span>(ex,<span class="at">na.rm =</span> T)<span class="sc">/</span>n.markers</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    df2[m,ro]<span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">round</span>(<span class="fu">sum</span>(ex,<span class="at">na.rm =</span> T),<span class="at">digits =</span> <span class="dv">1</span>),<span class="st">"/"</span>,n.markers)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(df,file = paste(out_dir,sample.id,"_markers_clusters_expression.csv", sep = ""))</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">round</span>(df,<span class="at">digits =</span> <span class="dv">2</span>)</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df[,<span class="dv">2</span><span class="sc">:</span><span class="fu">ncol</span>(df)]</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> df2[,<span class="dv">2</span><span class="sc">:</span><span class="fu">ncol</span>(df2)]</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>df2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                 cl.26  cl.64   cl.1  cl.14   cl.2  cl.31
+T cell genes                       0/6  4.4/6    5/6    0/6  4.8/6  0.1/6
+B cell genes                     7.7/8    0/8    0/8    1/8    0/8  1.4/8
+Plasma Cells                      0/12   0/12   0/12 9.2/12   0/12 1.3/12
+Mononuclear Phagocytes             2/3    0/3    0/3    0/3    0/3  0.9/3
+Conventional Dendridic Cells    4.4/13 2.5/13 2.8/13 0.1/13 4.8/13 2.8/13
+Macrophages                     3.8/24 0.3/24 0.9/24   0/24 1.3/24 4.1/24
+ILCs - Cytotoxic natural killer    0/6  0.1/6  0.5/6    0/6    5/6  0.3/6
+ILC1s                             0/11 4.8/11 6.6/11 0.7/11 6.4/11 0.1/11
+ILC2s                              0/7  2.3/7    3/7    0/7  2.5/7  0.6/7
+ILC3                               0/5  2.1/5  2.9/5    0/5  1.7/5    0/5
+Mast cells                         0/3    0/3    0/3    0/3    0/3  0.2/3
+Stroma/glia                      0.1/7  0.2/7  0.1/7    0/7  0.1/7  0.6/7
+CD36 endothelial                   0/2  0.1/2  0.1/2    0/2    0/2  0.3/2
+Fibroblast                         0/6  0.5/6  0.2/6    0/6    0/6  0.3/6
+Neutrophils                      0.4/2  0.2/2  0.1/2    0/2  0.3/2  0.1/2
+                                 cl.65   cl.50   cl.0   cl.5  cl.18  cl.32
+T cell genes                     0.9/6   0.3/6    0/6    0/6  1.9/6    0/6
+B cell genes                       0/8   2.5/8  0.5/8    0/8  0.1/8  1.1/8
+Plasma Cells                    0.2/12    0/12 7.2/12 7.2/12   0/12   0/12
+Mononuclear Phagocytes             0/3     3/3    0/3    0/3    0/3    1/3
+Conventional Dendridic Cells    1.6/13  4.6/13   0/13 0.5/13 2.4/13 2.9/13
+Macrophages                     1.6/24 17.4/24   0/24 1.1/24 1.9/24 4.9/24
+ILCs - Cytotoxic natural killer    0/6     0/6    0/6    0/6  1.3/6    0/6
+ILC1s                             0/11  1.2/11 0.3/11 0.5/11   2/11 0.2/11
+ILC2s                            0.6/7   1.6/7    0/7  0.1/7  3.1/7    1/7
+ILC3                               0/5   1.3/5    0/5  0.1/5    3/5    0/5
+Mast cells                         0/3     1/3    0/3    0/3    0/3    0/3
+Stroma/glia                        0/7     1/7    0/7    0/7  0.7/7    3/7
+CD36 endothelial                   0/2   0.8/2    0/2  0.5/2    0/2  0.8/2
+Fibroblast                         0/6   0.6/6    0/6  0.7/6  0.1/6  1.5/6
+Neutrophils                        0/2   0.1/2    0/2  0.3/2  0.6/2    0/2
+                                 cl.33   cl.57  cl.59   cl.6   cl.7  cl.70
+T cell genes                     0.5/6   0.7/6    1/6    0/6  5.3/6  4.8/6
+B cell genes                       0/8   2.4/8    0/8    0/8    0/8    0/8
+Plasma Cells                    0.8/12    0/12   0/12   0/12 0.5/12 0.2/12
+Mononuclear Phagocytes             0/3     3/3  0.7/3    0/3    0/3    0/3
+Conventional Dendridic Cells    1.5/13  4.2/13 0.9/13   1/13 2.5/13 1.5/13
+Macrophages                     4.5/24 20.1/24 0.4/24 5.2/24 0.6/24 1.9/24
+ILCs - Cytotoxic natural killer    0/6   0.1/6  0.5/6    0/6  0.1/6  1.9/6
+ILC1s                           0.5/11  0.7/11 0.4/11 0.1/11 6.7/11 7.1/11
+ILC2s                            0.7/7   0.4/7  1.8/7  0.3/7  2.5/7  2.4/7
+ILC3                             0.6/5   0.1/5    0/5  0.8/5  1.9/5  1.9/5
+Mast cells                         0/3     1/3    0/3    0/3    0/3    0/3
+Stroma/glia                      3.2/7   0.2/7    0/7  3.1/7  0.2/7  1.5/7
+CD36 endothelial                 0.1/2   0.7/2  0.8/2  0.2/2  0.1/2    0/2
+Fibroblast                       2.8/6   0.8/6    0/6  2.2/6  0.2/6    0/6
+Neutrophils                        0/2     1/2    0/2  0.3/2  0.2/2    0/2
+                                 cl.27  cl.36  cl.41  cl.37  cl.34  cl.47
+T cell genes                     2.7/6    0/6    0/6    0/6    0/6  1.1/6
+B cell genes                     0.1/8    0/8  1.2/8  0.5/8  0.7/8  4.4/8
+Plasma Cells                    0.8/12 5.7/12 8.7/12 7.6/12   8/12   0/12
+Mononuclear Phagocytes             0/3    0/3    0/3    0/3    0/3  1.9/3
+Conventional Dendridic Cells    1.8/13 0.1/13 0.3/13   0/13   0/13 6.2/13
+Macrophages                     1.9/24   0/24 0.2/24   0/24   0/24   5/24
+ILCs - Cytotoxic natural killer  0.8/6    0/6    0/6    0/6    0/6  0.3/6
+ILC1s                           1.8/11   0/11 0.8/11 0.3/11 0.5/11 1.2/11
+ILC2s                            2.4/7    0/7    0/7    0/7    0/7  1.4/7
+ILC3                             1.5/5    0/5    0/5    0/5    0/5  1.8/5
+Mast cells                         0/3    0/3    0/3    0/3    0/3    0/3
+Stroma/glia                        0/7    0/7    0/7    0/7    0/7  0.5/7
+CD36 endothelial                 0.5/2    0/2    0/2    0/2    0/2  0.2/2
+Fibroblast                         1/6    0/6    0/6    0/6    0/6  0.3/6
+Neutrophils                        1/2    0/2    0/2    0/2    0/2    0/2
+                                 cl.35  cl.24 cl.20   cl.3  cl.61  cl.23  cl.16
+T cell genes                       0/6  0.7/6   0/6  0.3/6  4.5/6    0/6    0/6
+B cell genes                       1/8  0.4/8   0/8  0.3/8    0/8    0/8  0.9/8
+Plasma Cells                    0.7/12 4.3/12  0/12 5.8/12   0/12 6.3/12   7/12
+Mononuclear Phagocytes             1/3  0.4/3   0/3    0/3    0/3    0/3    0/3
+Conventional Dendridic Cells    2.6/13 1.2/13  0/13 0.1/13 0.9/13 0.1/13 1.5/13
+Macrophages                       2/24   1/24  0/24   0/24 0.2/24 0.1/24   1/24
+ILCs - Cytotoxic natural killer  0.2/6    0/6   0/6  0.1/6  1.3/6    0/6    0/6
+ILC1s                             0/11 1.1/11  0/11 0.6/11 5.5/11 0.2/11 0.3/11
+ILC2s                            0.8/7  0.5/7   0/7  0.1/7  2.6/7  0.3/7    0/7
+ILC3                               0/5    0/5   0/5  0.1/5  2.2/5    0/5    0/5
+Mast cells                         0/3    0/3   0/3    0/3    0/3    0/3    0/3
+Stroma/glia                      2.1/7    0/7   0/7    0/7  0.4/7    0/7    0/7
+CD36 endothelial                 0.8/2  0.5/2   0/2    0/2    0/2    0/2    0/2
+Fibroblast                         1/6    0/6   0/6    0/6    0/6    0/6    0/6
+Neutrophils                      0.8/2  0.8/2   0/2    0/2  0.5/2    0/2    0/2
+                                 cl.48   cl.9  cl.19  cl.11  cl.22  cl.66
+T cell genes                       0/6  0.8/6    0/6    0/6    0/6    0/6
+B cell genes                     0.9/8    0/8    0/8  0.1/8    0/8  1.3/8
+Plasma Cells                    5.9/12 2.9/12   5/12 8.2/12 1.1/12 0.6/12
+Mononuclear Phagocytes           0.6/3    0/3    0/3    0/3    0/3    1/3
+Conventional Dendridic Cells    2.2/13 1.2/13 0.7/13 0.1/13 0.5/13 2.7/13
+Macrophages                     2.9/24 2.7/24   0/24 0.2/24 1.8/24   6/24
+ILCs - Cytotoxic natural killer  0.6/6  0.3/6    0/6    0/6    0/6    0/6
+ILC1s                             0/11   2/11 0.9/11   0/11   0/11 0.1/11
+ILC2s                              0/7    2/7    0/7    0/7  0.4/7  0.9/7
+ILC3                               0/5  2.5/5    0/5    0/5    0/5  0.2/5
+Mast cells                       0.6/3    0/3    0/3    0/3    0/3    0/3
+Stroma/glia                        0/7    0/7  0.5/7    0/7    0/7  2.9/7
+CD36 endothelial                   0/2    0/2    0/2    0/2  0.4/2  1.9/2
+Fibroblast                         0/6  0.7/6    0/6    0/6    0/6  1.3/6
+Neutrophils                      0.4/2  0.7/2    0/2    0/2  0.1/2  0.3/2
+                                 cl.10  cl.12   cl.8  cl.38   cl.51  cl.25
+T cell genes                       0/6    0/6  0.5/6    0/6   0.6/6  1.7/6
+B cell genes                     1.3/8    0/8  0.3/8  0.3/8     2/8    0/8
+Plasma Cells                      6/12   0/12   0/12   7/12  0.2/12 1.1/12
+Mononuclear Phagocytes             0/3    0/3    0/3    0/3     3/3    0/3
+Conventional Dendridic Cells    0.4/13 0.1/13 1.8/13 0.7/13  4.9/13 3.1/13
+Macrophages                     1.1/24 3.7/24   6/24 2.2/24 20.5/24 0.9/24
+ILCs - Cytotoxic natural killer    0/6    0/6  0.1/6    0/6     0/6  2.9/6
+ILC1s                             0/11   0/11 0.6/11 0.6/11  0.6/11 3.9/11
+ILC2s                              0/7  2.7/7  1.2/7    0/7   1.1/7  0.5/7
+ILC3                               0/5  0.1/5    1/5  0.2/5   0.1/5  0.5/5
+Mast cells                         0/3    3/3    0/3    0/3   0.9/3    0/3
+Stroma/glia                      0.6/7  0.1/7  2.9/7  1.8/7   0.3/7    0/7
+CD36 endothelial                   0/2  0.7/2  0.5/2    0/2     1/2    0/2
+Fibroblast                       0.2/6  0.2/6  4.9/6  3.2/6   0.4/6  0.8/6
+Neutrophils                        0/2  0.2/2  0.7/2    0/2   0.1/2  0.7/2
+                                 cl.13  cl.62  cl.67   cl.58   cl.4  cl.42
+T cell genes                       0/6  3.9/6  0.3/6   0.6/6  4.9/6    0/6
+B cell genes                     0.4/8    0/8    0/8   2.5/8    1/8    0/8
+Plasma Cells                    5.5/12   0/12 0.5/12  0.3/12 0.7/12   0/12
+Mononuclear Phagocytes             0/3    0/3    0/3     3/3    1/3    0/3
+Conventional Dendridic Cells    0.4/13 1.8/13 0.3/13  5.3/13 7.8/13 0.6/13
+Macrophages                     0.3/24   3/24 2.2/24 16.9/24 4.9/24   1/24
+ILCs - Cytotoxic natural killer    0/6  2.1/6    0/6     0/6  4.2/6    0/6
+ILC1s                             0/11 3.9/11 0.3/11  0.6/11   6/11   0/11
+ILC2s                              0/7  1.9/7    1/7   0.4/7  1.3/7  1.6/7
+ILC3                               0/5    1/5  0.4/5   0.1/5  0.5/5    0/5
+Mast cells                         0/3  0.3/3    0/3     1/3    0/3    0/3
+Stroma/glia                        0/7    0/7    0/7   0.4/7  0.2/7    0/7
+CD36 endothelial                   0/2    0/2    0/2     1/2  0.1/2  0.6/2
+Fibroblast                       0.3/6    0/6    0/6   0.2/6    0/6  0.1/6
+Neutrophils                        0/2    0/2  0.2/2   1.6/2  0.6/2  0.2/2
+                                 cl.44  cl.21   cl.49  cl.52  cl.30  cl.39
+T cell genes                     0.5/6  0.1/6   0.7/6    5/6  0.6/6  4.3/6
+B cell genes                     0.7/8    0/8   2.9/8    0/8  1.7/8  1.8/8
+Plasma Cells                      0/12 0.3/12  0.9/12   0/12 4.5/12 0.2/12
+Mononuclear Phagocytes             0/3    0/3     3/3    0/3  0.8/3  1.6/3
+Conventional Dendridic Cells    0.8/13   2/13  4.9/13 4.1/13 4.8/13 7.2/13
+Macrophages                     0.9/24 4.2/24 15.6/24 2.9/24 3.1/24 5.1/24
+ILCs - Cytotoxic natural killer    0/6  0.2/6     0/6  1.3/6  0.9/6  4.1/6
+ILC1s                           0.1/11 0.1/11  0.7/11 5.5/11 1.3/11   5/11
+ILC2s                            1.6/7  0.2/7     0/7  3.2/7  0.1/7  3.6/7
+ILC3                               0/5  0.4/5     0/5  2.7/5    0/5  2.9/5
+Mast cells                         0/3    0/3     1/3    0/3    0/3    0/3
+Stroma/glia                        0/7  3.8/7     0/7  0.2/7    0/7  0.7/7
+CD36 endothelial                 0.6/2    1/2     0/2  0.3/2  0.1/2  0.4/2
+Fibroblast                         0/6  1.7/6   0.9/6  0.4/6    0/6  0.5/6
+Neutrophils                      0.8/2  0.6/2   1.9/2  0.9/2  0.4/2  1.1/2
+                                 cl.40  cl.53  cl.45  cl.54  cl.68   cl.15
+T cell genes                       0/6  0.4/6    5/6    0/6    0/6   0.7/6
+B cell genes                     1.4/8  2.9/8    0/8  7.8/8    1/8   2.7/8
+Plasma Cells                      0/12 0.2/12 0.3/12   0/12 0.2/12    0/12
+Mononuclear Phagocytes             1/3    3/3    0/3    2/3    1/3   2.9/3
+Conventional Dendridic Cells    2.5/13 7.7/13 3.1/13 5.3/13 4.4/13  3.6/13
+Macrophages                     4.4/24 5.2/24 1.2/24 3.9/24 4.7/24 21.5/24
+ILCs - Cytotoxic natural killer  0.5/6  0.1/6  0.1/6  0.1/6  0.3/6   0.2/6
+ILC1s                             0/11 0.5/11 6.1/11 0.1/11   0/11  0.7/11
+ILC2s                              1/7    0/7  2.4/7    0/7  0.9/7   0.1/7
+ILC3                               0/5    0/5  1.3/5    0/5  0.4/5     0/5
+Mast cells                         0/3  0.5/3    0/3    0/3    0/3   0.5/3
+Stroma/glia                        2/7  1.1/7  0.2/7    0/7  2.3/7   0.9/7
+CD36 endothelial                   2/2    0/2  0.1/2    0/2  1.9/2   0.7/2
+Fibroblast                       1.5/6  0.1/6  0.1/6    0/6  1.5/6   0.4/6
+Neutrophils                      0.4/2    0/2  0.3/2  0.8/2  0.1/2   1.5/2
+                                 cl.55  cl.17  cl.43  cl.56
+T cell genes                       0/6    0/6    0/6  5.6/6
+B cell genes                     7.7/8    0/8    1/8  0.5/8
+Plasma Cells                    0.4/12   1/12 6.1/12   0/12
+Mononuclear Phagocytes             2/3    0/3    0/3  0.1/3
+Conventional Dendridic Cells    6.5/13 0.6/13 0.7/13 5.4/13
+Macrophages                     5.2/24   5/24 0.7/24 2.9/24
+ILCs - Cytotoxic natural killer  0.2/6    0/6    0/6  2.1/6
+ILC1s                           0.6/11   0/11   0/11 5.4/11
+ILC2s                              0/7  0.2/7    0/7  2.6/7
+ILC3                               0/5  0.7/5    0/5    2/5
+Mast cells                         0/3    0/3    0/3    0/3
+Stroma/glia                      0.1/7  3.4/7  0.4/7  0.3/7
+CD36 endothelial                   0/2  0.2/2    0/2  0.1/2
+Fibroblast                       0.1/6  1.6/6  0.1/6  0.7/6
+Neutrophils                      0.8/2  0.3/2    0/2  0.9/2</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cluster_data <span class="ot">&lt;-</span> obj<span class="sc">@</span>cluster_data</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="do">######## This is the best: cosine dissimilarity</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>Matrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">t</span>(cluster_data))</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> Matrix <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">rowSums</span>(Matrix <span class="sc">*</span> Matrix))</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> sim <span class="sc">%*%</span> <span class="fu">t</span>(sim)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>D_sim <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(<span class="dv">1</span> <span class="sc">-</span> sim)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">hclust</span>(D_sim,<span class="at">method =</span> <span class="st">"ward.D2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">as.dendrogram</span>(tree)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#colnames(df) &lt;- str_remove_all(colnames(df), pattern = "cl.")</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>cut <span class="ot">=</span> <span class="fu">cutree</span>(tree, <span class="at">k =</span> <span class="dv">9</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">=</span><span class="fu">branches_color</span>(dend,<span class="at">k=</span><span class="dv">9</span>,<span class="at">col=</span><span class="fu">c</span>(<span class="st">"#4DBBD5FF"</span>,<span class="st">"#91D1C2FF"</span>,<span class="st">"#E64B35FF"</span>,<span class="st">"gray80"</span>,<span class="st">"#3C5488FF"</span>,<span class="st">"#F39B7FFF"</span>,<span class="st">"gray80"</span>),<span class="at">groupLabels =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in get_col(col, k): Length of color vector was shorter than the number
+of clusters - color vector was recycled</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">=</span><span class="fu">color_labels</span>(dend,<span class="at">k=</span><span class="dv">9</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dend)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_Data_exploration_clusters_id_patient5_NB_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>col_fun <span class="ot">=</span> <span class="fu">colorRamp2</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="fu">c</span>( <span class="st">"lightblue"</span>, <span class="st">"red"</span>))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Heatmap</span>(df, <span class="at">rect_gp =</span> <span class="fu">gpar</span>(<span class="at">col =</span> <span class="st">"white"</span>, <span class="at">lwd =</span> <span class="dv">1</span>),</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">cluster_rows =</span> F,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">#cluster_columns = FALSE,</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">show_heatmap_legend =</span> F,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">col =</span> col_fun,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">column_dend_height =</span> <span class="fu">unit</span>(<span class="dv">4</span>, <span class="st">"cm"</span>),</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>        row_dend_width</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        <span class="ot">=</span> <span class="fu">unit</span>(<span class="dv">4</span>, <span class="st">"cm"</span>),</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        <span class="co">#width =  unit(24, "cm"),</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>        <span class="co">#height = unit(6, "cm"),</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">cluster_columns =</span> dend,</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">row_names_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">7</span>),</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">column_names_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">7</span>),</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">cell_fun =</span> <span class="cf">function</span>(j, i, x, y, width, height, fill) {</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">grid.text</span>(<span class="fu">sprintf</span>(<span class="st">"%.1f"</span>, df[i, j]), x, y, <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">5</span>))</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>}<span class="co">#,</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co">#left_annotation = rowAnnotation(foo = anno_block(gp = gpar(fill = 2:4),</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a> <span class="co">#       labels = c("group1", "group2", "group3","","","",""), </span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="co">#        labels_gp = gpar(col = "white", fontsize = 10))),</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="co">#    row_km = 7</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The input is a data frame-like object, convert it to a matrix.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="04_Data_exploration_clusters_id_patient5_NB_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="1440"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:testthat':
+
+    matches</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:gridExtra':
+
+    combine</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co">#clusters &lt;- colnames(obj@cluster_data)</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>cell.metadata <span class="ot">&lt;-</span> srt<span class="sc">@</span>meta.data</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>cell.metadata <span class="ot">&lt;-</span> <span class="fu">cbind</span>(cell.metadata,obj<span class="sc">@</span>nu[<span class="fu">rownames</span>(cell.metadata)])</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cell.metadata)[<span class="fu">dim</span>(cell.metadata)[<span class="dv">2</span>]] <span class="ot">&lt;-</span>  <span class="st">"nu"</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span>(<span class="fu">all</span>(<span class="fu">unique</span>(cell.metadata<span class="sc">$</span>cotan) <span class="sc">%in%</span> <span class="fu">unique</span>(obj<span class="sc">@</span>clusters)) <span class="sc">&amp;</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">all</span>(<span class="fu">unique</span>(obj<span class="sc">@</span>clusters) <span class="sc">%in%</span> <span class="fu">unique</span>(cell.metadata<span class="sc">$</span>cotan))) <span class="sc">|</span> </span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">any</span>(<span class="fu">is.na</span>(cell.metadata<span class="sc">$</span>cotan))) {</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"Problems"</span>)</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">table</span>(cell.metadata[,<span class="fu">c</span>(<span class="st">"orig.ident"</span>,<span class="st">"cotan"</span>)]))</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(clusters)</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>clusters<span class="sc">$</span>cotan <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"cl."</span>,clusters<span class="sc">$</span>cotan)</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>clusters<span class="sc">$</span>nu_mean <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (cl <span class="cf">in</span> <span class="fu">unique</span>(clusters<span class="sc">$</span>cotan)) {</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>  cln <span class="ot">&lt;-</span> <span class="fu">str_split</span>(cl,<span class="at">pattern =</span> <span class="st">"[.]"</span>,<span class="at">simplify =</span> T)[<span class="dv">2</span>]</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (sp <span class="cf">in</span> <span class="fu">unique</span>(clusters<span class="sc">$</span>orig.ident)) {</span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>    clusters[clusters<span class="sc">$</span>cotan <span class="sc">==</span> cl <span class="sc">&amp;</span> clusters<span class="sc">$</span>orig.ident <span class="sc">==</span> sp,]<span class="sc">$</span>nu_mean <span class="ot">&lt;-</span> </span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mean</span>(cell.metadata[cell.metadata<span class="sc">$</span>orig.ident <span class="sc">==</span> sp <span class="sc">&amp;</span> cell.metadata<span class="sc">$</span>cotan <span class="sc">==</span> cln,]<span class="sc">$</span>nu)</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>clusters<span class="sc">$</span>cotan <span class="ot">&lt;-</span> <span class="fu">factor</span>(clusters<span class="sc">$</span>cotan,<span class="at">levels =</span> <span class="fu">labels</span>(dend))</span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(clusters, <span class="fu">aes</span>(<span class="at">x =</span> cotan, <span class="at">y =</span> Freq, <span class="at">fill =</span> orig.ident)) <span class="sc">+</span>  <span class="co"># Create stacked bar chart</span></span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,<span class="at">position =</span> <span class="st">"dodge"</span>)<span class="sc">+</span></span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(nu_mean,<span class="at">digits=</span><span class="dv">1</span>)), <span class="at">position=</span><span class="fu">position_dodge</span>(<span class="at">width=</span><span class="fl">0.5</span>), <span class="at">vjust=</span><span class="sc">-</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 7 rows containing missing values (geom_text).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="04_Data_exploration_clusters_id_patient5_NB_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="1920"></p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -2,22 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://seriph78.github.io/RNA_editing_project_website.io/index.html</loc>
-    <lastmod>2022-10-18T19:32:44.036Z</lastmod>
+    <lastmod>2022-11-08T09:34:44.044Z</lastmod>
   </url>
   <url>
     <loc>https://seriph78.github.io/RNA_editing_project_website.io/about.html</loc>
-    <lastmod>2022-10-18T19:32:45.455Z</lastmod>
+    <lastmod>2022-11-08T09:34:47.276Z</lastmod>
   </url>
   <url>
     <loc>https://seriph78.github.io/RNA_editing_project_website.io/IBD/results/01A_Seurat_import_clean.html</loc>
-    <lastmod>2022-10-18T19:32:50.536Z</lastmod>
+    <lastmod>2022-11-08T09:34:50.859Z</lastmod>
   </url>
   <url>
     <loc>https://seriph78.github.io/RNA_editing_project_website.io/Crohn_disease/results/01_cleaning_patient5_NB.html</loc>
-    <lastmod>2022-10-18T19:52:08.115Z</lastmod>
+    <lastmod>2022-11-08T09:34:55.685Z</lastmod>
   </url>
   <url>
     <loc>https://seriph78.github.io/RNA_editing_project_website.io/Crohn_disease/results/01_cleaning_patient7_NB.html</loc>
-    <lastmod>2022-10-18T19:54:09.040Z</lastmod>
+    <lastmod>2022-11-08T09:34:58.066Z</lastmod>
+  </url>
+  <url>
+    <loc>https://seriph78.github.io/RNA_editing_project_website.io/Crohn_disease/results/01_cleaning_patient8_NB.html</loc>
+    <lastmod>2022-11-08T09:35:02.037Z</lastmod>
+  </url>
+  <url>
+    <loc>https://seriph78.github.io/RNA_editing_project_website.io/Crohn_disease/results/04_Data_exploration_clusters_id_patient7_NB.html</loc>
+    <lastmod>2022-11-08T09:35:03.912Z</lastmod>
+  </url>
+  <url>
+    <loc>https://seriph78.github.io/RNA_editing_project_website.io/Crohn_disease/results/04_Data_exploration_clusters_id_patient5_NB.html</loc>
+    <lastmod>2022-11-08T09:35:06.022Z</lastmod>
   </url>
 </urlset>
