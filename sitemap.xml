@@ -2,34 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://seriph78.github.io/RNA_editing_project_website.io/index.html</loc>
-    <lastmod>2022-11-08T09:34:44.044Z</lastmod>
+    <lastmod>2022-12-08T16:08:07.286Z</lastmod>
   </url>
   <url>
     <loc>https://seriph78.github.io/RNA_editing_project_website.io/about.html</loc>
-    <lastmod>2022-11-08T09:34:47.276Z</lastmod>
+    <lastmod>2022-12-08T16:08:09.007Z</lastmod>
   </url>
   <url>
     <loc>https://seriph78.github.io/RNA_editing_project_website.io/IBD/results/01A_Seurat_import_clean.html</loc>
-    <lastmod>2022-11-08T09:34:50.859Z</lastmod>
+    <lastmod>2022-12-08T16:08:14.092Z</lastmod>
   </url>
   <url>
     <loc>https://seriph78.github.io/RNA_editing_project_website.io/Crohn_disease/results/01_cleaning_patient5_NB.html</loc>
-    <lastmod>2022-11-08T09:34:55.685Z</lastmod>
+    <lastmod>2022-12-08T16:08:18.901Z</lastmod>
   </url>
   <url>
     <loc>https://seriph78.github.io/RNA_editing_project_website.io/Crohn_disease/results/01_cleaning_patient7_NB.html</loc>
-    <lastmod>2022-11-08T09:34:58.066Z</lastmod>
+    <lastmod>2022-12-08T16:08:22.619Z</lastmod>
   </url>
   <url>
     <loc>https://seriph78.github.io/RNA_editing_project_website.io/Crohn_disease/results/01_cleaning_patient8_NB.html</loc>
-    <lastmod>2022-11-08T09:35:02.037Z</lastmod>
+    <lastmod>2022-12-08T16:08:26.468Z</lastmod>
+  </url>
+  <url>
+    <loc>https://seriph78.github.io/RNA_editing_project_website.io/Crohn_disease/results/01_cleaning_patient11_NB.html</loc>
+    <lastmod>2022-12-08T16:11:58.453Z</lastmod>
   </url>
   <url>
     <loc>https://seriph78.github.io/RNA_editing_project_website.io/Crohn_disease/results/04_Data_exploration_clusters_id_patient7_NB.html</loc>
-    <lastmod>2022-11-08T09:35:03.912Z</lastmod>
+    <lastmod>2022-12-08T16:11:59.956Z</lastmod>
   </url>
   <url>
     <loc>https://seriph78.github.io/RNA_editing_project_website.io/Crohn_disease/results/04_Data_exploration_clusters_id_patient5_NB.html</loc>
-    <lastmod>2022-11-08T09:35:06.022Z</lastmod>
+    <lastmod>2022-12-08T16:12:01.652Z</lastmod>
   </url>
 </urlset>
