@@ -354,10 +354,13 @@ Attaching package: 'dendextend'</code></pre>
 <pre><code>Setting new log level to 1</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>GDI.data<span class="sc">$</span>genes <span class="ot">&lt;-</span> <span class="fu">rownames</span>(GDI.data)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(GDI.data[<span class="fu">rownames</span>(GDI.data) <span class="sc">%in%</span> ISG.genes,],<span class="fu">aes</span>(sum.raw.norm, GDI)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data=</span><span class="fu">subset</span>(GDI.data[<span class="fu">rownames</span>(GDI.data) <span class="sc">%in%</span> ISG.genes,], </span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                              sum.raw.norm <span class="sc">&gt;</span> <span class="dv">9</span> ), <span class="fu">aes</span>(<span class="at">label =</span> genes))<span class="sc">+</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept=</span><span class="fl">1.5</span>, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plotGDI <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(GDI.data[<span class="fu">rownames</span>(GDI.data) <span class="sc">%in%</span> ISG.genes,],<span class="fu">aes</span>(sum.raw.norm, GDI)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data=</span><span class="fu">subset</span>(GDI.data[<span class="fu">rownames</span>(GDI.data) <span class="sc">%in%</span> ISG.genes,], </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                              sum.raw.norm <span class="sc">&gt;</span> <span class="dv">9</span> ), <span class="fu">aes</span>(<span class="at">label =</span> genes))<span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept=</span><span class="fl">1.5</span>, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>plotGDI</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="04_Data_exploration_clusters_id_patient8_NB_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>

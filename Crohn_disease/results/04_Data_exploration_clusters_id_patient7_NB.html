@@ -357,10 +357,12 @@ Attaching package: 'dendextend'</code></pre>
 <pre><code>Setting new log level to 1</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>GDI.data<span class="sc">$</span>genes <span class="ot">&lt;-</span> <span class="fu">rownames</span>(GDI.data)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(GDI.data[<span class="fu">rownames</span>(GDI.data) <span class="sc">%in%</span> ISG.genes,],<span class="fu">aes</span>(sum.raw.norm, GDI)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plotGDI <span class="ot">&lt;-</span>  <span class="fu">ggplot</span>(GDI.data[<span class="fu">rownames</span>(GDI.data) <span class="sc">%in%</span> ISG.genes,],<span class="fu">aes</span>(sum.raw.norm, GDI)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data=</span><span class="fu">subset</span>(GDI.data[<span class="fu">rownames</span>(GDI.data) <span class="sc">%in%</span> ISG.genes,], </span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                              sum.raw.norm <span class="sc">&gt;</span> <span class="dv">9</span> ), <span class="fu">aes</span>(<span class="at">label =</span> genes))<span class="sc">+</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept=</span><span class="fl">1.5</span>, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept=</span><span class="fl">1.5</span>, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>plotGDI</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="04_Data_exploration_clusters_id_patient7_NB_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -504,7 +506,7 @@ of clusters - color vector was recycled</code></pre>
 <span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="at">left_annotation =</span> hb</span>
 <span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04_Data_exploration_clusters_id_patient7_NB_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+<p><img src="04_Data_exploration_clusters_id_patient7_NB_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="1536"></p>
 </div>
 </div>
 <div class="cell">
