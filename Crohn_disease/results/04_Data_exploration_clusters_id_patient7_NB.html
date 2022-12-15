@@ -232,6 +232,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../../Crohn_disease/results/04_Data_exploration_clusters_id_patient7_NB.html" class="sidebar-item-text sidebar-link active">patient 7 ileum</a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Crohn_disease/results/04_Data_exploration_clusters_id_patient8_NB.html" class="sidebar-item-text sidebar-link">patient 8 ileum</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Crohn_disease/results/04_Data_exploration_clusters_id_patient11_NB.html" class="sidebar-item-text sidebar-link">patient 11 ileum</a>
+  </div>
+</li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
@@ -272,15 +282,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: viridisLite</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dendextend)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 ---------------------
@@ -306,7 +310,6 @@ Attaching package: 'dendextend'</code></pre>
 
     cutree</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>(<span class="st">"../../../COTAN/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>ℹ Loading COTAN</code></pre>
 </div>
@@ -314,289 +317,272 @@ Attaching package: 'dendextend'</code></pre>
 <section id="ileum-samples" class="level1">
 <h1>Ileum samples</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>out_dir <span class="ot">&lt;-</span> <span class="st">"../../Crohn_disease/data/04_cluster_identification/"</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sample.id <span class="ot">=</span> <span class="st">"patient7_ileum"</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">paste0</span>(<span class="st">"../../Crohn_disease/data/03_clustred_data/"</span>,sample.id,<span class="st">"_merged_cotan.RDS"</span>))</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#obj &lt;- readRDS(paste0("../../Crohn_disease/data/03_clustred_data/",sample.id,".cotan.clustered.RDS"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>today <span class="ot">&lt;-</span> <span class="fu">Sys.Date</span>()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(today, <span class="at">format =</span> <span class="st">"%A %d %B %Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Thursday 15 December 2022"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>out_dir <span class="ot">&lt;-</span> <span class="st">"../../Crohn_disease/data/04_cluster_identification/"</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sample.id <span class="ot">=</span> <span class="st">"patient7_ileum"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">paste0</span>(<span class="st">"../../Crohn_disease/data/03_clustred_data/patient7_ileum.cotan.clustered.merged.RDS"</span>))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">as</span>(obj,<span class="st">"COTAN"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: scCOTAN as COTAN: non-empty yes_yes member found. Will be discarded!</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ISG.genes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../../ISG_fixed.txt"</span>,<span class="at">header =</span> T)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(ISG.genes) <span class="ot">&lt;-</span> <span class="st">"genes"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Number of initial genes</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ISG.genes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 332   1</code></pre>
+</div>
+</div>
+<p>Detected ISG genes in the sample</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ISG.genes <span class="ot">&lt;-</span> ISG.genes[ISG.genes<span class="sc">$</span>genes <span class="sc">%in%</span> <span class="fu">getGenes</span>(obj), ,drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ISG.genes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 281   1</code></pre>
+</div>
+</div>
+<p>Check the ISG genes with the GDI plots</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>GDI.data <span class="ot">&lt;-</span> <span class="fu">calculateGDI</span>(<span class="at">objCOTAN =</span> obj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Setting new log level to 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>GDI.data<span class="sc">$</span>genes <span class="ot">&lt;-</span> <span class="fu">rownames</span>(GDI.data)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(GDI.data[<span class="fu">rownames</span>(GDI.data) <span class="sc">%in%</span> ISG.genes,],<span class="fu">aes</span>(sum.raw.norm, GDI)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data=</span><span class="fu">subset</span>(GDI.data[<span class="fu">rownames</span>(GDI.data) <span class="sc">%in%</span> ISG.genes,], </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                              sum.raw.norm <span class="sc">&gt;</span> <span class="dv">9</span> ), <span class="fu">aes</span>(<span class="at">label =</span> genes))<span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept=</span><span class="fl">1.5</span>, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_Data_exploration_clusters_id_patient7_NB_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ISG.genes <span class="ot">&lt;-</span> ISG.genes[<span class="sc">!</span>ISG.genes<span class="sc">$</span>genes <span class="sc">%in%</span> <span class="fu">rownames</span>(GDI.data[GDI.data<span class="sc">$</span>GDI <span class="sc">&lt;</span> <span class="fl">1.5</span>,]),]</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(ISG.genes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 248</code></pre>
+</div>
 </div>
 <p>cluster assignment with expression increment</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>expression.cl <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">paste0</span>(out_dir,sample.id,<span class="st">"_expression_clusters.csv"</span>),<span class="at">row.names =</span> <span class="dv">1</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>markers <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">"../../Marker_genes.xlsx"</span>,<span class="at">sheet =</span> <span class="dv">2</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>markers <span class="ot">&lt;-</span> <span class="fu">as.list</span>(markers)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>markers <span class="ot">&lt;-</span> markers[<span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(markers)]</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (nv <span class="cf">in</span> <span class="fu">names</span>(markers)) {</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  markers[[nv]] <span class="ot">&lt;-</span> <span class="fu">unique</span>(markers[[nv]][<span class="sc">!</span><span class="fu">is.na</span>(markers[[nv]])])</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>COEX.markers <span class="ot">&lt;-</span> <span class="fu">extract.coex</span>(<span class="at">object =</span> obj,<span class="at">genes =</span> <span class="fu">unlist</span>(markers)[<span class="fu">unlist</span>(markers,) <span class="sc">%in%</span> <span class="fu">rownames</span>(obj<span class="sc">@</span>raw)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>good.markers <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (v <span class="cf">in</span> <span class="fu">colnames</span>(COEX.markers)) {</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  max.coex <span class="ot">&lt;-</span> <span class="fu">max</span>(COEX.markers[,v])</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (max.coex <span class="sc">&gt;=</span> <span class="fl">0.5</span>) {</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(paste0(v," max coex ",max.coex))  </span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    good.markers <span class="ot">&lt;-</span> <span class="fu">c</span>(good.markers,v)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (m <span class="cf">in</span> <span class="fu">names</span>(markers)) {</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  markers[[m]] <span class="ot">&lt;-</span> markers[[m]][markers[[m]] <span class="sc">%in%</span> good.markers]</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>to.keep <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (v <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(markers)) {</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">#print(markers[[v]])</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(markers[[v]])<span class="sc">&gt;</span><span class="dv">0</span>) {</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    to.keep <span class="ot">&lt;-</span> <span class="fu">c</span>(to.keep,v)</span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>to.keep <span class="ot">&lt;-</span> to.keep[<span class="sc">!</span><span class="fu">is.na</span>(to.keep)]</span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>markers <span class="ot">&lt;-</span> markers[to.keep]</span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>markers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>expression.cl <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">paste0</span>(out_dir,sample.id,<span class="st">"_expression_clusters.csv"</span>),<span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>markers <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">"../../Marker_genes.xlsx"</span>,<span class="at">sheet =</span> <span class="dv">5</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>markers <span class="ot">&lt;-</span> <span class="fu">as.list</span>(markers)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>markers <span class="ot">&lt;-</span> markers[<span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(markers)]</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (nv <span class="cf">in</span> <span class="fu">names</span>(markers)) {</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  markers[[nv]] <span class="ot">&lt;-</span> <span class="fu">unique</span>(markers[[nv]][<span class="sc">!</span><span class="fu">is.na</span>(markers[[nv]])])</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">#markers$ISG &lt;- ISG.genes</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#COEX.markers &lt;- getGenesCoex(obj,genes = unlist(markers)[unlist(markers,) %in% getGenes(obj)])</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>score.df <span class="ot">&lt;-</span> <span class="fu">geneSetEnrichment</span>(<span class="at">objCOTAN =</span> obj,</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>                              <span class="at">genes =</span> markers, </span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>                              <span class="at">expression.cl =</span> expression.cl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>$`T cell genes`
-[1] "CD3D" "CD2"  "CD7"  "CD3G" "CD3E" "CD4" 
-
-$`B cell genes`
-[1] "MS4A1"    "HLA-DRB1" "HLA-DQA1" "CD19"     "CD79A"    "CD79B"    "BANK1"   
-[8] "IRF8"     "PAX5"    
-
-$`Plasma Cells`
- [1] "SDC1"     "CD38"     "CD27"     "SSR4"     "FKBP11"   "HSP90B1" 
- [7] "SEC11C"   "SDF2L1"   "DERL3"    "XBP1"     "MZB1"     "TNFRSF17"
-
-$`Mononuclear Phagocytes`
-[1] "HLA-DRB1" "HLA-DQA1" "LYZ"     
-
-$`Conventional Dendridic Cells`
- [1] "PPP1R14A" "LSP1"     "MZT2A"    "SLC38A1"  "CST7"     "DUSP4"   
- [7] "FAM118A"  "TOMM34"   "MCOLN2"   "IRF7"     "GZMB"     "ITGAX"   
-[13] "HLA-DRB1" "HLA-DQB1" "HLA-DRA" 
-
-$Macrophages
- [1] "CD14"     "FCGR3A"   "PLA2G7"   "CFD"      "C1QB"     "CTSD"    
- [7] "GLUL"     "C1QA"     "C1QC"     "ACP5"     "CTSC"     "PLD3"    
-[13] "MS4A4A"   "C5AR1"    "C3AR1"    "MS4A7"    "TFEC"     "FAM198B" 
-[19] "CD163"    "SDS"      "FPR3"     "MAFB"     "DAB2"     "LIPA"    
-[25] "TFRC"     "CD68"     "HLA-DRB1" "HLA-DQB1" "HLA-DRA" 
-
-$`ILCs - Cytotoxic natural killer`
-[1] "EOMES" "TBX21" "GZMA"  "PRF1"  "GNLY"  "KLRD1" "NKG7" 
-
-$ILC1s
- [1] "KLRB1" "TBX21" "IFNG"  "IL7R"  "CD3G"  "CD3E"  "CD3D"  "CD4"   "CD5"  
-[10] "CD27"  "LEF1" 
-
-$ILC2s
-[1] "KLRB1"   "IL7R"    "GATA3"   "MAF"     "HPGD"    "HPGDS"   "TNFSF10"
-
-$ILC3
-[1] "KLRB1" "IL7R"  "RORC"  "IL17A" "IL22"  "IL23R" "IL1R1" "KIT"  
-
-$`Mast cells`
-[1] "TPSAB1" "KIT"    "FCER1A" "TPSB2" 
-
-$`Stroma/glia`
-[1] "PLVAP"  "VWF"    "COL3A1" "COL1A1" "ACTA2"  "GPM6B"  "S100B" 
-
-$`CD36 endothelial`
-[1] "CD36"    "TNFSF10"
-
-$Fibroblast
-[1] "CXCL14" "IL17A"  "CXCL12" "CCL8"   "CCL13"  "CCL11"  "CCL2"  
-
-$Neutrophils
-[1] "FCGR3A" "CSF3R"  "FPR1"   "NAMPT"  "MNDA"  </code></pre>
+<pre><code>[1] "In T cell genes there are 6 detected over 6 genes"
+[1] "In B cell genes there are 9 detected over 10 genes"
+[1] "In Plasma Cells there are 12 detected over 13 genes"
+[1] "In Mononuclear Phagocytes there are 4 detected over 4 genes"
+[1] "In Conventional Dendridic Cells there are 16 detected over 19 genes"
+[1] "In Macrophages there are 33 detected over 33 genes"
+[1] "In ILCs - Cytotoxic natural killer there are 7 detected over 8 genes"
+[1] "In ILC1s there are 11 detected over 12 genes"
+[1] "In ILC2s there are 7 detected over 11 genes"
+[1] "In ILC3 there are 26 detected over 26 genes"
+[1] "In Mast cells there are 4 detected over 6 genes"
+[1] "In Stroma/glia there are 7 detected over 9 genes"
+[1] "In CD36 endothelial there are 2 detected over 3 genes"
+[1] "In ACKR1 endothelial there are 2 detected over 4 genes"
+[1] "In Fibroblast there are 7 detected over 8 genes"
+[1] "In Active fibroblasts there are 10 detected over 11 genes"
+[1] "In Neutrophils there are 5 detected over 8 genes"
+[1] "In Eosinophil there are 0 detected over 2 genes"
+[1] "In Basophils there are 5 detected over 6 genes"</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="fu">length</span>(<span class="fu">names</span>(markers)),<span class="at">ncol =</span> <span class="fu">ncol</span>(expression.cl)))</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(df) <span class="ot">&lt;-</span> <span class="fu">names</span>(markers)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(expression.cl)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> df</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>teta <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="fl">0.1</span> <span class="sc">*</span> (<span class="fu">log</span>(<span class="fl">0.25</span>))</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#not_ass_clusters &lt;- NA</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (ro <span class="cf">in</span> <span class="fu">colnames</span>(df)) {</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (m <span class="cf">in</span> <span class="fu">names</span>(markers)) {</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(m)</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">#pv &lt;- p_value[unlist(markers[[m]]),ro]</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">#co &lt;- obj@cluster_data[unlist(markers[[m]]),ro]</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    ex <span class="ot">&lt;-</span> expression.cl[<span class="fu">rownames</span>(expression.cl) <span class="sc">%in%</span> markers[[m]],ro]</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    ex[ex <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(ex)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    ex <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span><span class="fu">exp</span>(<span class="sc">-</span> teta <span class="sc">*</span> ex)</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    n.markers <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">rownames</span>(obj<span class="sc">@</span>raw) <span class="sc">%in%</span> markers[[m]])</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    df[m,ro] <span class="ot">&lt;-</span> <span class="fu">sum</span>(ex,<span class="at">na.rm =</span> T)<span class="sc">/</span>n.markers</span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    df2[m,ro]<span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">round</span>(<span class="fu">sum</span>(ex,<span class="at">na.rm =</span> T),<span class="at">digits =</span> <span class="dv">1</span>),<span class="st">"/"</span>,n.markers)</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(df,file = paste(out_dir,sample.id,"_markers_clusters_expression.csv", sep = ""))</span></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">round</span>(df,<span class="at">digits =</span> <span class="dv">2</span>)</span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df[,<span class="dv">2</span><span class="sc">:</span><span class="fu">ncol</span>(df)]</span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> df2[,<span class="dv">2</span><span class="sc">:</span><span class="fu">ncol</span>(df2)]</span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>df2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>score.ISG <span class="ot">&lt;-</span> <span class="fu">geneSetEnrichment</span>(<span class="at">objCOTAN =</span> obj,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">genes =</span> <span class="fu">list</span>(<span class="st">"ISG"</span><span class="ot">=</span>ISG.genes), </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">expression.cl =</span> expression.cl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                                  cl.1  cl.37   cl.30   cl.7   cl.2   cl.0
-T cell genes                       0/6    0/6   0.4/6    0/6  5.1/6  4.9/6
-B cell genes                     0.3/9    0/9   2.3/9  7.5/9    0/9    0/9
-Plasma Cells                    0.1/12 1.8/12  1.9/12 0.3/12   2/12 0.6/12
-Mononuclear Phagocytes             0/3    0/3   2.9/3    2/3    0/3    0/3
-Conventional Dendridic Cells    1.2/15 0.7/15  4.1/15 3.7/15 4.7/15 2.9/15
-Macrophages                     0.4/29   4/29 22.3/29   3/29 2.6/29 0.2/29
-ILCs - Cytotoxic natural killer  0.6/7    0/7     0/7    0/7  2.9/7    3/7
-ILC1s                           0.6/11   0/11  0.4/11 0.3/11 6.3/11 6.4/11
-ILC2s                              0/7  1.1/7   0.3/7    0/7  2.6/7  2.8/7
-ILC3                             0.2/8  0.7/8   0.3/8    0/8  1.5/8  2.5/8
-Mast cells                       0.3/4    0/4     0/4    0/4    0/4    0/4
-Stroma/glia                      0.4/7  3.3/7   0.1/7    0/7  0.3/7  0.2/7
-CD36 endothelial                   0/2  0.6/2   0.8/2    0/2  0.1/2    0/2
-Fibroblast                       0.1/7  4.4/7   0.4/7  0.1/7  0.1/7  0.2/7
-Neutrophils                      0.2/5  0.7/5   3.8/5  0.1/5  0.8/5    0/5
-                                 cl.20  cl.21  cl.25   cl.8  cl.32  cl.12
-T cell genes                       0/6    0/6    0/6  0.5/6  4.3/6  2.7/6
-B cell genes                     8.3/9  8.1/9    1/9    0/9    0/9  0.7/9
-Plasma Cells                      0/12 0.4/12 1.9/12 1.5/12   0/12 1.3/12
-Mononuclear Phagocytes             2/3    2/3  1.6/3    0/3    0/3  0.4/3
-Conventional Dendridic Cells    3.4/15 3.9/15   2/15   1/15 1.1/15 4.4/15
-Macrophages                     3.3/29   4/29 2.4/29 8.4/29 0.7/29 2.1/29
-ILCs - Cytotoxic natural killer    0/7    0/7    0/7    0/7  2.4/7    3/7
-ILC1s                             0/11 0.4/11   0/11 0.5/11 5.7/11 2.6/11
-ILC2s                              0/7    0/7  0.5/7  1.3/7  2.6/7  1.1/7
-ILC3                               0/8    0/8    0/8    0/8  2.9/8  0.9/8
-Mast cells                         0/4    0/4  0.4/4    0/4    0/4    0/4
-Stroma/glia                      0.4/7    0/7    0/7  6.1/7  0.4/7  0.1/7
-CD36 endothelial                   0/2    0/2  0.5/2  1.7/2    0/2  0.2/2
-Fibroblast                         0/7    0/7  0.1/7    6/7    1/7    0/7
-Neutrophils                        0/5  0.3/5    0/5    0/5    0/5  0.3/5
-                                 cl.34  cl.35 cl.36  cl.14  cl.17   cl.5  cl.11
-T cell genes                       0/6    0/6   0/6    0/6  0.5/6    0/6  1.1/6
-B cell genes                     0.8/9  0.6/9 0.7/9    0/9    0/9  0.3/9  0.6/9
-Plasma Cells                    8.6/12 7.2/12  9/12 3.4/12 3.1/12 9.9/12 0.9/12
-Mononuclear Phagocytes             0/3    0/3   0/3    0/3  0.9/3    0/3    0/3
-Conventional Dendridic Cells      0/15   0/15  1/15 0.9/15 2.1/15   0/15 4.8/15
-Macrophages                       0/29   0/29  0/29 3.3/29  13/29 0.3/29 1.9/29
-ILCs - Cytotoxic natural killer    0/7    0/7 1.2/7    0/7    0/7  0.1/7  5.3/7
-ILC1s                           0.6/11   0/11  1/11 0.1/11 0.5/11 0.8/11 1.9/11
-ILC2s                              0/7    0/7   0/7  2.9/7  0.6/7  0.2/7  2.4/7
-ILC3                               0/8    0/8   0/8    1/8  0.9/8  0.2/8  3.9/8
-Mast cells                         0/4    0/4   0/4    4/4    0/4    1/4  0.7/4
-Stroma/glia                        0/7    0/7 0.9/7    0/7  0.5/7  0.2/7    0/7
-CD36 endothelial                   0/2    0/2   0/2    1/2  0.6/2  0.3/2    0/2
-Fibroblast                       0.3/7    0/7   0/7    0/7  0.9/7    0/7    0/7
-Neutrophils                        0/5    0/5   0/5    0/5  3.6/5    0/5  0.6/5
-                                  cl.26  cl.16   cl.27   cl.28  cl.22   cl.4
-T cell genes                        0/6    0/6   0.4/6   0.5/6    0/6  3.6/6
-B cell genes                      2.5/9  1.9/9     2/9     2/9  0.7/9  0.3/9
-Plasma Cells                     1.3/12   0/12  1.3/12    1/12 8.7/12   0/12
-Mononuclear Phagocytes            2.8/3  2.7/3     3/3     3/3    0/3    0/3
-Conventional Dendridic Cells     4.8/15 7.1/15  3.8/15  4.2/15   0/15 2.4/15
-Macrophages                     11.1/29 5.8/29 24.4/29 21.3/29 0.2/29   0/29
-ILCs - Cytotoxic natural killer     0/7    0/7     0/7   0.3/7    0/7  4.1/7
-ILC1s                              0/11 0.2/11  0.4/11  0.5/11 0.3/11 4.1/11
-ILC2s                               0/7  0.1/7   0.8/7   0.6/7    0/7  3.5/7
-ILC3                                0/8  0.6/8     0/8     0/8    0/8  2.1/8
-Mast cells                          0/4    0/4     0/4   0.7/4    0/4    0/4
-Stroma/glia                       0.3/7  0.2/7     0/7   0.4/7    0/7  0.1/7
-CD36 endothelial                  0.2/2    0/2   1.4/2   1.2/2    0/2    0/2
-Fibroblast                        0.4/7    0/7   0.9/7   1.5/7    0/7    0/7
-Neutrophils                       2.1/5    1/5   2.9/5     1/5    0/5    0/5
-                                  cl.9   cl.31  cl.10  cl.33   cl.18  cl.24
-T cell genes                       0/6     0/6  5.1/6    0/6   0.4/6  4.3/6
-B cell genes                     1.1/9   2.1/9    0/9    0/9   2.4/9    0/9
-Plasma Cells                    1.5/12    1/12 0.7/12 8.2/12  1.5/12   0/12
-Mononuclear Phagocytes           1.1/3   2.9/3    0/3    0/3   2.8/3    0/3
-Conventional Dendridic Cells    3.1/15    4/15   2/15 0.5/15  6.5/15 2.1/15
-Macrophages                     4.9/29 17.2/29   0/29 0.5/29 15.5/29   1/29
-ILCs - Cytotoxic natural killer    0/7     0/7    0/7  0.6/7     0/7  0.1/7
-ILC1s                           0.3/11    0/11 6.9/11   0/11  0.4/11 4.8/11
-ILC2s                            0.9/7     0/7  2.5/7    0/7     0/7  3.2/7
-ILC3                             0.6/8   0.6/8  1.9/8  0.4/8   0.2/8  2.9/8
-Mast cells                         0/4     0/4    0/4    0/4   0.7/4    0/4
-Stroma/glia                        2/7     0/7  0.5/7    0/7   0.3/7  0.9/7
-CD36 endothelial                 1.8/2   0.2/2    0/2    0/2   0.5/2    0/2
-Fibroblast                         1/7   0.5/7  0.1/7  0.2/7   0.2/7  0.6/7
-Neutrophils                      0.8/5   3.2/5    0/5    0/5     3/5  0.6/5
-                                 cl.38  cl.19  cl.39  cl.29  cl.15
-T cell genes                     0.2/6    0/6    0/6  2.9/6    0/6
-B cell genes                     0.3/9  1.5/9    1/9  0.1/9  1.6/9
-Plasma Cells                    0.9/12 9.7/12 2.4/12 5.9/12 1.1/12
-Mononuclear Phagocytes           0.2/3    0/3    1/3    0/3    1/3
-Conventional Dendridic Cells    1.3/15   0/15 2.7/15 1.2/15 2.7/15
-Macrophages                     7.6/29 0.8/29 4.3/29 0.2/29 5.8/29
-ILCs - Cytotoxic natural killer    0/7  0.3/7    0/7  1.8/7    0/7
-ILC1s                           0.2/11 0.6/11   0/11 3.6/11   0/11
-ILC2s                            1.5/7    0/7  1.3/7    2/7  0.3/7
-ILC3                               1/8    0/8  0.6/8  2.1/8  0.4/8
-Mast cells                       0.1/4    0/4    0/4    0/4  0.4/4
-Stroma/glia                      2.9/7  0.2/7    0/7  0.6/7  4.9/7
-CD36 endothelial                 0.9/2    0/2    1/2    0/2  0.2/2
-Fibroblast                         6/7  0.1/7  0.3/7  0.2/7  2.4/7
-Neutrophils                        0/5    0/5    0/5    0/5    0/5</code></pre>
+<pre><code>[1] "In ISG there are 248 detected over 248 genes"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>score.df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(score.df,score.ISG)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>score.df[,<span class="fu">c</span>(<span class="st">"N. detected"</span>,<span class="st">"N. total"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                N. detected N. total
+T cell genes                              6        6
+B cell genes                              9       10
+Plasma Cells                             12       13
+Mononuclear Phagocytes                    4        4
+Conventional Dendridic Cells             16       19
+Macrophages                              33       33
+ILCs - Cytotoxic natural killer           7        8
+ILC1s                                    11       12
+ILC2s                                     7       11
+ILC3                                     26       26
+Mast cells                                4        6
+Stroma/glia                               7        9
+CD36 endothelial                          2        3
+ACKR1 endothelial                         2        4
+Fibroblast                                7        8
+Active fibroblasts                       10       11
+Neutrophils                               5        8
+Eosinophil                                0        2
+Basophils                                 5        6
+ISG                                     248      248</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cluster_data <span class="ot">&lt;-</span> obj<span class="sc">@</span>cluster_data</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="do">######## This is the best: cosine dissimilarity</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>Matrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">t</span>(cluster_data))</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> Matrix <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">rowSums</span>(Matrix <span class="sc">*</span> Matrix))</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> sim <span class="sc">%*%</span> <span class="fu">t</span>(sim)</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>D_sim <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(<span class="dv">1</span> <span class="sc">-</span> sim)</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">hclust</span>(D_sim,<span class="at">method =</span> <span class="st">"ward.D2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>cluster_data <span class="ot">&lt;-</span> <span class="fu">getClusterizationData</span>(obj)[[<span class="st">"coex"</span>]]</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="do">######## This is the best: cosine dissimilarity</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>Matrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">t</span>(cluster_data))</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> Matrix <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">rowSums</span>(Matrix <span class="sc">*</span> Matrix))</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> sim <span class="sc">%*%</span> <span class="fu">t</span>(sim)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>D_sim <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(<span class="dv">1</span> <span class="sc">-</span> sim)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">hclust</span>(D_sim,<span class="at">method =</span> <span class="st">"ward.D2"</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tree)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_Data_exploration_clusters_id_patient7_NB_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">as.dendrogram</span>(tree)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#colnames(df) &lt;- str_remove_all(colnames(df), pattern = "cl.")</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>cut <span class="ot">=</span> <span class="fu">cutree</span>(tree, <span class="at">k =</span> <span class="dv">9</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">=</span><span class="fu">branches_color</span>(dend,<span class="at">k=</span><span class="dv">9</span>,<span class="at">col=</span><span class="fu">c</span>(<span class="st">"#4DBBD5FF"</span>,<span class="st">"#91D1C2FF"</span>,<span class="st">"#E64B35FF"</span>,<span class="st">"gray80"</span>,<span class="st">"#3C5488FF"</span>,<span class="st">"#F39B7FFF"</span>,<span class="st">"gray80"</span>),<span class="at">groupLabels =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">as.dendrogram</span>(tree)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">#colnames(df) &lt;- str_remove_all(colnames(df), pattern = "cl.")</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>cut <span class="ot">=</span> <span class="fu">cutree</span>(tree, <span class="at">k =</span> <span class="dv">9</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">=</span><span class="fu">branches_color</span>(dend,<span class="at">k=</span><span class="dv">9</span>,<span class="at">col=</span><span class="fu">c</span>(<span class="st">"#4DBBD5FF"</span>,<span class="st">"#91D1C2FF"</span>,<span class="st">"#E64B35FF"</span>,<span class="st">"gray80"</span>,<span class="st">"#3C5488FF"</span>,<span class="st">"#F39B7FFF"</span>,<span class="st">"gray80"</span>),<span class="at">groupLabels =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in get_col(col, k): Length of color vector was shorter than the number
 of clusters - color vector was recycled</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">=</span><span class="fu">color_labels</span>(dend,<span class="at">k=</span><span class="dv">9</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dend)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">=</span><span class="fu">color_labels</span>(dend,<span class="at">k=</span><span class="dv">9</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dend)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04_Data_exploration_clusters_id_patient7_NB_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="04_Data_exploration_clusters_id_patient7_NB_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>col_fun <span class="ot">=</span> <span class="fu">colorRamp2</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="fu">c</span>( <span class="st">"lightblue"</span>, <span class="st">"red"</span>))</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Heatmap</span>(df, <span class="at">rect_gp =</span> <span class="fu">gpar</span>(<span class="at">col =</span> <span class="st">"white"</span>, <span class="at">lwd =</span> <span class="dv">1</span>),</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">cluster_rows =</span> T,</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">#cluster_columns = FALSE,</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">show_heatmap_legend =</span> F,</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">col =</span> col_fun,</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">column_dend_height =</span> <span class="fu">unit</span>(<span class="dv">4</span>, <span class="st">"cm"</span>),</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>        row_dend_width</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        <span class="ot">=</span> <span class="fu">unit</span>(<span class="dv">4</span>, <span class="st">"cm"</span>),</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        <span class="co">#width =  unit(24, "cm"),</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>        <span class="co">#height = unit(6, "cm"),</span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">cluster_columns =</span> dend,</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">row_names_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">7</span>),</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">column_names_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">7</span>),</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">cell_fun =</span> <span class="cf">function</span>(j, i, x, y, width, height, fill) {</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">grid.text</span>(<span class="fu">sprintf</span>(<span class="st">"%.1f"</span>, df[i, j]), x, y, <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">5</span>))</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>},</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="at">left_annotation =</span> <span class="fu">rowAnnotation</span>(<span class="at">foo =</span> <span class="fu">anno_block</span>(<span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fill =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>),</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"group1"</span>, <span class="st">"group2"</span>, <span class="st">"group3"</span>,<span class="st">""</span>,<span class="st">""</span>,<span class="st">""</span>,<span class="st">""</span>), </span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">labels_gp =</span> <span class="fu">gpar</span>(<span class="at">col =</span> <span class="st">"white"</span>, <span class="at">fontsize =</span> <span class="dv">10</span>))),</span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">row_km =</span> <span class="dv">7</span></span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: The input is a data frame-like object, convert it to a matrix.</code></pre>
+
 </div>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>col_fun <span class="ot">=</span> <span class="fu">colorRamp2</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="fu">c</span>( <span class="st">"lightblue"</span>, <span class="st">"red"</span>))</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Heatmap</span>(df.t, <span class="at">rect_gp =</span> <span class="fu">gpar</span>(<span class="at">col =</span> <span class="st">"white"</span>, <span class="at">lwd =</span> <span class="dv">1</span>),</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">#cluster_rows = F,</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">cluster_columns =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">show_heatmap_legend =</span> F,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> col_fun,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">width =</span>  <span class="fu">unit</span>(<span class="dv">28</span>, <span class="st">"cm"</span>),</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">row_dend_width =</span> <span class="fu">unit</span>(<span class="dv">8</span>, <span class="st">"cm"</span>),</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">#height = unit(6, "cm"),</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">cluster_rows =</span> dend,</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">column_names_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">11</span>),</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">row_names_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">9</span>),</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">cell_fun =</span> <span class="cf">function</span>(j, i, x, y, width, height, fill) {</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">grid.text</span>(<span class="fu">sprintf</span>(<span class="st">"%.1f"</span>, df.t[i, j]), x, y, <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">9</span>))</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>},</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="at">right_annotation =</span> ha,</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="at">left_annotation =</span> hb</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04_Data_exploration_clusters_id_patient7_NB_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="1440"></p>
+<p><img src="04_Data_exploration_clusters_id_patient7_NB_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.2.2 Patched (2022-11-10 r83330)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 20.04.5 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
+
+locale:
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+
+attached base packages:
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+[1] COTAN_2.0.0       testthat_3.1.6    dendextend_1.16.0 stringr_1.4.0    
+[5] ggplot2_3.4.0     viridis_0.6.2     viridisLite_0.4.0 gridExtra_2.3    
+
+loaded via a namespace (and not attached):
+  [1] readxl_1.4.0          circlize_0.4.15       plyr_1.8.7           
+  [4] igraph_1.3.4          lazyeval_0.2.2        sp_1.5-0             
+  [7] splines_4.2.2         listenv_0.8.0         scattermore_0.8      
+ [10] usethis_2.1.6         digest_0.6.29         foreach_1.5.2        
+ [13] htmltools_0.5.2       fansi_1.0.3           magrittr_2.0.3       
+ [16] memoise_2.0.1         tensor_1.5            cluster_2.1.4        
+ [19] doParallel_1.0.17     ROCR_1.0-11           remotes_2.4.2        
+ [22] ComplexHeatmap_2.13.0 globals_0.16.2        matrixStats_0.63.0   
+ [25] spatstat.sparse_3.0-0 prettyunits_1.1.1     colorspace_2.0-3     
+ [28] ggrepel_0.9.2         xfun_0.31             dplyr_1.0.9          
+ [31] callr_3.7.0           crayon_1.5.1          jsonlite_1.8.0       
+ [34] spatstat.data_3.0-0   progressr_0.11.0      survival_3.4-0       
+ [37] zoo_1.8-10            iterators_1.0.14      glue_1.6.2           
+ [40] polyclip_1.10-0       gtable_0.3.0          leiden_0.4.2         
+ [43] GetoptLong_1.0.5      pkgbuild_1.4.0        RcppZiggurat_0.1.6   
+ [46] future.apply_1.10.0   shape_1.4.6           BiocGenerics_0.43.0  
+ [49] abind_1.4-5           scales_1.2.0          DBI_1.1.3            
+ [52] ggthemes_4.2.4        spatstat.random_3.0-1 miniUI_0.1.1.1       
+ [55] Rcpp_1.0.9            xtable_1.8-4          clue_0.3-61          
+ [58] reticulate_1.25       spatstat.core_2.4-4   stats4_4.2.2         
+ [61] htmlwidgets_1.5.4     httr_1.4.4            RColorBrewer_1.1-3   
+ [64] ellipsis_0.3.2        Seurat_4.2.0          factoextra_1.0.7     
+ [67] ica_1.0-2             farver_2.1.0          pkgconfig_2.0.3      
+ [70] uwot_0.1.14           deldir_1.0-6          utf8_1.2.2           
+ [73] labeling_0.4.2        tidyselect_1.2.0      rlang_1.0.6          
+ [76] reshape2_1.4.4        later_1.3.0           cellranger_1.1.0     
+ [79] munsell_0.5.0         tools_4.2.2           cachem_1.0.6         
+ [82] cli_3.4.1             gsubfn_0.7            generics_0.1.2       
+ [85] devtools_2.4.3        ggridges_0.5.3        evaluate_0.18        
+ [88] fastmap_1.1.0         goftest_1.2-3         yaml_2.3.5           
+ [91] processx_3.7.0        knitr_1.40            fs_1.5.2             
+ [94] fitdistrplus_1.1-8    purrr_0.3.4           RANN_2.6.1           
+ [97] nlme_3.1-160          pbapply_1.6-0         future_1.29.0        
+[100] mime_0.12             brio_1.1.3            compiler_4.2.2       
+[103] rstudioapi_0.13       plotly_4.10.0         png_0.1-7            
+[106] spatstat.utils_3.0-1  tibble_3.1.7          stringi_1.7.6        
+[109] ps_1.7.0              desc_1.4.1            rgeos_0.5-9          
+[112] lattice_0.20-45       Matrix_1.5-1          vctrs_0.5.0          
+[115] pillar_1.8.1          lifecycle_1.0.3       spatstat.geom_3.0-3  
+[118] lmtest_0.9-40         GlobalOptions_0.1.2   RcppAnnoy_0.0.19     
+[121] data.table_1.14.2     cowplot_1.1.1         irlba_2.3.5.1        
+[124] httpuv_1.6.5          patchwork_1.1.1       R6_2.5.1             
+[127] promises_1.2.0.1      KernSmooth_2.23-20    IRanges_2.31.2       
+[130] parallelly_1.32.1     sessioninfo_1.2.2     codetools_0.2-18     
+[133] MASS_7.3-58           assertthat_0.2.1      pkgload_1.3.0        
+[136] proto_1.0.0           rprojroot_2.0.3       rjson_0.2.21         
+[139] withr_2.5.0           SeuratObject_4.1.2    sctransform_0.3.5    
+[142] S4Vectors_0.35.0      mgcv_1.8-41           parallel_4.2.2       
+[145] rpart_4.1.19          tidyr_1.2.0           rmarkdown_2.17       
+[148] Rfast_2.0.6           Rtsne_0.16            shiny_1.7.1          </code></pre>
 </div>
 </div>
 
