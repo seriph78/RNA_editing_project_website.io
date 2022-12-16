@@ -2,7 +2,7 @@
 title: "Cleaning notebook patient 12"
 editor: visual
 execute: 
-  freeze: true
+  freeze: false
 ---
 
 Last compiled
