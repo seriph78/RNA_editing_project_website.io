@@ -299,7 +299,7 @@ scatterPlot(obj,splitPattern = "[_]",numCols = 1)
 ```
 
 ```{r}
-saveRDS(obj,paste0(out_dir,patient,"_obj_cotan.RDS"))
+#saveRDS(obj,paste0(out_dir,patient,"_obj_cotan.RDS"))
 ```
 
 ##### Session info
