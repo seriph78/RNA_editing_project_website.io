@@ -209,12 +209,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../Crohn_disease/results/01_cleaning_patient10_NB.html" class="sidebar-item-text sidebar-link">patient 10 ileum</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../Crohn_disease/results/01_cleaning_patient11_NB.html" class="sidebar-item-text sidebar-link">patient 11 ileum</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Crohn_disease/results/01_cleaning_patient12_NB.qmd" class="sidebar-item-text sidebar-link">patient 12 ileum</a>
+  <a href="../../Crohn_disease/results/01_cleaning_patient12_NB.html" class="sidebar-item-text sidebar-link">patient 12 ileum</a>
   </div>
 </li>
       </ul>
@@ -244,7 +249,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../Crohn_disease/results/04_Data_exploration_clusters_id_patient10_NB.html" class="sidebar-item-text sidebar-link">patient 10 ileum</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../Crohn_disease/results/04_Data_exploration_clusters_id_patient11_NB.html" class="sidebar-item-text sidebar-link">patient 11 ileum</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Crohn_disease/results/04_Data_exploration_clusters_id_patient12_NB.html" class="sidebar-item-text sidebar-link">patient 12 ileum</a>
   </div>
 </li>
       </ul>
@@ -263,7 +278,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#ileum-samples" id="toc-ileum-samples" class="nav-link active" data-scroll-target="#ileum-samples">Ileum samples</a></li>
+  <li><a href="#import-markers" id="toc-import-markers" class="nav-link active" data-scroll-target="#import-markers">Import markers</a></li>
+  <li><a href="#uninvolved-ileum-samples" id="toc-uninvolved-ileum-samples" class="nav-link" data-scroll-target="#uninvolved-ileum-samples">Uninvolved ileum samples</a>
+  <ul class="collapse">
+  <li><a href="#gdi-plot-with-isg-genes" id="toc-gdi-plot-with-isg-genes" class="nav-link" data-scroll-target="#gdi-plot-with-isg-genes">GDI plot with ISG genes</a></li>
+  <li><a href="#cluster-assignment-with-expression-increment" id="toc-cluster-assignment-with-expression-increment" class="nav-link" data-scroll-target="#cluster-assignment-with-expression-increment">Cluster assignment with expression increment</a></li>
+  <li><a href="#final-score-heatmap" id="toc-final-score-heatmap" class="nav-link" data-scroll-target="#final-score-heatmap">Final score heatmap</a></li>
+  </ul></li>
+  <li><a href="#involved-ileum-samples" id="toc-involved-ileum-samples" class="nav-link" data-scroll-target="#involved-ileum-samples">Involved ileum samples</a>
+  <ul class="collapse">
+  <li><a href="#gdi-plot-with-isg-genes-1" id="toc-gdi-plot-with-isg-genes-1" class="nav-link" data-scroll-target="#gdi-plot-with-isg-genes-1">GDI plot with ISG genes</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#final-score-heatmap-1" id="toc-final-score-heatmap-1" class="nav-link" data-scroll-target="#final-score-heatmap-1">Final score heatmap</a></li>
+  </ul></li>
+  <li><a href="#pbmc-samples" id="toc-pbmc-samples" class="nav-link" data-scroll-target="#pbmc-samples">PBMC samples</a>
+  <ul class="collapse">
+  <li><a href="#gdi-plot-with-isg-genes-2" id="toc-gdi-plot-with-isg-genes-2" class="nav-link" data-scroll-target="#gdi-plot-with-isg-genes-2">GDI plot with ISG genes</a></li>
+  <li><a href="#cluster-assignment-with-expression-increment-1" id="toc-cluster-assignment-with-expression-increment-1" class="nav-link" data-scroll-target="#cluster-assignment-with-expression-increment-1">Cluster assignment with expression increment</a></li>
+  <li><a href="#final-score-heatmap-2" id="toc-final-score-heatmap-2" class="nav-link" data-scroll-target="#final-score-heatmap-2">Final score heatmap</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -319,170 +352,369 @@ Attaching package: 'dendextend'</code></pre>
 <pre><code>ℹ Loading COTAN</code></pre>
 </div>
 </div>
-<section id="ileum-samples" class="level1">
-<h1>Ileum samples</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>today <span class="ot">&lt;-</span> <span class="fu">Sys.Date</span>()</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(today, <span class="at">format =</span> <span class="st">"%A %d %B %Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Friday 16 December 2022"</code></pre>
+<pre><code>[1] "Wednesday 21 December 2022"</code></pre>
 </div>
 </div>
+<section id="import-markers" class="level3">
+<h3 class="anchored" data-anchor-id="import-markers">Import markers</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>out_dir <span class="ot">&lt;-</span> <span class="st">"../../Crohn_disease/data/04_cluster_identification/"</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sample.id <span class="ot">=</span> <span class="st">"patient7_ileum"</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">paste0</span>(<span class="st">"../../Crohn_disease/data/03_clustred_data/patient7_ileum.cotan.clustered.merged.RDS"</span>))</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">as</span>(obj,<span class="st">"COTAN"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>markers <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">"../../Marker_genes.xlsx"</span>,<span class="at">sheet =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: scCOTAN as COTAN: non-empty yes_yes member found. Will be discarded!</code></pre>
+<pre><code>New names:
+• `` -&gt; `...1`</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ISG.genes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../../ISG_fixed.txt"</span>,<span class="at">header =</span> T)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(ISG.genes) <span class="ot">&lt;-</span> <span class="st">"genes"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>markers <span class="ot">&lt;-</span> <span class="fu">as.list</span>(markers)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>markers <span class="ot">&lt;-</span> markers[<span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(markers)]</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (nv <span class="cf">in</span> <span class="fu">names</span>(markers)) {</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  markers[[nv]] <span class="ot">&lt;-</span> <span class="fu">unique</span>(markers[[nv]][<span class="sc">!</span><span class="fu">is.na</span>(markers[[nv]])])</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Number of initial genes</p>
+</section>
+<section id="uninvolved-ileum-samples" class="level1">
+<h1>Uninvolved ileum samples</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ISG.genes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>out_dir <span class="ot">&lt;-</span> <span class="st">"../../Crohn_disease/data/04_cluster_identification/"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>in_dir <span class="ot">&lt;-</span> <span class="st">"../../Crohn_disease/data/02_cleaned_data/"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>sample.id <span class="ot">=</span> <span class="st">"patient7_Uninvolved"</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>expression.cl <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">paste0</span>(out_dir,sample.id,<span class="st">"_expression_clusters.csv"</span>),<span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">paste0</span>(in_dir,sample.id,<span class="st">".clustered.merged.cotan.RDS"</span>))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>ISG.genes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../../ISG_fixed.txt"</span>,<span class="at">header =</span> T)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(ISG.genes) <span class="ot">&lt;-</span> <span class="st">"genes"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Number of ISG genes</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ISG.genes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 332   1</code></pre>
 </div>
 </div>
 <p>Detected ISG genes in the sample</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ISG.genes <span class="ot">&lt;-</span> ISG.genes[ISG.genes<span class="sc">$</span>genes <span class="sc">%in%</span> <span class="fu">getGenes</span>(obj), ,drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ISG.genes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ISG.genes[ISG.genes<span class="sc">$</span>genes <span class="sc">%in%</span> <span class="fu">getGenes</span>(obj), ,<span class="at">drop =</span> <span class="cn">FALSE</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 281   1</code></pre>
+<pre><code>[1] 261   1</code></pre>
 </div>
 </div>
-<p>Check the ISG genes with the GDI plots</p>
+<section id="gdi-plot-with-isg-genes" class="level3">
+<h3 class="anchored" data-anchor-id="gdi-plot-with-isg-genes">GDI plot with ISG genes</h3>
+<p>Gene Differentiation Index is a score of how much a gene is differentially expressed in the dataset. Genes expressed only in a subpopulation of cells will have a GDI score higher than 1.5 while constitutive genes will show a GDI lower than 1.5. In the plot on the x-axis, there is also an estimation of the mean gene expression in the whole sample.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>GDI.data <span class="ot">&lt;-</span> <span class="fu">calculateGDI</span>(<span class="at">objCOTAN =</span> obj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>GDI.data <span class="ot">&lt;-</span> <span class="fu">calculateGDI</span>(<span class="at">objCOTAN =</span> obj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Setting new log level to 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>GDI.data<span class="sc">$</span>genes <span class="ot">&lt;-</span> <span class="fu">rownames</span>(GDI.data)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plotGDI <span class="ot">&lt;-</span>  <span class="fu">ggplot</span>(GDI.data[<span class="fu">rownames</span>(GDI.data) <span class="sc">%in%</span> ISG.genes,],<span class="fu">aes</span>(sum.raw.norm, GDI)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data=</span><span class="fu">subset</span>(GDI.data[<span class="fu">rownames</span>(GDI.data) <span class="sc">%in%</span> ISG.genes,], </span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                              sum.raw.norm <span class="sc">&gt;</span> <span class="dv">9</span> ), <span class="fu">aes</span>(<span class="at">label =</span> genes))<span class="sc">+</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept=</span><span class="fl">1.5</span>, <span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>plotGDI</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GDIPlot</span>(<span class="at">objCOTAN =</span> obj, </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">genes =</span> <span class="fu">list</span>(<span class="st">"High exp ISG"</span><span class="ot">=</span><span class="fu">rownames</span>(GDI.data[<span class="fu">rownames</span>(GDI.data) <span class="sc">%in%</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                                  ISG.genes<span class="sc">$</span>genes <span class="sc">&amp;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                                  GDI.data<span class="sc">$</span>sum.raw.norm <span class="sc">&gt;=</span> <span class="dv">9</span>,]),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"High GDI ISG"</span><span class="ot">=</span><span class="fu">rownames</span>(GDI.data[<span class="fu">rownames</span>(GDI.data) <span class="sc">%in%</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                                                             ISG.genes<span class="sc">$</span>genes <span class="sc">&amp;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>                                  GDI.data<span class="sc">$</span>GDI <span class="sc">&gt;=</span> <span class="fu">quantile</span>(GDI.data<span class="sc">$</span>GDI,<span class="at">probs =</span> <span class="fl">0.99</span>),])),</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">GDI.df =</span> GDI.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04_Data_exploration_clusters_id_patient7_NB_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="04_Data_exploration_clusters_id_patient7_NB_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">In green the most expressed ISG genes and in purple the top GDI ISG genes in the sample. Red dotted line indicates the 1.5 GDI threshold for differentially expressed genes. The two blue lines indicate the firs and senonc quartile for GDI score.</figcaption><p></p>
+</figure>
 </div>
 </div>
+</div>
+</section>
+<section id="cluster-assignment-with-expression-increment" class="level3">
+<h3 class="anchored" data-anchor-id="cluster-assignment-with-expression-increment">Cluster assignment with expression increment</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ISG.genes <span class="ot">&lt;-</span> ISG.genes[<span class="sc">!</span>ISG.genes<span class="sc">$</span>genes <span class="sc">%in%</span> <span class="fu">rownames</span>(GDI.data[GDI.data<span class="sc">$</span>GDI <span class="sc">&lt;</span> <span class="fl">1.5</span>,]),]</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(ISG.genes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>score.df <span class="ot">&lt;-</span> <span class="fu">geneSetEnrichment</span>(<span class="at">objCOTAN =</span> obj,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">genes =</span> markers, </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">expression.cl =</span> expression.cl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 248</code></pre>
-</div>
-</div>
-<p>cluster assignment with expression increment</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>expression.cl <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">paste0</span>(out_dir,sample.id,<span class="st">"_expression_clusters.csv"</span>),<span class="at">row.names =</span> <span class="dv">1</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>markers <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">"../../Marker_genes.xlsx"</span>,<span class="at">sheet =</span> <span class="dv">5</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>markers <span class="ot">&lt;-</span> <span class="fu">as.list</span>(markers)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>markers <span class="ot">&lt;-</span> markers[<span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(markers)]</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (nv <span class="cf">in</span> <span class="fu">names</span>(markers)) {</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  markers[[nv]] <span class="ot">&lt;-</span> <span class="fu">unique</span>(markers[[nv]][<span class="sc">!</span><span class="fu">is.na</span>(markers[[nv]])])</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">#markers$ISG &lt;- ISG.genes</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#COEX.markers &lt;- getGenesCoex(obj,genes = unlist(markers)[unlist(markers,) %in% getGenes(obj)])</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>score.df <span class="ot">&lt;-</span> <span class="fu">geneSetEnrichment</span>(<span class="at">objCOTAN =</span> obj,</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>                              <span class="at">genes =</span> markers, </span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>                              <span class="at">expression.cl =</span> expression.cl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "In T cell genes there are 6 detected over 6 genes"
-[1] "In B cell genes there are 9 detected over 10 genes"
-[1] "In Plasma Cells there are 12 detected over 13 genes"
-[1] "In Mononuclear Phagocytes there are 4 detected over 4 genes"
-[1] "In Conventional Dendridic Cells there are 16 detected over 19 genes"
-[1] "In Macrophages there are 33 detected over 33 genes"
+<pre><code>[1] "In Epithelial genes there are 30 detected over 42 genes"
+[1] "In Enterocytes there are 3 detected over 4 genes"
+[1] "In Goblet cells there are 1 detected over 6 genes"
+[1] "In Enteroendocrine cells there are 0 detected over 4 genes"
+[1] "In Paneth cells there are 3 detected over 3 genes"
+[1] "In Tuft cells there are 0 detected over 3 genes"
+[1] "In TA cells there are 2 detected over 5 genes"
+[1] "In Stem cells there are 2 detected over 5 genes"
+[1] "In BEST4 cells there are 1 detected over 4 genes"
+[1] "In Red blood genes there are 0 detected over 3 genes"
+[1] "In T cell genes there are 6 detected over 6 genes"
+[1] "In B cell genes there are 6 detected over 6 genes"
+[1] "In Plasma Cells there are 3 detected over 4 genes"
+[1] "In Dendridic Cells there are 7 detected over 8 genes"
+[1] "In Macrophages there are 5 detected over 5 genes"
 [1] "In ILCs - Cytotoxic natural killer there are 7 detected over 8 genes"
-[1] "In ILC1s there are 11 detected over 12 genes"
-[1] "In ILC2s there are 7 detected over 11 genes"
-[1] "In ILC3 there are 26 detected over 26 genes"
-[1] "In Mast cells there are 4 detected over 6 genes"
-[1] "In Stroma/glia there are 7 detected over 9 genes"
-[1] "In CD36 endothelial there are 2 detected over 3 genes"
-[1] "In ACKR1 endothelial there are 2 detected over 4 genes"
-[1] "In Fibroblast there are 7 detected over 8 genes"
-[1] "In Active fibroblasts there are 10 detected over 11 genes"
-[1] "In Neutrophils there are 5 detected over 8 genes"
+[1] "In ILC1s there are 10 detected over 11 genes"
+[1] "In ILC2s there are 6 detected over 11 genes"
+[1] "In ILC3 there are 6 detected over 6 genes"
+[1] "In Mast cells there are 5 detected over 6 genes"
+[1] "In Endotelial Cells there are 6 detected over 7 genes"
+[1] "In ?? there are 0 detected over 2 genes"
+[1] "In Fibroblasts there are 4 detected over 6 genes"
+[1] "In Smooth muscle cells there are 4 detected over 5 genes"
+[1] "In Enteric glia cells there are 3 detected over 4 genes"
+[1] "In Neutrophils there are 4 detected over 8 genes"
 [1] "In Eosinophil there are 0 detected over 2 genes"
 [1] "In Basophils there are 5 detected over 6 genes"</code></pre>
 </div>
 </div>
+<p>We add separately the ISG score (to avoid the division of the score isubpopulationesent in more marker lists)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>score.ISG <span class="ot">&lt;-</span> <span class="fu">geneSetEnrichment</span>(<span class="at">objCOTAN =</span> obj,</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">genes =</span> <span class="fu">list</span>(<span class="st">"ISG"</span><span class="ot">=</span>ISG.genes), </span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">expression.cl =</span> expression.cl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>score.ISG <span class="ot">&lt;-</span> <span class="fu">geneSetEnrichment</span>(<span class="at">objCOTAN =</span> obj,</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">genes =</span> <span class="fu">list</span>(<span class="st">"ISG"</span><span class="ot">=</span>ISG.genes<span class="sc">$</span>genes), </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">expression.cl =</span> expression.cl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "In ISG there are 248 detected over 248 genes"</code></pre>
+<pre><code>[1] "In ISG there are 261 detected over 332 genes"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>score.df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(score.df,score.ISG)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>score.df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(score.df,score.ISG)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>In the next table we can observe how many marker genes we defined and how many are detected in thex-axis,e.</p>
 <div class="cell">
-
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>score.df[,<span class="fu">c</span>(<span class="st">"N. detected"</span>,<span class="st">"N. total"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>score.df[,<span class="fu">c</span>(<span class="st">"N. detected"</span>,<span class="st">"N. total"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                N. detected N. total
+Epithelial genes                         30       42
+Enterocytes                               3        4
+Goblet cells                              1        6
+Enteroendocrine cells                     0        4
+Paneth cells                              3        3
+Tuft cells                                0        3
+TA cells                                  2        5
+Stem cells                                2        5
+BEST4 cells                               1        4
+Red blood genes                           0        3
 T cell genes                              6        6
-B cell genes                              9       10
-Plasma Cells                             12       13
-Mononuclear Phagocytes                    4        4
-Conventional Dendridic Cells             16       19
-Macrophages                              33       33
+B cell genes                              6        6
+Plasma Cells                              3        4
+Dendridic Cells                           7        8
+Macrophages                               5        5
 ILCs - Cytotoxic natural killer           7        8
-ILC1s                                    11       12
-ILC2s                                     7       11
-ILC3                                     26       26
-Mast cells                                4        6
-Stroma/glia                               7        9
-CD36 endothelial                          2        3
-ACKR1 endothelial                         2        4
-Fibroblast                                7        8
-Active fibroblasts                       10       11
-Neutrophils                               5        8
+ILC1s                                    10       11
+ILC2s                                     6       11
+ILC3                                      6        6
+Mast cells                                5        6
+Endotelial Cells                          6        7
+??                                        0        2
+Fibroblasts                               4        6
+Smooth muscle cells                       4        5
+Enteric glia cells                        3        4
+Neutrophils                               4        8
 Eosinophil                                0        2
 Basophils                                 5        6
-ISG                                     248      248</code></pre>
+ISG                                     261      332</code></pre>
 </div>
+</div>
+<p>Cluster tree using the cosine distance over cluster coex.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>cluster_data <span class="ot">&lt;-</span> <span class="fu">getClusterizationData</span>(obj)[[<span class="st">"coex"</span>]]</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="do">######## This is the best: cosine dissimilarity</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>Matrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">t</span>(cluster_data))</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> Matrix <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">rowSums</span>(Matrix <span class="sc">*</span> Matrix))</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> sim <span class="sc">%*%</span> <span class="fu">t</span>(sim)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>D_sim <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(<span class="dv">1</span> <span class="sc">-</span> sim)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">hclust</span>(D_sim,<span class="at">method =</span> <span class="st">"ward.D2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>cluster_data <span class="ot">&lt;-</span> <span class="fu">getClusterizationData</span>(obj)[[<span class="st">"coex"</span>]]</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="do">######## This is the best: cosine dissimilarity</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>Matrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">t</span>(cluster_data))</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> Matrix <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">rowSums</span>(Matrix <span class="sc">*</span> Matrix))</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> sim <span class="sc">%*%</span> <span class="fu">t</span>(sim)</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>D_sim <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(<span class="dv">1</span> <span class="sc">-</span> sim)</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">hclust</span>(D_sim,<span class="at">method =</span> <span class="st">"ward.D2"</span>)</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tree)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="04_Data_exploration_clusters_id_patient7_NB_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">&lt;-</span> <span class="fu">as.dendrogram</span>(tree)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">#colnames(df) &lt;- str_remove_all(colnames(df), pattern = "cl.")</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>cut <span class="ot">=</span> <span class="fu">cutree</span>(tree, <span class="at">k =</span> <span class="dv">9</span>)</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">=</span><span class="fu">branches_color</span>(dend,<span class="at">k=</span><span class="dv">9</span>,<span class="at">col=</span><span class="fu">c</span>(<span class="st">"#4DBBD5FF"</span>,<span class="st">"#91D1C2FF"</span>,<span class="st">"#E64B35FF"</span>,<span class="st">"gray80"</span>,<span class="st">"#3C5488FF"</span>,<span class="st">"#F39B7FFF"</span>,<span class="st">"gray80"</span>),<span class="at">groupLabels =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in get_col(col, k): Length of color vector was shorter than the number
 of clusters - color vector was recycled</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>dend <span class="ot">=</span><span class="fu">color_labels</span>(dend,<span class="at">k=</span><span class="dv">9</span>)</span>
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+</section>
+<section id="final-score-heatmap" class="level3">
+<h3 class="anchored" data-anchor-id="final-score-heatmap">Final score heatmap</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>col_fun <span class="ot">=</span> <span class="fu">colorRamp2</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="fu">c</span>( <span class="st">"lightblue"</span>, <span class="st">"red"</span>))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>final.heatmap <span class="ot">&lt;-</span> <span class="fu">Heatmap</span>(df.t, <span class="at">rect_gp =</span> <span class="fu">gpar</span>(<span class="at">col =</span> <span class="st">"white"</span>, <span class="at">lwd =</span> <span class="dv">1</span>),</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">#cluster_rows = F,</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">cluster_columns =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">show_heatmap_legend =</span> F,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> col_fun,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">width =</span>  <span class="fu">unit</span>(<span class="dv">28</span>, <span class="st">"cm"</span>),</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">row_dend_width =</span> <span class="fu">unit</span>(<span class="dv">8</span>, <span class="st">"cm"</span>),</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">#height = unit(6, "cm"),</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">cluster_rows =</span> dend,</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">column_names_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">11</span>),</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">row_names_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">9</span>),</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">cell_fun =</span> <span class="cf">function</span>(j, i, x, y, width, height, fill) {</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">grid.text</span>(<span class="fu">sprintf</span>(<span class="st">"%.1f"</span>, df.t[i, j]), x, y, <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">9</span>))</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>},</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="at">right_annotation =</span> ha,</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="at">left_annotation =</span> hb</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>final.heatmap</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_Data_exploration_clusters_id_patient7_NB_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="1536"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(final.heatmap,<span class="fu">paste0</span>(<span class="st">"../../Crohn_disease/data/04_cluster_identification/"</span>,sample.id,<span class="st">"_heatmap.RDS"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="involved-ileum-samples" class="level1">
+<h1>Involved ileum samples</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>sample.id <span class="ot">=</span> <span class="st">"patient7_Involved"</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dend)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>expression.cl <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">paste0</span>(out_dir,sample.id,<span class="st">"_expression_clusters.csv"</span>),<span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">paste0</span>(in_dir,sample.id,<span class="st">".clustered.merged.cotan.RDS"</span>))</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>ISG.genes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../../ISG_fixed.txt"</span>,<span class="at">header =</span> T)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(ISG.genes) <span class="ot">&lt;-</span> <span class="st">"genes"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Number of ISG genes</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ISG.genes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 332   1</code></pre>
+</div>
+</div>
+<p>Detected ISG genes in the sample</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ISG.genes[ISG.genes<span class="sc">$</span>genes <span class="sc">%in%</span> <span class="fu">getGenes</span>(obj), ,<span class="at">drop =</span> <span class="cn">FALSE</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 296   1</code></pre>
+</div>
+</div>
+<section id="gdi-plot-with-isg-genes-1" class="level3">
+<h3 class="anchored" data-anchor-id="gdi-plot-with-isg-genes-1">GDI plot with ISG genes</h3>
+<p>Gene Differentiation Index is a score of how mutch a gene is different,tially expressed in the dataset. Genes expressed only in a sub-population of cells will have a GDI score higher than 1.5 while constitutive genes will show a GDI lower than 1.5. In the plot on the x axis there is also an estimation of the mean gene expression in the whole sample.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>GDI.data <span class="ot">&lt;-</span> <span class="fu">calculateGDI</span>(<span class="at">objCOTAN =</span> obj)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">GDIPlot</span>(<span class="at">objCOTAN =</span> obj, </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">genes =</span> <span class="fu">list</span>(<span class="st">"High exp ISG"</span><span class="ot">=</span><span class="fu">rownames</span>(GDI.data[<span class="fu">rownames</span>(GDI.data) <span class="sc">%in%</span> </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>                                  ISG.genes<span class="sc">$</span>genes <span class="sc">&amp;</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>                                  GDI.data<span class="sc">$</span>sum.raw.norm <span class="sc">&gt;=</span> <span class="dv">9</span>,]),</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"High GDI ISG"</span><span class="ot">=</span><span class="fu">rownames</span>(GDI.data[<span class="fu">rownames</span>(GDI.data) <span class="sc">%in%</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>                                                             ISG.genes<span class="sc">$</span>genes <span class="sc">&amp;</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>                                  GDI.data<span class="sc">$</span>GDI <span class="sc">&gt;=</span> <span class="fu">quantile</span>(GDI.data<span class="sc">$</span>GDI,<span class="at">probs =</span> <span class="fl">0.99</span>),])),</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">GDI.df =</span> GDI.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04_Data_exploration_clusters_id_patient7_NB_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="04_Data_exploration_clusters_id_patient7_NB_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">In green the most expressed ISG genes and in purple the top GDI ISG genes in the sample. Red dotted line indicates the 1.5 GDI threshold for differentially expressed genes. The two blue lines indicate the firs and senonc quartile for GDI score.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section"></h3>
+<p>Cluster assignment with expression increment</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>score.df <span class="ot">&lt;-</span> <span class="fu">geneSetEnrichment</span>(<span class="at">objCOTAN =</span> obj,</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">genes =</span> markers, </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">expression.cl =</span> expression.cl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "In Epithelial genes there are 39 detected over 42 genes"
+[1] "In Enterocytes there are 1 detected over 4 genes"
+[1] "In Goblet cells there are 4 detected over 6 genes"
+[1] "In Enteroendocrine cells there are 0 detected over 4 genes"
+[1] "In Paneth cells there are 2 detected over 3 genes"
+[1] "In Tuft cells there are 0 detected over 3 genes"
+[1] "In TA cells there are 5 detected over 5 genes"
+[1] "In Stem cells there are 3 detected over 5 genes"
+[1] "In BEST4 cells there are 1 detected over 4 genes"
+[1] "In Red blood genes there are 0 detected over 3 genes"
+[1] "In T cell genes there are 6 detected over 6 genes"
+[1] "In B cell genes there are 6 detected over 6 genes"
+[1] "In Plasma Cells there are 3 detected over 4 genes"
+[1] "In Dendridic Cells there are 8 detected over 8 genes"
+[1] "In Macrophages there are 5 detected over 5 genes"
+[1] "In ILCs - Cytotoxic natural killer there are 7 detected over 8 genes"
+[1] "In ILC1s there are 10 detected over 11 genes"
+[1] "In ILC2s there are 7 detected over 11 genes"
+[1] "In ILC3 there are 6 detected over 6 genes"
+[1] "In Mast cells there are 4 detected over 6 genes"
+[1] "In Endotelial Cells there are 6 detected over 7 genes"
+[1] "In ?? there are 1 detected over 2 genes"
+[1] "In Fibroblasts there are 5 detected over 6 genes"
+[1] "In Smooth muscle cells there are 4 detected over 5 genes"
+[1] "In Enteric glia cells there are 2 detected over 4 genes"
+[1] "In Neutrophils there are 6 detected over 8 genes"
+[1] "In Eosinophil there are 0 detected over 2 genes"
+[1] "In Basophils there are 5 detected over 6 genes"</code></pre>
+</div>
+</div>
+<p>We add separately the ISG score (to avoid the division of the score if a gene is present in more marker lists)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>score.ISG <span class="ot">&lt;-</span> <span class="fu">geneSetEnrichment</span>(<span class="at">objCOTAN =</span> obj,</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">genes =</span> <span class="fu">list</span>(<span class="st">"ISG"</span><span class="ot">=</span>ISG.genes<span class="sc">$</span>genes), </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">expression.cl =</span> expression.cl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "In ISG there are 296 detected over 332 genes"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>score.df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(score.df,score.ISG)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the next table we can observe how many marker genes we defined and how many are detecx-axis the sample.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>score.df[,<span class="fu">c</span>(<span class="st">"N. detected"</span>,<span class="st">"N. total"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                N. detected N. total
+Epithelial genes                         39       42
+Enterocytes                               1        4
+Goblet cells                              4        6
+Enteroendocrine cells                     0        4
+Paneth cells                              2        3
+Tuft cells                                0        3
+TA cells                                  5        5
+Stem cells                                3        5
+BEST4 cells                               1        4
+Red blood genes                           0        3
+T cell genes                              6        6
+B cell genes                              6        6
+Plasma Cells                              3        4
+Dendridic Cells                           8        8
+Macrophages                               5        5
+ILCs - Cytotoxic natural killer           7        8
+ILC1s                                    10       11
+ILC2s                                     7       11
+ILC3                                      6        6
+Mast cells                                4        6
+Endotelial Cells                          6        7
+??                                        1        2
+Fibroblasts                               5        6
+Smooth muscle cells                       4        5
+Enteric glia cells                        2        4
+Neutrophils                               6        8
+Eosinophil                                0        2
+Basophils                                 5        6
+ISG                                     296      332</code></pre>
+</div>
+</div>
+<p>Cluster tree using the cosine distance over cluster coex.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>cluster_data <span class="ot">&lt;-</span> <span class="fu">getClusterizationData</span>(obj)[[<span class="st">"coex"</span>]]</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="do">######## This is the best: cosine dissimilarity</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>Matrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">t</span>(cluster_data))</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> Matrix <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">rowSums</span>(Matrix <span class="sc">*</span> Matrix))</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> sim <span class="sc">%*%</span> <span class="fu">t</span>(sim)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>D_sim <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(<span class="dv">1</span> <span class="sc">-</span> sim)</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">hclust</span>(D_sim,<span class="at">method =</span> <span class="st">"ward.D2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in get_col(col, k): Length of color vector was shorter than the number
+of clusters - color vector was recycled</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -491,31 +723,228 @@ of clusters - color vector was recycled</code></pre>
 <div class="cell">
 
 </div>
+</section>
+<section id="final-score-heatmap-1" class="level3">
+<h3 class="anchored" data-anchor-id="final-score-heatmap-1">Final score heatmap</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>col_fun <span class="ot">=</span> <span class="fu">colorRamp2</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="fu">c</span>( <span class="st">"lightblue"</span>, <span class="st">"red"</span>))</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Heatmap</span>(df.t, <span class="at">rect_gp =</span> <span class="fu">gpar</span>(<span class="at">col =</span> <span class="st">"white"</span>, <span class="at">lwd =</span> <span class="dv">1</span>),</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">#cluster_rows = F,</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">cluster_columns =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">show_heatmap_legend =</span> F,</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> col_fun,</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">width =</span>  <span class="fu">unit</span>(<span class="dv">28</span>, <span class="st">"cm"</span>),</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">row_dend_width =</span> <span class="fu">unit</span>(<span class="dv">8</span>, <span class="st">"cm"</span>),</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">#height = unit(6, "cm"),</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">cluster_rows =</span> dend,</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">column_names_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">11</span>),</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">row_names_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">9</span>),</span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">cell_fun =</span> <span class="cf">function</span>(j, i, x, y, width, height, fill) {</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">grid.text</span>(<span class="fu">sprintf</span>(<span class="st">"%.1f"</span>, df.t[i, j]), x, y, <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">9</span>))</span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>},</span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="at">right_annotation =</span> ha,</span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="at">left_annotation =</span> hb</span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>col_fun <span class="ot">=</span> <span class="fu">colorRamp2</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="fu">c</span>( <span class="st">"lightblue"</span>, <span class="st">"red"</span>))</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>final.heatmap <span class="ot">&lt;-</span> <span class="fu">Heatmap</span>(df.t, <span class="at">rect_gp =</span> <span class="fu">gpar</span>(<span class="at">col =</span> <span class="st">"white"</span>, <span class="at">lwd =</span> <span class="dv">1</span>),</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">#cluster_rows = F,</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">cluster_columns =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">show_heatmap_legend =</span> F,</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> col_fun,</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">width =</span>  <span class="fu">unit</span>(<span class="dv">28</span>, <span class="st">"cm"</span>),</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">row_dend_width =</span> <span class="fu">unit</span>(<span class="dv">8</span>, <span class="st">"cm"</span>),</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">#height = unit(6, "cm"),</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">cluster_rows =</span> dend,</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">column_names_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">11</span>),</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">row_names_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">9</span>),</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">cell_fun =</span> <span class="cf">function</span>(j, i, x, y, width, height, fill) {</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">grid.text</span>(<span class="fu">sprintf</span>(<span class="st">"%.1f"</span>, df.t[i, j]), x, y, <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">9</span>))</span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>},</span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a><span class="at">right_annotation =</span> ha,</span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a><span class="at">left_annotation =</span> hb</span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>final.heatmap</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04_Data_exploration_clusters_id_patient7_NB_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="1536"></p>
+<p><img src="04_Data_exploration_clusters_id_patient7_NB_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="1536"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(final.heatmap,<span class="fu">paste0</span>(<span class="st">"../../Crohn_disease/data/04_cluster_identification/"</span>,sample.id,<span class="st">"_heatmap.RDS"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="pbmc-samples" class="level1">
+<h1>PBMC samples</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>sample.id <span class="ot">=</span> <span class="st">"patient7_PBMC"</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>expression.cl <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">paste0</span>(out_dir,sample.id,<span class="st">"_expression_clusters.csv"</span>),<span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">paste0</span>(in_dir,sample.id,<span class="st">".clustered.merged.cotan.RDS"</span>))</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>ISG.genes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../../ISG_fixed.txt"</span>,<span class="at">header =</span> T)</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(ISG.genes) <span class="ot">&lt;-</span> <span class="st">"genes"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Number of ISG genes</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ISG.genes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 332   1</code></pre>
+</div>
+</div>
+<p>Detected ISG genes in the sample</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ISG.genes[ISG.genes<span class="sc">$</span>genes <span class="sc">%in%</span> <span class="fu">getGenes</span>(obj), ,<span class="at">drop =</span> <span class="cn">FALSE</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 242   1</code></pre>
+</div>
+</div>
+<section id="gdi-plot-with-isg-genes-2" class="level3">
+<h3 class="anchored" data-anchor-id="gdi-plot-with-isg-genes-2">GDI plot with ISG genes</h3>
+<p>Gene Differentiation Index is a score of how mutch a gene is differentially expressed in the dataset. Genes expressed only in a subpopulation of cells will have a GDI score higher than 1.5 while constitutive genes will show a GDI lower than 1.5. In the plot on the x axis there is also an estimation of the mean gene expression in the whole sample.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>GDI.data <span class="ot">&lt;-</span> <span class="fu">calculateGDI</span>(<span class="at">objCOTAN =</span> obj)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">GDIPlot</span>(<span class="at">objCOTAN =</span> obj, </span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">genes =</span> <span class="fu">list</span>(<span class="st">"High exp ISG"</span><span class="ot">=</span><span class="fu">rownames</span>(GDI.data[<span class="fu">rownames</span>(GDI.data) <span class="sc">%in%</span> </span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>                                  ISG.genes<span class="sc">$</span>genes <span class="sc">&amp;</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>                                  GDI.data<span class="sc">$</span>sum.raw.norm <span class="sc">&gt;=</span> <span class="dv">9</span>,]),</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"High GDI ISG"</span><span class="ot">=</span><span class="fu">rownames</span>(GDI.data[<span class="fu">rownames</span>(GDI.data) <span class="sc">%in%</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>                                                             ISG.genes<span class="sc">$</span>genes <span class="sc">&amp;</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>                                  GDI.data<span class="sc">$</span>GDI <span class="sc">&gt;=</span> <span class="fu">quantile</span>(GDI.data<span class="sc">$</span>GDI,<span class="at">probs =</span> <span class="fl">0.99</span>),])),</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">GDI.df =</span> GDI.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="04_Data_exploration_clusters_id_patient7_NB_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">In green the most expressed ISG genes and in purple the top GDI ISG genes in the sample. Red dotted line indicates the 1.5 GDI threshold for differentially expressed genes. The two blue lines indicate the firs and senonc quartile for GDI score.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="cluster-assignment-with-expression-increment-1" class="level3">
+<h3 class="anchored" data-anchor-id="cluster-assignment-with-expression-increment-1">Cluster assignment with expression increment</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>score.df <span class="ot">&lt;-</span> <span class="fu">geneSetEnrichment</span>(<span class="at">objCOTAN =</span> obj,</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">genes =</span> markers, </span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">expression.cl =</span> expression.cl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "In Epithelial genes there are 6 detected over 42 genes"
+[1] "In Enterocytes there are 1 detected over 4 genes"
+[1] "In Goblet cells there are 0 detected over 6 genes"
+[1] "In Enteroendocrine cells there are 0 detected over 4 genes"
+[1] "In Paneth cells there are 1 detected over 3 genes"
+[1] "In Tuft cells there are 0 detected over 3 genes"
+[1] "In TA cells there are 3 detected over 5 genes"
+[1] "In Stem cells there are 1 detected over 5 genes"
+[1] "In BEST4 cells there are 1 detected over 4 genes"
+[1] "In Red blood genes there are 3 detected over 3 genes"
+[1] "In T cell genes there are 6 detected over 6 genes"
+[1] "In B cell genes there are 6 detected over 6 genes"
+[1] "In Plasma Cells there are 2 detected over 4 genes"
+[1] "In Dendridic Cells there are 8 detected over 8 genes"
+[1] "In Macrophages there are 5 detected over 5 genes"
+[1] "In ILCs - Cytotoxic natural killer there are 8 detected over 8 genes"
+[1] "In ILC1s there are 10 detected over 11 genes"
+[1] "In ILC2s there are 6 detected over 11 genes"
+[1] "In ILC3 there are 1 detected over 6 genes"
+[1] "In Mast cells there are 1 detected over 6 genes"
+[1] "In Endotelial Cells there are 2 detected over 7 genes"
+[1] "In ?? there are 0 detected over 2 genes"
+[1] "In Fibroblasts there are 2 detected over 6 genes"
+[1] "In Smooth muscle cells there are 3 detected over 5 genes"
+[1] "In Enteric glia cells there are 2 detected over 4 genes"
+[1] "In Neutrophils there are 7 detected over 8 genes"
+[1] "In Eosinophil there are 0 detected over 2 genes"
+[1] "In Basophils there are 5 detected over 6 genes"</code></pre>
+</div>
+</div>
+<p>We add separately the ISG score (to avoid the division of the score is a gene is present in more marker list)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>score.ISG <span class="ot">&lt;-</span> <span class="fu">geneSetEnrichment</span>(<span class="at">objCOTAN =</span> obj,</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">genes =</span> <span class="fu">list</span>(<span class="st">"ISG"</span><span class="ot">=</span>ISG.genes<span class="sc">$</span>genes), </span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">expression.cl =</span> expression.cl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "In ISG there are 242 detected over 332 genes"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>score.df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(score.df,score.ISG)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the next table we can observe how many marker genes we defined and how may are detected in the sample.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>score.df[,<span class="fu">c</span>(<span class="st">"N. detected"</span>,<span class="st">"N. total"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                N. detected N. total
+Epithelial genes                          6       42
+Enterocytes                               1        4
+Goblet cells                              0        6
+Enteroendocrine cells                     0        4
+Paneth cells                              1        3
+Tuft cells                                0        3
+TA cells                                  3        5
+Stem cells                                1        5
+BEST4 cells                               1        4
+Red blood genes                           3        3
+T cell genes                              6        6
+B cell genes                              6        6
+Plasma Cells                              2        4
+Dendridic Cells                           8        8
+Macrophages                               5        5
+ILCs - Cytotoxic natural killer           8        8
+ILC1s                                    10       11
+ILC2s                                     6       11
+ILC3                                      1        6
+Mast cells                                1        6
+Endotelial Cells                          2        7
+??                                        0        2
+Fibroblasts                               2        6
+Smooth muscle cells                       3        5
+Enteric glia cells                        2        4
+Neutrophils                               7        8
+Eosinophil                                0        2
+Basophils                                 5        6
+ISG                                     242      332</code></pre>
+</div>
+</div>
+<p>Cluster tree using the cosine distance over cluster coex.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>cluster_data <span class="ot">&lt;-</span> <span class="fu">getClusterizationData</span>(obj)[[<span class="st">"coex"</span>]]</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="do">######## This is the best: cosine dissimilarity</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>Matrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">t</span>(cluster_data))</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> Matrix <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">rowSums</span>(Matrix <span class="sc">*</span> Matrix))</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> sim <span class="sc">%*%</span> <span class="fu">t</span>(sim)</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>D_sim <span class="ot">&lt;-</span> <span class="fu">as.dist</span>(<span class="dv">1</span> <span class="sc">-</span> sim)</span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">hclust</span>(D_sim,<span class="at">method =</span> <span class="st">"ward.D2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in get_col(col, k): Length of color vector was longer than the number of
+clusters - first k elements are used</code></pre>
+</div>
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+</section>
+<section id="final-score-heatmap-2" class="level3">
+<h3 class="anchored" data-anchor-id="final-score-heatmap-2">Final score heatmap</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>col_fun <span class="ot">=</span> <span class="fu">colorRamp2</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="fu">c</span>( <span class="st">"lightblue"</span>, <span class="st">"red"</span>))</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>final.heatmap <span class="ot">&lt;-</span> <span class="fu">Heatmap</span>(df.t, <span class="at">rect_gp =</span> <span class="fu">gpar</span>(<span class="at">col =</span> <span class="st">"white"</span>, <span class="at">lwd =</span> <span class="dv">1</span>),</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">#cluster_rows = F,</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">cluster_columns =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">show_heatmap_legend =</span> F,</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> col_fun,</span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">width =</span>  <span class="fu">unit</span>(<span class="dv">28</span>, <span class="st">"cm"</span>),</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">row_dend_width =</span> <span class="fu">unit</span>(<span class="dv">8</span>, <span class="st">"cm"</span>),</span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">#height = unit(6, "cm"),</span></span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">cluster_rows =</span> dend,</span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">column_names_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">11</span>),</span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">row_names_gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">9</span>),</span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">cell_fun =</span> <span class="cf">function</span>(j, i, x, y, width, height, fill) {</span>
+<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">grid.text</span>(<span class="fu">sprintf</span>(<span class="st">"%.1f"</span>, df.t[i, j]), x, y, <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">fontsize =</span> <span class="dv">9</span>))</span>
+<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a>},</span>
+<span id="cb62-16"><a href="#cb62-16" aria-hidden="true" tabindex="-1"></a><span class="at">right_annotation =</span> ha,</span>
+<span id="cb62-17"><a href="#cb62-17" aria-hidden="true" tabindex="-1"></a><span class="at">left_annotation =</span> hb</span>
+<span id="cb62-18"><a href="#cb62-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb62-19"><a href="#cb62-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-20"><a href="#cb62-20" aria-hidden="true" tabindex="-1"></a>final.heatmap</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_Data_exploration_clusters_id_patient7_NB_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="1536"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(final.heatmap,<span class="fu">paste0</span>(<span class="st">"../../Crohn_disease/data/04_cluster_identification/"</span>,sample.id,<span class="st">"_heatmap.RDS"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="session-info" class="level6">
+<h6 class="anchored" data-anchor-id="session-info">Session info</h6>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R version 4.2.2 Patched (2022-11-10 r83330)
 Platform: x86_64-pc-linux-gnu (64-bit)
@@ -594,6 +1023,8 @@ loaded via a namespace (and not attached):
 </div>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
