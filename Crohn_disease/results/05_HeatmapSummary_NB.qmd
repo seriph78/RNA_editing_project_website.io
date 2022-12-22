@@ -1,0 +1,218 @@
+---
+title: "Final report - heatmap summary"
+editor: visual
+execute: 
+  freeze: true
+---
+```{r}
+today <- Sys.Date()
+format(today, format = "%A %d %B %Y")
+```
+
+# Summary by Patient
+
+## Patient 5
+
+```{r,echo=FALSE}
+library(grid)
+library(gridExtra)
+library(viridis)
+library(ggplot2)
+library(stringr)
+library(dendextend)
+involved5 <- readRDS("../data/04_cluster_identification/patient5_Involved_heatmap.RDS")
+uninvolved5 <- readRDS("../data/04_cluster_identification/patient5_Uninvolved_heatmap.RDS")
+PBMC5 <- readRDS("../data/04_cluster_identification/patient5_PBMC_heatmap.RDS")
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "Involved sample for patient 5"}
+involved5
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "Uninvolved sample for patient 5"}
+uninvolved5
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "PBMC sample for patient 5"}
+PBMC5
+```
+
+## Patient 7
+
+```{r, fig.width= 16, fig.height= 12}
+involved7 <- readRDS("../data/04_cluster_identification/patient7_Involved_heatmap.RDS")
+uninvolved7 <- readRDS("../data/04_cluster_identification/patient7_Uninvolved_heatmap.RDS")
+PBMC7 <- readRDS("../data/04_cluster_identification/patient7_PBMC_heatmap.RDS")
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "Involved sample for patient 7"}
+involved7
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "Uninvolved sample for patient 7"}
+uninvolved7
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "PBMC sample for patient 7"}
+PBMC7
+```
+
+## Patient 8
+
+```{r, fig.width= 16, fig.height= 12}
+involved8 <- readRDS("../data/04_cluster_identification/patient8_Involved_heatmap.RDS")
+uninvolved8 <- readRDS("../data/04_cluster_identification/patient8_Uninvolved_heatmap.RDS")
+PBMC8 <- readRDS("../data/04_cluster_identification/patient8_PBMC_heatmap.RDS")
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "Involved sample for patient 8"}
+involved8
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "Uninvolved sample for patient 8"}
+uninvolved8
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "PBMC sample for patient 8"}
+PBMC8
+```
+
+## Patient 10
+
+```{r, fig.width= 16, fig.height= 12}
+involved10 <- readRDS("../data/04_cluster_identification/patient10_Involved_heatmap.RDS")
+uninvolved10 <- readRDS("../data/04_cluster_identification/patient10_Uninvolved_heatmap.RDS")
+PBMC10 <- readRDS("../data/04_cluster_identification/patient10_PBMC_heatmap.RDS")
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "Involved sample for patient 10"}
+involved10
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "Uninvolved sample for patient 10"}
+uninvolved10
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "PBMC sample for patient 10"}
+PBMC10
+```
+
+## Patient 11
+
+```{r, fig.width= 16, fig.height= 12}
+involved11 <- readRDS("../data/04_cluster_identification/patient11_Involved_heatmap.RDS")
+uninvolved11 <- readRDS("../data/04_cluster_identification/patient11_Uninvolved_heatmap.RDS")
+PBMC11 <- readRDS("../data/04_cluster_identification/patient11_PBMC_heatmap.RDS")
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "Involved sample for patient 11"}
+involved11
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "Uninvolved sample for patient 11"}
+uninvolved11
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "PBMC sample for patient 11"}
+PBMC11
+```
+
+## Patient 12
+
+```{r, fig.width= 16, fig.height= 12}
+involved12 <- readRDS("../data/04_cluster_identification/patient12_Involved_heatmap.RDS")
+uninvolved12 <- readRDS("../data/04_cluster_identification/patient12_Uninvolved_heatmap.RDS")
+PBMC12 <- readRDS("../data/04_cluster_identification/patient12_PBMC_heatmap.RDS")
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "Involved sample for patient 12"}
+involved12
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "Uninvolved sample for patient 12"}
+uninvolved12
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "PBMC sample for patient 12"}
+PBMC12
+```
+
+# Summary by Sample Type
+
+## Univolved
+
+```{r, fig.width= 16, fig.height= 12}
+uninvolved5
+```
+
+```{r, fig.width= 16, fig.height= 12}
+uninvolved7
+```
+
+```{r, fig.width= 16, fig.height= 12}
+uninvolved8
+```
+
+```{r, fig.width= 16, fig.height= 12}
+uninvolved10
+```
+
+```{r, fig.width= 16, fig.height= 12}
+uninvolved11
+```
+
+```{r, fig.width= 16, fig.height= 12}
+uninvolved12
+```
+
+## Involved
+
+```{r, fig.width= 16, fig.height= 12}
+involved5
+```
+
+```{r, fig.width= 16, fig.height= 12}
+involved7
+```
+
+```{r, fig.width= 16, fig.height= 12}
+involved8
+```
+
+```{r, fig.width= 16, fig.height= 12}
+involved10
+```
+
+```{r, fig.width= 16, fig.height= 12}
+involved11
+```
+
+```{r, fig.width= 16, fig.height= 12}
+involved12
+```
+
+## PBMC
+
+```{r, fig.width= 16, fig.height= 12}
+PBMC5
+```
+
+```{r, fig.width= 16, fig.height= 12}
+PBMC7
+```
+
+```{r, fig.width= 16, fig.height= 12}
+PBMC8
+```
+
+```{r, fig.width= 16, fig.height= 12}
+PBMC10
+```
+
+```{r, fig.width= 16, fig.height= 12}
+PBMC11
+```
+
+```{r, fig.width= 16, fig.height= 12}
+PBMC12
+```

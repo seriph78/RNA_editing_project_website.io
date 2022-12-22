@@ -15,7 +15,7 @@ obj <- cell_homogeneous_clustering(cond = sample.id,
                                    sc.method="10X"
 )
 
-saveRDS(obj, file = paste0(out_dir,sample.id,".cotan.clustered.RDS") )
+#saveRDS(obj, file = paste0(out_dir,sample.id,".cotan.clustered.RDS") )
 
 
 gc()
@@ -27,13 +27,13 @@ saveRDS(pval, paste(out_dir,"pval.",sample.id,".clustering.RDS"))
 saveRDS(obj, file = paste0(out_dir,sample.id,".cotan.clustered.RDS") )
         
 obj <- merge_cell.clusters(obj = obj,cond = sample.id,cores=10, 
-                           out_dir_root = out_dir,
-                           srat = paste0("Seurat_obj_",sample.id,"_with_cotan_clusters2.RDS"),
-                           out_dir = paste0(out_dir) ,
+                           #out_dir_root = out_dir,
+                           srat = paste0("Seurat_obj_",sample.id,"_with_cotan_clusters.RDS"),
+                           out_dir = out_dir ,
                            GEO=GEO, sc.method="10X"
                            )
 
-saveRDS(obj, file = paste0(out_dir,sample.id,".cotan.clustered.merged.RDS") )
+saveRDS(obj, file = paste0(out_dir,sample.id,".clustered.merged.cotan.RDS") )
 
 out_dir <- "Crohn_disease/data/04_cluster_identification/"
 

@@ -1,20 +1,30 @@
 ---
-title: "Final report patient 7"
+title: "Final report for patient 8"
+author: "Silvia Giulia Galfrè"
 editor: visual
 execute: 
   freeze: true
 ---
 
 ```{r}
-############################
-out_dir <- "../../Crohn_disease/data/04_cluster_identification/"
+library(dendextend)
+library(ComplexHeatmap)
+library(circlize)
+dir <- "../../Crohn_disease/data/04_cluster_identification/"
+sample.id = "patient8_ileum"
+
 ISG.genes <- read.csv("../../ISG_fixed.txt",header = T)
 colnames(ISG.genes) <- "genes"
 
-expression.cl <- read.csv(paste0(out_dir,sample.id,"_expression_clusters.csv"),row.names = 1)
+expression.cl <- read.csv(paste0(dir,sample.id,"_expression_clusters.csv"),row.names = 1)
 
 genes <- list("ISG.genes" = ISG.genes$genes)
+head(genes[[1]])
 
+obj <- readRDS("../data/03_clustred_data/patient8_ileum.cotan.clustered.merged.RDS")
+```
+
+```{r}
 df2 <- as.data.frame(matrix(nrow = 1,ncol = ncol(obj@cluster_data)))
 rownames(df2) <- names(genes)
 colnames(df2) <- colnames(obj@cluster_data)
@@ -34,12 +44,11 @@ for (ro in colnames(df2)) {
 }
 
 print(n.genes)
+```
 
+```{r}
 df2 <- round(df2,digits = 1)
-#write.csv(df2,file = paste(out_dir,sample.id,"_ISG_clusters_expression.csv", sep = ""))
-
-#write.csv(rbind(df,df2),file = paste(out_dir,sample.id,"_markers_clusters_expression_with_ISG.csv", sep = ""))
-
+df2
 ```
 
 ```{r}
@@ -51,7 +60,6 @@ sim <- Matrix / sqrt(rowSums(Matrix * Matrix))
 sim <- sim %*% t(sim)
 D_sim <- as.dist(1 - sim)
 tree <- hclust(D_sim,method = "ward.D2")
-
 ```
 
 ```{r}
@@ -60,15 +68,18 @@ dend <- as.dendrogram(tree)
 cut = cutree(tree, k = 9)
 dend =branches_color(dend,k=9,col=c("#4DBBD5FF","#91D1C2FF","#E64B35FF","gray80","#3C5488FF","#F39B7FFF","gray80"),groupLabels = T)
 dend =color_labels(dend,k=9)
+
+plot(dend)
+
 ```
 
-```{r,fig.height=5, fig.width=15}
+```{r}
 col_fun = colorRamp2(c(0, 1), c( "lightblue", "red"))
-Heatmap(df2, rect_gp = gpar(col = "white", lwd = 1),
+Heatmap(as.matrix(df2), rect_gp = gpar(col = "white", lwd = 1),
         cluster_rows = F,
         #cluster_columns = FALSE,
         show_heatmap_legend = F,
-         col = col_fun,
+        col = col_fun,
         column_dend_height = unit(4, "cm"),
         #width =  unit(24, "cm"),
         #height = unit(6, "cm"),

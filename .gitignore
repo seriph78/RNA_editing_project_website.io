@@ -8,10 +8,12 @@ RNA_editing_report_website
 .Rhistory
 .Rproj.user
 *.csv
+Crohn_disease/data/
 IBD/data/
 *RAW.tar
 /.quarto/
 /_site/
+_freeze/
 *.tsv.gz
 *.mtx.gz
 *.tsv

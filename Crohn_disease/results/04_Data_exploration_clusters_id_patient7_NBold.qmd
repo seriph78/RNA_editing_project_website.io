@@ -1,0 +1,243 @@
+---
+title: "Data exploration patient 7"
+editor: visual
+execute: 
+  freeze: true
+---
+
+```{r}
+library(grid)
+library(gridExtra)
+library(viridis)
+library(ggplot2)
+library(stringr)
+library(dendextend)
+devtools::load_all("../../../COTAN/")
+```
+
+# Ileum samples
+
+```{r}
+out_dir <- "../../Crohn_disease/data/04_cluster_identification/"
+sample.id = "patient7_ileum"
+
+obj <- readRDS(paste0("../../Crohn_disease/data/03_clustred_data/",sample.id,"_merged_cotan.RDS"))
+
+ISG.genes <- read.csv("../../ISG_fixed.txt",header = T)
+colnames(ISG.genes) <- "genes"
+```
+
+Number of initial genes
+
+```{r}
+dim(ISG.genes)
+
+```
+
+Detected ISG genes in the sample
+
+```{r}
+ISG.genes <- ISG.genes[ISG.genes$genes %in% getGenes(obj), ,drop = FALSE]
+dim(ISG.genes)
+```
+
+We use the GDI to drop ISG genes not differentially expressed (to minimize background noise)
+
+```{r}
+GDI.data <- calculateGDI(objCOTAN = obj)
+hist(GDI.data[rownames(GDI.data) %in% ISG.genes$genes,"GDI"],breaks = 50)
+```
+
+```{r}
+hist(GDI.data[rownames(GDI.data) %in% ISG.genes$genes,"sum.raw.norm"],breaks = 50)
+```
+
+```{r}
+ggplot(GDI.data[rownames(GDI.data) %in% ISG.genes$genes,],aes(sum.raw.norm, GDI)) + geom_point()
+```
+
+```{r}
+ISG.genes <- ISG.genes[!ISG.genes$genes %in% rownames(GDI.data[GDI.data$GDI < 1.5,]),]
+length(ISG.genes)
+```
+
+cluster assignment with expression increment
+
+```{r}
+expression.cl <- read.csv(paste0(out_dir,sample.id,"_expression_clusters.csv"),row.names = 1)
+markers <- readxl::read_excel("../../Marker_genes.xlsx",sheet = 3)
+markers <- as.list(markers)
+markers <- markers[2:length(markers)]
+for (nv in names(markers)) {
+  markers[[nv]] <- unique(markers[[nv]][!is.na(markers[[nv]])])
+}
+
+markers$ISG <- ISG.genes
+
+#COEX.markers <- getGenesCoex(obj,genes = unlist(markers)[unlist(markers,) %in% getGenes(obj)])
+score.df <- geneSetEnrichment(objCOTAN = obj,
+                              genes = markers, 
+                              expression.cl = expression.cl)
+```
+
+```{r}
+# good.markers <- NA
+# for (v in colnames(COEX.markers)) {
+#   max.coex <- max(COEX.markers[,v])
+#   if (max.coex >= 0.5) {
+#     #print(paste0(v," max coex ",max.coex))  
+#     good.markers <- c(good.markers,v)
+#   }
+# }
+# 
+# for (m in names(markers)) {
+#   markers[[m]] <- markers[[m]][markers[[m]] %in% good.markers]
+# }
+# 
+# 
+# to.keep <- NA
+# for (v in 1:length(markers)) {
+#   #print(markers[[v]])
+#   if (length(markers[[v]])>0) {
+#     to.keep <- c(to.keep,v)
+#   }
+# }
+# to.keep <- to.keep[!is.na(to.keep)]
+# 
+# markers <- markers[to.keep]
+# markers
+```
+
+```{r}
+df <- as.data.frame(matrix(nrow = length(names(markers)),ncol = ncol(expression.cl)))
+rownames(df) <- names(markers)
+colnames(df) <- colnames(expression.cl)
+df2 <- df
+
+teta <- -1/0.1 * (log(0.25))
+#not_ass_clusters <- NA
+for (ro in colnames(df)) {
+  for (m in names(markers)) {
+    #print(m)
+    #pv <- p_value[unlist(markers[[m]]),ro]
+    #co <- obj@cluster_data[unlist(markers[[m]]),ro]
+    ex <- expression.cl[rownames(expression.cl) %in% markers[[m]],ro, drop =FALSE]
+    ex[ex < 0 & !is.na(ex)] <- 0
+    
+    for (g in rownames(ex)) {
+      occurrencies <- sum(unlist(markers) == g)
+      ex[g,1] <- ex[g,1]/occurrencies 
+    }
+    
+    ex <- 1-exp(- teta * ex)
+    #n.markers <- sum(rownames(obj@raw) %in% markers[[m]])
+    n.markers <- length(markers[[m]])
+    df[m,ro] <- sum(ex,na.rm = T)/n.markers
+    df2[m,ro]<- paste0(round(sum(ex,na.rm = T),digits = 1),"/",n.markers)
+  }
+}
+#write.csv(df,file = paste(out_dir,sample.id,"_markers_clusters_expression.csv", sep = ""))
+
+df <- round(df,digits = 2)
+df <- df[,2:ncol(df)]
+
+
+df2 <- df2[,2:ncol(df2)]
+df2
+```
+
+```{r}
+cluster_data <- getClusterizationData(obj)[["coex"]]
+
+######## This is the best: cosine dissimilarity
+Matrix <- as.matrix(t(cluster_data))
+sim <- Matrix / sqrt(rowSums(Matrix * Matrix))
+sim <- sim %*% t(sim)
+D_sim <- as.dist(1 - sim)
+tree <- hclust(D_sim,method = "ward.D2")
+plot(tree)
+```
+
+```{r}
+dend <- as.dendrogram(tree)
+#colnames(df) <- str_remove_all(colnames(df), pattern = "cl.")
+cut = cutree(tree, k = 9)
+dend =branches_color(dend,k=9,col=c("#4DBBD5FF","#91D1C2FF","#E64B35FF","gray80","#3C5488FF","#F39B7FFF","gray80"),groupLabels = T)
+dend =color_labels(dend,k=9)
+
+plot(dend)
+```
+
+```{r,fig.width=15}
+
+col_fun = colorRamp2(c(0, 1), c( "lightblue", "red"))
+Heatmap(df, rect_gp = gpar(col = "white", lwd = 1),
+        cluster_rows = F,
+        #cluster_columns = FALSE,
+        show_heatmap_legend = F,
+         col = col_fun,
+        column_dend_height = unit(4, "cm"),
+        row_dend_width
+        = unit(4, "cm"),
+        #width =  unit(24, "cm"),
+        #height = unit(6, "cm"),
+        cluster_columns = dend,
+        row_names_gp = gpar(fontsize = 7),
+        column_names_gp = gpar(fontsize = 7),
+        cell_fun = function(j, i, x, y, width, height, fill) {
+        grid.text(sprintf("%.1f", df[i, j]), x, y, gp = gpar(fontsize = 5))
+},
+bottom_annotation = 
+# left_annotation = rowAnnotation(foo = anno_block(gp = gpar(fill = 2:4),
+#         labels = c("group1", "group2", "group3","","","",""), 
+#         labels_gp = gpar(col = "white", fontsize = 10))),
+#     row_km = 7
+)
+```
+
+```{r}
+df3 <- as.data.frame(table(getClusterizationData(obj)[[1]]))
+df4 <- df3$Freq
+names(df4) <- df3$Var1
+df4 <- df4[labels(dend)]
+df4 <- as.data.frame(df4)
+df4[,"nu_mean"] <- NA
+colnames(df4)[1] <- "Cell.number"
+#df4 <- t(df4)
+
+MetadataCells <- getMetadataCells(obj)
+for (cl in unique(MetadataCells[,"CL_clusters"])) {
+ df4[cl,"nu_mean"] <- mean(MetadataCells[MetadataCells$CL_clusters == cl,]$nu)
+  }
+df4 <- as.data.frame(df4)
+df4[2,] <- round(df4[2,],digits = 1)
+```
+
+```{r}
+ha = rowAnnotation(cell.number = anno_numeric(round(df4$Cell.number,digits = 0),
+        bg_gp = gpar(fill = "orange", col = "black"),labels_gp = gpar(fontsize = 5)),
+    annotation_name_rot = 0)
+
+hb = rowAnnotation(nu.mean = anno_numeric(round(df4$nu_mean,digits = 2),
+        bg_gp = gpar(fill = c("green")),align_to = "right",labels_gp = gpar(fontsize = 5)),
+    annotation_name_rot = 0)
+```
+
+```{r}
+Heatmap(t(df), rect_gp = gpar(col = "white", lwd = 1),
+        #cluster_rows = F,
+        cluster_columns = FALSE,
+        show_heatmap_legend = F,
+         col = col_fun,
+        #width =  unit(24, "cm"),
+        #height = unit(6, "cm"),
+        cluster_rows = dend,
+        column_names_gp = gpar(fontsize = 7),
+      row_names_gp = gpar(fontsize = 4),
+        cell_fun = function(j, i, x, y, width, height, fill) {
+        grid.text(sprintf("%.1f", df[i, j]), x, y, gp = gpar(fontsize = 5))
+},
+right_annotation = ha,
+left_annotation = hb
+)
+```

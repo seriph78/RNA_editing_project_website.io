@@ -1,5 +1,5 @@
 ---
-title: "Data exploration patient 7"
+title: "Data exploration patient 10"
 editor: visual
 execute: 
   freeze: true
@@ -36,7 +36,7 @@ for (nv in names(markers)) {
 ```{r}
 out_dir <- "../../Crohn_disease/data/04_cluster_identification/"
 in_dir <- "../../Crohn_disease/data/02_cleaned_data/"
-sample.id = "patient7_Uninvolved"
+sample.id = "patient10_Uninvolved"
 
 expression.cl <- read.csv(paste0(out_dir,sample.id,"_expression_clusters.csv"),row.names = 1)
 
@@ -182,7 +182,7 @@ saveRDS(final.heatmap,paste0("../../Crohn_disease/data/04_cluster_identification
 # Involved ileum samples
 
 ```{r}
-sample.id = "patient7_Involved"
+sample.id = "patient10_Involved"
 
 expression.cl <- read.csv(paste0(out_dir,sample.id,"_expression_clusters.csv"),row.names = 1)
 
@@ -330,7 +330,7 @@ saveRDS(final.heatmap,paste0("../../Crohn_disease/data/04_cluster_identification
 # PBMC samples
 
 ```{r}
-sample.id = "patient7_PBMC"
+sample.id = "patient10_PBMC"
 expression.cl <- read.csv(paste0(out_dir,sample.id,"_expression_clusters.csv"),row.names = 1)
 
 obj <- readRDS(paste0(in_dir,sample.id,".clustered.merged.cotan.RDS"))
@@ -406,9 +406,9 @@ tree <- hclust(D_sim,method = "ward.D2")
 ```{r, echo=FALSE}
 dend <- as.dendrogram(tree)
 #colnames(df) <- str_remove_all(colnames(df), pattern = "cl.")
-cut = cutree(tree, k = 5)
-dend =branches_color(dend,k=5,col=c("#4DBBD5FF","#91D1C2FF","#E64B35FF","gray80","#3C5488FF","#F39B7FFF","gray80"),groupLabels = T)
-dend =color_labels(dend,k=5)
+cut = cutree(tree, k = 9)
+dend =branches_color(dend,k=9,col=c("#4DBBD5FF","#91D1C2FF","#E64B35FF","gray80","#3C5488FF","#F39B7FFF","gray80"),groupLabels = T)
+dend =color_labels(dend,k=9)
 ```
 
 ```{r, echo=FALSE}

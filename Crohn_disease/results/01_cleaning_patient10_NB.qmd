@@ -1,5 +1,5 @@
 ---
-title: "Cleaning notebook patient 5"
+title: "Cleaning notebook patient 10"
 editor: visual
 execute: 
   freeze: true
@@ -33,13 +33,13 @@ devtools::load_all("../../../COTAN/")
 
 # Uninvolved sample
 
-## Import metadata
+## Import datmeta
 
 ```{r}
-patient <- "patient5_Uninvolved"
+patient <- "patient10_Uninvolved"
 status <- "Uninvolved"
 metadata <- readxl::read_excel("../data/tables-mmc2.xlsx",sheet = 1)
-metadata <- as.data.frame(metadata[metadata$Patient.ID == "pat. 5" 
+metadata <- as.data.frame(metadata[metadata$Patient.ID == "pat. 10" 
                         & metadata$status == status
 , ,drop = FALSE])
 metadata <- metadata[!is.na(metadata$Sample_ID),]
@@ -114,16 +114,16 @@ We want to remove cell doublets or multiplets and low-quality or dying cells (wi
 First, we check the library size (UMI number) with an empirical cumulative distribution function.
 
 ```{r}
-ECDPlot(obj, yCut = 30)
+ECDPlot(obj, yCut = 50)
 
 ```
 
-So to start we drop all cells with library sizes lower than 30.
+So to start we drop all cells with library sizes lower than 50.
 
 The next plot shows the library size of each cell in a violin and box plot.
 
 ```{r}
-obj <- dropGenesCells(obj,cells = names(getCellsSize(obj)[getCellsSize(obj) < 30]))
+obj <- dropGenesCells(obj,cells = names(getCellsSize(obj)[getCellsSize(obj) < 50]))
 
 librarySizePlot(obj,splitPattern = "_",numCols = 1)
 ```
@@ -131,7 +131,7 @@ librarySizePlot(obj,splitPattern = "_",numCols = 1)
 We can subset and drop the unwanted cell by library size.
 
 ```{r}
-obj <- dropGenesCells(obj,cells = names(getCellsSize(obj)[getCellsSize(obj) > 10000]))
+obj <- dropGenesCells(obj,cells = names(getCellsSize(obj)[getCellsSize(obj) > 8000]))
 
 librarySizePlot(obj,splitPattern = "_",numCols = 1)
 ```
@@ -155,7 +155,7 @@ genesSizePlot(obj,splitPattern = "_",numCols = 1)
 And we drop again possible doublets
 
 ```{r}
-to.drop <- names(sort(colSums(getRawData(obj) > 0),decreasing = F)[sort(colSums(getRawData(obj) > 0),decreasing = F) > 1500])
+to.drop <- names(sort(colSums(getRawData(obj) > 0),decreasing = F)[sort(colSums(getRawData(obj) > 0),decreasing = F) > 2000])
 
 obj <- dropGenesCells(obj,cells = to.drop)
 genesSizePlot(obj,splitPattern = "_",numCols = 1)
@@ -217,9 +217,9 @@ hist(sort(colSums(getRawData(obj) > 0),decreasing = F),breaks = 100)
 
 ```{r}
 obj <- initializeMetaDataset(obj,
-                             GEO="GSM3972010_68",
+                             GEO="GSM3972018_159",
                              sequencingMethod = "10X",
-                             sampleCondition = paste0("patient.5 ileum ",status))
+                             sampleCondition = paste0("patient.10 ileum ",status))
 ```
 
 ```{r}
@@ -306,10 +306,10 @@ saveRDS(obj,paste0(out_dir,patient,"_obj_cotan.RDS"))
 ## Import data
 
 ```{r}
-patient <- "patient5_Involved"
+patient <- "patient10_Involved"
 status <- "Involved"
 metadata <- readxl::read_excel("../data/tables-mmc2.xlsx",sheet = 1)
-metadata <- as.data.frame(metadata[metadata$Patient.ID == "pat. 5" 
+metadata <- as.data.frame(metadata[metadata$Patient.ID == "pat. 10" 
                         & metadata$status %in% status
 ,])
 metadata <- metadata[!is.na(metadata$Sample_ID),]
@@ -393,7 +393,7 @@ librarySizePlot(obj,splitPattern = "_",numCols = 1)
 We can subset and drop the unwanted cell by library size.
 
 ```{r}
-obj <- dropGenesCells(obj,cells = names(getCellsSize(obj)[getCellsSize(obj) > 20000]))
+obj <- dropGenesCells(obj,cells = names(getCellsSize(obj)[getCellsSize(obj) > 15000]))
 
 librarySizePlot(obj,splitPattern = "_",numCols = 1)
 ```
@@ -415,7 +415,7 @@ genesSizePlot(obj,splitPattern = "_",numCols = 1)
 And we drop again possible doublets
 
 ```{r}
-to.drop <- names(sort(colSums(getRawData(obj) > 0),decreasing = F)[sort(colSums(getRawData(obj) > 0),decreasing = F) > 2500])
+to.drop <- names(sort(colSums(getRawData(obj) > 0),decreasing = F)[sort(colSums(getRawData(obj) > 0),decreasing = F) > 2000])
 
 obj <- dropGenesCells(obj,cells = to.drop)
 genesSizePlot(obj,splitPattern = "_",numCols = 1)
@@ -477,9 +477,9 @@ hist(sort(colSums(getRawData(obj) > 0),decreasing = F),breaks = 100)
 
 ```{r}
 obj <- initializeMetaDataset(obj,
-                             GEO="GSM3972009_69",
+                             GEO="GSM3972017_158",
                              sequencingMethod = "10X",
-                             sampleCondition = paste0("patient.5 ileum ",status))
+                             sampleCondition = paste0("patient.10 ileum ",status))
 ```
 
 ```{r}
@@ -554,10 +554,10 @@ saveRDS(obj,paste0(out_dir,patient,"_obj_cotan.RDS"))
 ## Import data
 
 ```{r}
-patient <- "patient5_PBMC"
+patient <- "patient10_PBMC"
 status <- "PBMC"
 metadata <- readxl::read_excel("../data/tables-mmc2.xlsx",sheet = 1)
-metadata <- as.data.frame(metadata[metadata$Patient.ID == "pat. 5" 
+metadata <- as.data.frame(metadata[metadata$Patient.ID == "pat. 10" 
                         & metadata$status %in% status
 ,])
 metadata <- metadata[!is.na(metadata$Sample_ID),]
@@ -624,16 +624,16 @@ We want to remove cell doublets or multiplets and low-quality or dying cells (wi
 First, we check the library size (UMI number) with an empirical cumulative distribution function.
 
 ```{r}
-ECDPlot(obj, yCut = 20)
+ECDPlot(obj, yCut = 40)
 
 ```
 
-So to start we drop all cells with library sizes lower than 20.
+So to start we drop all cells with library sizes lower than 40.
 
 The next plot shows the library size of each cell in a violin and box plot.
 
 ```{r}
-obj <- dropGenesCells(obj,cells = names(getCellsSize(obj)[getCellsSize(obj) < 20]))
+obj <- dropGenesCells(obj,cells = names(getCellsSize(obj)[getCellsSize(obj) < 40]))
 
 librarySizePlot(obj,splitPattern = "_",numCols = 1)
 ```
@@ -641,7 +641,7 @@ librarySizePlot(obj,splitPattern = "_",numCols = 1)
 We can subset and drop the unwanted cell by library size.
 
 ```{r}
-obj <- dropGenesCells(obj,cells = names(getCellsSize(obj)[getCellsSize(obj) > 2000]))
+obj <- dropGenesCells(obj,cells = names(getCellsSize(obj)[getCellsSize(obj) > 7500]))
 
 librarySizePlot(obj,splitPattern = "_",numCols = 1)
 ```
@@ -655,7 +655,7 @@ genesSizePlot(obj,splitPattern = "_",numCols = 1)
 ```
 
 ```{r}
-to.drop <- names(sort(colSums(getRawData(obj) > 0),decreasing = F)[sort(colSums(getRawData(obj) > 0),decreasing = F) < 10])
+to.drop <- names(sort(colSums(getRawData(obj) > 0),decreasing = F)[sort(colSums(getRawData(obj) > 0),decreasing = F) < 30])
 obj <- dropGenesCells(obj,cells = to.drop)
 genesSizePlot(obj,splitPattern = "_",numCols = 1)
 ```
@@ -663,7 +663,7 @@ genesSizePlot(obj,splitPattern = "_",numCols = 1)
 And we drop again possible doublets
 
 ```{r}
-to.drop <- names(sort(colSums(getRawData(obj) > 0),decreasing = F)[sort(colSums(getRawData(obj) > 0),decreasing = F) > 750])
+to.drop <- names(sort(colSums(getRawData(obj) > 0),decreasing = F)[sort(colSums(getRawData(obj) > 0),decreasing = F) > 2000])
 
 obj <- dropGenesCells(obj,cells = to.drop)
 genesSizePlot(obj,splitPattern = "_",numCols = 1)
@@ -725,9 +725,9 @@ hist(sort(colSums(getRawData(obj) > 0),decreasing = F),breaks = 100)
 
 ```{r}
 obj <- initializeMetaDataset(obj,
-                             GEO="GSM4761136_67",
+                             GEO="GSM4761140_157",
                              sequencingMethod = "10X",
-                             sampleCondition = paste0("patient.11 ileum ",status))
+                             sampleCondition = paste0("patient.10 ileum ",status))
 ```
 
 ```{r}

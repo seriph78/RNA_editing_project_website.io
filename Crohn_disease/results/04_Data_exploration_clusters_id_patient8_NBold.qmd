@@ -1,0 +1,369 @@
+---
+title: "Data exploration patient 8"
+editor: visual
+execute: 
+  freeze: true
+---
+
+```{r}
+library(grid)
+library(gridExtra)
+library(viridis)
+library(ggplot2)
+library(stringr)
+library(dendextend)
+devtools::load_all("../../../COTAN/")
+```
+
+# Ileum samples
+
+```{r}
+out_dir <- "../../Crohn_disease/data/04_cluster_identification/"
+sample.id = "patient8_ileum"
+
+obj <- readRDS(paste0("../../Crohn_disease/data/03_clustred_data/",sample.id,"_merged.cotan.RDS"))
+srt <- readRDS(paste0("../data/03_clustred_data/Seurat_obj_",sample.id,"_with_cotan_clusters_merged.RDS"))
+#obj <- readRDS(paste0("../../Crohn_disease/data/03_clustred_data/",sample.id,".cotan.clustered.RDS"))
+```
+
+cluster assignment with expression increment
+
+```{r}
+expression.cl <- read.csv(paste0(out_dir,sample.id,"_expression_clusters.csv"),row.names = 1)
+markers <- readxl::read_excel("../../Marker_genes.xlsx",sheet = 2)
+markers <- as.list(markers)
+markers <- markers[2:length(markers)]
+for (nv in names(markers)) {
+  markers[[nv]] <- unique(markers[[nv]][!is.na(markers[[nv]])])
+}
+
+COEX.markers <- extract.coex(object = obj,genes = unlist(markers)[unlist(markers,) %in% rownames(obj@raw)])
+
+pval.markers <- get.pval(object = obj,gene.set.col = unlist(markers)[unlist(markers,) %in% rownames(obj@raw)])
+
+```
+
+```{r}
+good.markers <- NA
+for (v in colnames(COEX.markers)) {
+  max.coex <- max(COEX.markers[!rownames(COEX.markers) %in% v,v])
+  corr.gene <- rownames(which(COEX.markers == max.coex,arr.ind = T))
+  gene.pval.adj <- p.adjust(pval.markers[corr.gene,v],n = dim(pval.markers)[1]**2/2)
+  if (max.coex >= 0 & any(gene.pval.adj < 0.05)) {
+    #print(paste0(v," max coex ",max.coex))  
+    good.markers <- c(good.markers,v)
+  }
+}
+
+for (m in names(markers)) {
+  markers[[m]] <- markers[[m]][markers[[m]] %in% good.markers]
+}
+
+
+to.keep <- NA
+for (v in 1:length(markers)) {
+  #print(markers[[v]])
+  if (length(markers[[v]])>0) {
+    to.keep <- c(to.keep,v)
+  }
+}
+to.keep <- to.keep[!is.na(to.keep)]
+
+markers <- markers[to.keep]
+markers
+```
+
+```{r}
+df <- as.data.frame(matrix(nrow = length(names(markers)),ncol = ncol(expression.cl)))
+rownames(df) <- names(markers)
+colnames(df) <- colnames(expression.cl)
+df2 <- df
+
+teta <- -1/0.1 * (log(0.25))
+#not_ass_clusters <- NA
+for (ro in colnames(df)) {
+  for (m in names(markers)) {
+    #print(m)
+    #pv <- p_value[unlist(markers[[m]]),ro]
+    #co <- obj@cluster_data[unlist(markers[[m]]),ro]
+    ex <- expression.cl[rownames(expression.cl) %in% markers[[m]],ro]
+    ex[ex < 0 & !is.na(ex)] <- 0
+    
+    ex <- 1-exp(- teta * ex)
+    n.markers <- sum(rownames(obj@raw) %in% markers[[m]])
+    df[m,ro] <- sum(ex,na.rm = T)/n.markers
+    df2[m,ro]<- paste0(round(sum(ex,na.rm = T),digits = 1),"/",n.markers)
+  }
+}
+#write.csv(df,file = paste(out_dir,sample.id,"_markers_clusters_expression.csv", sep = ""))
+
+df <- round(df,digits = 2)
+df <- df[,2:ncol(df)]
+
+
+df2 <- df2[,2:ncol(df2)]
+df2
+```
+
+```{r}
+cluster_data <- obj@cluster_data
+
+######## This is the best: cosine dissimilarity
+Matrix <- as.matrix(t(cluster_data))
+sim <- Matrix / sqrt(rowSums(Matrix * Matrix))
+sim <- sim %*% t(sim)
+D_sim <- as.dist(1 - sim)
+tree <- hclust(D_sim,method = "ward.D2")
+
+```
+
+```{r}
+dend <- as.dendrogram(tree)
+#colnames(df) <- str_remove_all(colnames(df), pattern = "cl.")
+cut = cutree(tree, k = 9)
+dend =branches_color(dend,k=9,col=c("#4DBBD5FF","#91D1C2FF","#E64B35FF","gray80","#3C5488FF","#F39B7FFF","gray80"),groupLabels = T)
+dend =color_labels(dend,k=9)
+
+plot(dend)
+```
+
+```{r,fig.width=15}
+
+col_fun = colorRamp2(c(0, 1), c( "lightblue", "red"))
+Heatmap(df, rect_gp = gpar(col = "white", lwd = 1),
+        cluster_rows = F,
+        #cluster_columns = FALSE,
+        show_heatmap_legend = F,
+         col = col_fun,
+        column_dend_height = unit(4, "cm"),
+        row_dend_width
+        = unit(4, "cm"),
+        #width =  unit(24, "cm"),
+        #height = unit(6, "cm"),
+        cluster_columns = dend,
+        row_names_gp = gpar(fontsize = 7),
+        column_names_gp = gpar(fontsize = 7),
+        cell_fun = function(j, i, x, y, width, height, fill) {
+        grid.text(sprintf("%.1f", df[i, j]), x, y, gp = gpar(fontsize = 5))
+},
+left_annotation = rowAnnotation(foo = anno_block(gp = gpar(fill = 2:4),
+        labels = c("group1", "group2", "group3","","","",""), 
+        labels_gp = gpar(col = "white", fontsize = 10))),
+    row_km = 7
+)
+```
+
+```{r,fig.width=20}
+library(dplyr)
+library(stringr)
+
+#clusters <- colnames(obj@cluster_data)
+
+
+cell.metadata <- srt@meta.data
+cell.metadata <- cbind(cell.metadata,obj@nu[rownames(cell.metadata)])
+colnames(cell.metadata)[dim(cell.metadata)[2]] <-  "nu"
+
+
+if (!(all(unique(cell.metadata$cotan) %in% unique(obj@clusters)) &
+    all(unique(obj@clusters) %in% unique(cell.metadata$cotan))) | 
+    any(is.na(cell.metadata$cotan))) {
+  print("Problems")
+  
+}
+
+
+clusters <- t(table(cell.metadata[,c("orig.ident","cotan")]))
+clusters <- as.data.frame(clusters)
+clusters$cotan <- paste0("cl.",clusters$cotan)
+
+clusters$nu_mean <- NA
+for (cl in unique(clusters$cotan)) {
+  cln <- str_split(cl,pattern = "[.]",simplify = T)[2]
+  for (sp in unique(clusters$orig.ident)) {
+    clusters[clusters$cotan == cl & clusters$orig.ident == sp,]$nu_mean <- 
+      mean(cell.metadata[cell.metadata$orig.ident == sp & cell.metadata$cotan == cln,]$nu)
+  }
+}
+
+clusters$cotan <- factor(clusters$cotan,levels = labels(dend))
+ggplot(clusters, aes(x = cotan, y = Freq, fill = orig.ident)) +  # Create stacked bar chart
+  geom_bar(stat = "identity",position = "dodge")+
+  geom_text(aes(label = round(nu_mean,digits=1)), position=position_dodge(width=0.5), vjust=-0.5) +
+  theme(legend.position = "none") 
+```
+
+```{r}
+pl <- plot_general.heatmap(prim.markers = markers$`T cell genes`,markers.list = markers$Macrophages,condition =  "patient8_ileum_merged",dir = "../data/03_clustred_data/",p_value = 0.00000001,symmetric = F)
+
+```
+
+```{r}
+pl <- plot_general.heatmap(prim.markers = markers$`Mononuclear Phagocytes`,markers.list = markers$`B cell genes`,condition =  "patient8_ileum_merged",dir = "../data/03_clustred_data/",p_value = 0.00000001,symmetric = F)
+
+```
+
+So the specificity of some markers is quite low... no good!
+
+## Gene clusterig and new markers
+
+To find more specific marker I can use COTAN gene co-expression space and clustering.
+
+```{r}
+g.space = get.gene.coexpression.space(obj, 
+                                      n.genes.for.marker = 25,  
+                                      primary.markers = unlist(markers))
+g.space = as.data.frame(as.matrix(g.space))
+coex.pca.genes <- prcomp(t(g.space),
+                 center = TRUE,
+                 scale. = F) 
+fviz_eig(coex.pca.genes, addlabels=TRUE,ncp = 10)
+```
+
+```{r,fig.width=35}
+#controls =list("genes related to L5/6"=c("Foxp2","Tbr1"), "genes related to L2/3"=c("Mef2c"), "genes related to Prog"=c("Nes","Sox2") , "genes related to L1"=c() , "genes related to L4"=c())
+# clustering usign Ward method
+hc.norm = hclust(dist(g.space), method = "ward.D2")
+
+# and cut the tree into 5 clusters (for example)
+cut = cutree(hc.norm, k = 14)#, order_clusters_as_data = F)
+
+# It crates the tree
+dend <- as.dendrogram(hc.norm)
+
+# I can use a dataframe from the pca to store some data regarding the clustering
+pca_1 = as.data.frame(coex.pca.genes$rotation[,1:5])
+pca_1 = pca_1[order.dendrogram(dend),]
+
+
+mycolours <- c("genes related to L5/6" = "#3C5488FF","genes related to L2/3"="#F39B7FFF","genes related to Prog"="#4DBBD5FF","genes related to L1"="#E64B35FF","genes related to L4" = "#91D1C2FF", "not marked"="#B09C85FF")
+
+# save the cluster number into the dataframe
+pca_1$hclust = cut
+
+dend =branches_color(dend,k=7,col=c("#4DBBD5FF","#91D1C2FF","#F39B7FFF","#E64B35FF","#3C5488FF","#91D1C2FF","#B09C85FF" ),groupLabels = T)
+#dend =color_labels(dend,k=5,labels = rownames(pca_1),col=pca_1$colors)
+
+dend %>%
+set("labels", ifelse(labels(dend) %in% rownames(pca_1)[rownames(pca_1) %in% c(#unlist(layers),
+                                                                   unique(unlist(markers)))], labels(dend), "")) %>%
+  set("branches_k_color", value = c("gray80","#4DBBD5FF","#91D1C2FF" ,"gray80","#F39B7FFF","#E64B35FF","#3C5488FF"), k = 7)%>% set("labels_cex", 0.5) %>%
+plot(horiz=F, axes=T,ylim = c(0,200))
+```
+
+```{r}
+dend <- as.dendrogram(hc.norm)
+pca_1 = as.data.frame(coex.pca.genes$rotation[,1:10])
+pca_1 = pca_1[order.dendrogram(dend),]
+cut = cutree(hc.norm, k = 7, order_clusters_as_data = F)
+#- Next lines are only to color and plot the secondary markers
+tmp = get.pval(object = objE17,gene.set.col =unlist(layers),gene.set.row = colnames(g.space))
+for (m in unlist(layers)) {
+  tmp = as.data.frame(tmp[order(tmp[,m]),])
+  tmp$rank = c(1:nrow(tmp))
+  colnames(tmp)[ncol(tmp)] = paste("rank",m,sep = ".")
+  }
+rank.genes = tmp[,(length(unlist(layers))+1):ncol(tmp)]
+for (c in c(1:length(colnames(rank.genes)))) {
+  colnames(rank.genes)[c] =strsplit(colnames(rank.genes)[c], split='.',fixed = T)[[1]][2]
+}
+L1 = rowSums(rank.genes[,layers[[1]]])
+L1[layers[[1]]] = 1
+L2 = rowSums(rank.genes[,layers[[2]]])
+L2[layers[[2]]] = 1
+L4 = rowSums(rank.genes[,layers[[3]]])
+L4[layers[[3]]] = 1
+L5 =rowSums(rank.genes[,layers[[4]]])
+L5[layers[[4]]] = 1
+P = rowSums(rank.genes[,layers[[5]]])
+P[layers[[5]]] = 1
+col.secondary = merge(L1,L2,by="row.names",all.x=TRUE)
+colnames(col.secondary)[2:3] = c("L1","L2")
+rownames(col.secondary) = col.secondary$Row.names
+col.secondary = col.secondary[,2:ncol(col.secondary)]
+col.secondary = merge(col.secondary,L4,by="row.names",all.x=TRUE)
+colnames(col.secondary)[ncol(col.secondary)] = "L4"
+rownames(col.secondary) = col.secondary$Row.names
+col.secondary = col.secondary[,2:ncol(col.secondary)]
+col.secondary = merge(col.secondary,L5,by="row.names",all.x=TRUE)
+colnames(col.secondary)[ncol(col.secondary)] = "L5"
+rownames(col.secondary) = col.secondary$Row.names
+col.secondary = col.secondary[,2:ncol(col.secondary)]
+col.secondary = merge(col.secondary,P,by="row.names",all.x=TRUE)
+colnames(col.secondary)[ncol(col.secondary)] = "P"
+rownames(col.secondary) = col.secondary$Row.names
+col.secondary = col.secondary[,2:ncol(col.secondary)]
+#  this part is to check that we will color as secondary markers only the genes linked to the
+# primary with positive coex
+temp.coex = as.matrix(objE17@coex[rownames(objE17@coex) %in% rownames(col.secondary),
+                          colnames(objE17@coex) %in% unlist(layers)])
+for (n in rownames(col.secondary)) {
+  if(any(temp.coex[n,c("Reln","Lhx5")] < 0)){
+    col.secondary[n,"L1"] = 100000
+  }
+  if(any(temp.coex[n,c("Cux1","Satb2")] < 0)){
+    col.secondary[n,"L2"] = 100000
+  }
+  if(any(temp.coex[n,c("Rorb","Sox5")] < 0)){
+    col.secondary[n,"L4"] = 100000
+  }
+  if(any(temp.coex[n,c("Bcl11b","Fezf2")] < 0)){
+    col.secondary[n,"L5"] = 100000
+  }
+  if(any(temp.coex[n,c("Vim","Hes1")] < 0)){
+    col.secondary[n,"P"] = 100000
+  }
+}
+mylist.names <- c("L1", "L2", "L4","L5","P")
+pos.link  <- vector("list", length(mylist.names))
+names(pos.link) <- mylist.names
+for (g in rownames(col.secondary)) {
+  if(length( which(col.secondary[g,] == min(col.secondary[g,]))) == 1 ){
+  pos.link[[which(col.secondary[g,] == min(col.secondary[g,])) ]] = 
+    c(pos.link[[which(col.secondary[g,] == min(col.secondary[g,])) ]], g)
+  }
+}
+# ----
+pca_1$highlight = with(pca_1, 
+          ifelse(rownames(pca_1) %in% pos.link$L5, "genes related to L5/6",
+          ifelse(rownames(pca_1) %in% pos.link$L2 , "genes related to L2/3",
+          ifelse(rownames(pca_1) %in% pos.link$P , "genes related to Prog" ,
+          ifelse(rownames(pca_1) %in% pos.link$L1 , "genes related to L1" ,
+          ifelse(rownames(pca_1) %in% pos.link$L4 ,"genes related to L4" ,
+      "not marked"))))))
+# But sort them based on their order in dend:
+#colors_to_use <- pca_1$highlight[order.dendrogram(dend)]
+#mycolours <- c("genes related to L5/6" = "#3C5488FF","genes related to L2/3"="#F39B7FFF","genes related to Prog"="#4DBBD5FF","genes related to L1"="#E64B35FF","genes related to L4" = "#91D1C2FF", "not marked"="#B09C85FF")
+pca_1$hclust = cut
+pca_1$colors = NA
+pca_1[pca_1$highlight == "genes related to L5/6", "colors"] = "#3C5488FF"
+pca_1[pca_1$highlight == "genes related to L2/3","colors"] = "#F39B7FFF"
+pca_1[pca_1$highlight == "genes related to Prog","colors"] = "#4DBBD5FF"
+pca_1[pca_1$highlight == "genes related to L1","colors"] = "#E64B35FF"
+pca_1[pca_1$highlight == "genes related to L4","colors"] = "#91D1C2FF"
+pca_1[pca_1$highlight == "not marked","colors"] = "#B09C85FF"
+dend =branches_color(dend,k=7,col=c("#4DBBD5FF","#91D1C2FF","#E64B35FF","gray80","#3C5488FF","#F39B7FFF","gray80" ),groupLabels = T)
+dend =color_labels(dend,k=7,labels = rownames(pca_1),col=pca_1$colors)
+dend %>%
+  dendextend::set("labels", ifelse(labels(dend) %in% rownames(pca_1)[rownames(pca_1) %in% colnames(g.space)] ,labels(dend),"")) %>%
+  #  set("branches_k_color", value = c("gray80","#4DBBD5FF","#91D1C2FF" ,"gray80","#F39B7FFF","#E64B35FF","#3C5488FF"), k = 7) %>%
+ plot(horiz=F, axes=T,ylim = c(0,80))
+```
+
+```{r}
+cluster = cut
+cluster[cluster == 1] = "#4DBBD5FF"
+cluster[cluster == 2] = "#91D1C2FF"
+cluster[cluster == 3] =  "#E64B35FF"
+cluster[cluster == 4] = "#B09C85FF"
+cluster[cluster == 5] = "#3C5488FF"
+cluster[cluster == 6] = "#F39B7FFF"
+cluster[cluster == 7] = "#B09C85FF"
+plot.new()
+plot(dend,horiz=T, axes=T,xlim = c(100,0),leaflab = "none")
+abline(v = 47, lty = 2)
+colored_bars(cluster,dend,horiz = T,sort_by_labels_order = F,y_shift = 1,
+               rowLabels= "" )
+gridGraphics::grid.echo()
+tree <- grid.grab()
+```

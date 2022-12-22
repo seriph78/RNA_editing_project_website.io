@@ -6,8 +6,18 @@ project:
     - IBD/results/01A_Seurat_import_clean.qmd
     - Crohn_disease/results/01_cleaning_patient5_NB.qmd
     - Crohn_disease/results/01_cleaning_patient7_NB.qmd
-
- 
+    - Crohn_disease/results/01_cleaning_patient8_NB.qmd
+    - Crohn_disease/results/01_cleaning_patient10_NB.qmd
+    - Crohn_disease/results/01_cleaning_patient11_NB.qmd
+    - Crohn_disease/results/01_cleaning_patient12_NB.qmd
+    - Crohn_disease/results/04_Data_exploration_clusters_id_patient7_NB.qmd
+    - Crohn_disease/results/04_Data_exploration_clusters_id_patient11_NB.qmd
+    - Crohn_disease/results/04_Data_exploration_clusters_id_patient10_NB.qmd
+    - Crohn_disease/results/04_Data_exploration_clusters_id_patient8_NB.qmd
+    - Crohn_disease/results/04_Data_exploration_clusters_id_patient5_NB.qmd
+    - Crohn_disease/results/04_Data_exploration_clusters_id_patient12_NB.qmd
+    - Crohn_disease/results/05_HeatmapSummary_NB.qmd
+    
 website:
   title: "RNA editing project"
   navbar: 
@@ -38,11 +48,37 @@ website:
                   text: "patient 5 ileum"
                 - href: Crohn_disease/results/01_cleaning_patient7_NB.qmd
                   text: "patient 7 ileum"
+                - href: Crohn_disease/results/01_cleaning_patient8_NB.qmd
+                  text: "patient 8 ileum"
+                - href: Crohn_disease/results/01_cleaning_patient10_NB.qmd
+                  text: "patient 10 ileum"
+                - href: Crohn_disease/results/01_cleaning_patient11_NB.qmd
+                  text: "patient 11 ileum"
+                - href: Crohn_disease/results/01_cleaning_patient12_NB.qmd
+                  text: "patient 12 ileum"
+                  
+                
                   
             - section: "Data exploration & Cluster identification"
+              contents:
+                - href: Crohn_disease/results/04_Data_exploration_clusters_id_patient5_NB.qmd
+                  text: "patient 5 ileum"
+                - href: Crohn_disease/results/04_Data_exploration_clusters_id_patient7_NB.qmd
+                  text: "patient 7 ileum"
+                - href: Crohn_disease/results/04_Data_exploration_clusters_id_patient8_NB.qmd
+                  text: "patient 8 ileum"
+                - href: Crohn_disease/results/04_Data_exploration_clusters_id_patient10_NB.qmd
+                  text: "patient 10 ileum"
+                - href: Crohn_disease/results/04_Data_exploration_clusters_id_patient11_NB.qmd
+                  text: "patient 11 ileum"
+                - href: Crohn_disease/results/04_Data_exploration_clusters_id_patient12_NB.qmd
+                  text: "patient 12 ileum"
+                
             
-                  
             - section: "Summary and Conclusion"
+              contents: 
+                - href: Crohn_disease/results/05_HeatmapSummary_NB.qmd
+                  text: Heatmaps summary
       
 
 format:

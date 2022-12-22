@@ -3,23 +3,18 @@ library(stringr)
 
 out_dir = "Crohn_disease/data/03_clustred_data/"
 
-sample.id = "patient7_ileum"
+sample.id = "patient8_ileum"
+
+GEO <- "GSM3972015_GSM3972016"
 
 obj <- cell_homogeneous_clustering(cond = sample.id,
                                    out_dir = out_dir, 
                                    in_dir = "Crohn_disease/data/02_cleaned_data/", 
                                    cores = 12, 
-                                   dataset_name = "patient7_ileum_obj_cotan.RDS", 
-                                   GEO="GSM3972013_GSM3972014", 
+                                   dataset_name = "patient8_ileum_obj_cotan.RDS", 
+                                   GEO=GEO, 
                                    sc.method="10X"
 )
-
-saveRDS(obj, file = paste0(out_dir,sample.id,".cotan.clustered.RDS") )
-
-obj = get.coex(obj)
-
-saveRDS(obj,paste0(out_dir,sample.id,"_obj_cotan.RDS"))
-
 
 gc()
 temp <- DEA_on_clusters(obj)
@@ -32,12 +27,13 @@ saveRDS(obj, file = paste0(out_dir,sample.id,".cotan.clustered.RDS") )
 obj <- merge_cell.clusters(obj = obj,cond = sample.id,cores=10, 
                            srat = paste0("Seurat_obj_",sample.id,"_with_cotan_clusters.RDS"),
                            out_dir = paste0(out_dir) ,
-                           GEO="GSM3972013_GSM3972014", sc.method="10X"
+                           GEO=GEO, 
+                           sc.method="10X"
                            )
 
 
 
-saveRDS(obj, file = paste0(out_dir,sample.id,".cotan.clustered.merged.RDS") )
+saveRDS(obj, file = paste0(out_dir,sample.id,".clustered.merged.cotan.RDS") )
 
 out_dir <- "Crohn_disease/data/04_cluster_identification/"
 
