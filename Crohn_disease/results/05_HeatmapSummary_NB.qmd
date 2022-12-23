@@ -9,6 +9,18 @@ today <- Sys.Date()
 format(today, format = "%A %d %B %Y")
 ```
 
+## Instruction: how to read the plots
+
+The following plots are the same present in the end of each analysis, reported here to have a better overview.
+
+Each plot is composed of a heatmap with an enrichement score (from 0 to 1) for each marker gene set in each cell cluster. The cell cluster number is indicated for each row with roman number in the rightmost column. 
+For the marker score, if a gene is considered a marker for more than one group, the score is proportionally reduced.
+The last column of the heatmap contains the score for the ISG set of genes. 
+On the left there is a dendrogram evaluated using a distance (cosine) over all COTAN uniform clusters and considering, to estimate the distance, the whole transcriptome.
+The green bar plot between the dendrogram and the heatmap shows the UMI detection efficiency (UDE) mean. This score is the RNA extraction efficiency mean for the cell cluster. This can be usefull because if we observe a very low UDE and no clear marker group enrichment or there is an enrichment for more than one marker set (and very different), is it possible that the cluster is formed by just background signal.
+The right orange bar plot shows the cluster cell number.
+
+
 # Summary by Patient
 
 ## Patient 5
@@ -39,7 +51,7 @@ PBMC5
 
 ## Patient 7
 
-```{r, fig.width= 16, fig.height= 12}
+```{r,echo=FALSE}
 involved7 <- readRDS("../data/04_cluster_identification/patient7_Involved_heatmap.RDS")
 uninvolved7 <- readRDS("../data/04_cluster_identification/patient7_Uninvolved_heatmap.RDS")
 PBMC7 <- readRDS("../data/04_cluster_identification/patient7_PBMC_heatmap.RDS")
@@ -59,7 +71,7 @@ PBMC7
 
 ## Patient 8
 
-```{r, fig.width= 16, fig.height= 12}
+```{r,echo=FALSE}
 involved8 <- readRDS("../data/04_cluster_identification/patient8_Involved_heatmap.RDS")
 uninvolved8 <- readRDS("../data/04_cluster_identification/patient8_Uninvolved_heatmap.RDS")
 PBMC8 <- readRDS("../data/04_cluster_identification/patient8_PBMC_heatmap.RDS")
@@ -79,7 +91,7 @@ PBMC8
 
 ## Patient 10
 
-```{r, fig.width= 16, fig.height= 12}
+```{r,echo=FALSE}
 involved10 <- readRDS("../data/04_cluster_identification/patient10_Involved_heatmap.RDS")
 uninvolved10 <- readRDS("../data/04_cluster_identification/patient10_Uninvolved_heatmap.RDS")
 PBMC10 <- readRDS("../data/04_cluster_identification/patient10_PBMC_heatmap.RDS")
@@ -99,7 +111,7 @@ PBMC10
 
 ## Patient 11
 
-```{r, fig.width= 16, fig.height= 12}
+```{r,echo=FALSE}
 involved11 <- readRDS("../data/04_cluster_identification/patient11_Involved_heatmap.RDS")
 uninvolved11 <- readRDS("../data/04_cluster_identification/patient11_Uninvolved_heatmap.RDS")
 PBMC11 <- readRDS("../data/04_cluster_identification/patient11_PBMC_heatmap.RDS")
@@ -119,7 +131,7 @@ PBMC11
 
 ## Patient 12
 
-```{r, fig.width= 16, fig.height= 12}
+```{r,echo=FALSE}
 involved12 <- readRDS("../data/04_cluster_identification/patient12_Involved_heatmap.RDS")
 uninvolved12 <- readRDS("../data/04_cluster_identification/patient12_Uninvolved_heatmap.RDS")
 PBMC12 <- readRDS("../data/04_cluster_identification/patient12_PBMC_heatmap.RDS")
@@ -165,6 +177,8 @@ uninvolved11
 uninvolved12
 ```
 
+Generally in the univolved samples the ISG set seems to be enriched always in a Endothelial, Fibroblast or Smooth muscle cell group or in another Dendridic, Macrophage cell group.
+
 ## Involved
 
 ```{r, fig.width= 16, fig.height= 12}
@@ -191,6 +205,8 @@ involved11
 involved12
 ```
 
+In the involved samples with the previous groups enriched in ISG genes, we can also observe and involvement in the T cells/ILC. Only in patient 10, in which we observe some epithelial cells left, we see also here an ISG enrichment. 
+
 ## PBMC
 
 ```{r, fig.width= 16, fig.height= 12}
@@ -216,3 +232,6 @@ PBMC11
 ```{r, fig.width= 16, fig.height= 12}
 PBMC12
 ```
+
+In this type of samples the ISG groups seems less expressed with again the involvement of macrophages/dendritic cells but also, in some cases the cytotoxic natural killer 
+
