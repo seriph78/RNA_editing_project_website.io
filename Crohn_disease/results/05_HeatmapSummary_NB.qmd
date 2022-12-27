@@ -11,7 +11,7 @@ format(today, format = "%A %d %B %Y")
 
 ## Instruction: how to read the plots
 
-The following plots are the same present in the end of each analysis, reported here to have a better overview.
+The following plots are the same present in the end of each analysis, reported here to have a better overview. We first show plots grouped by patient, then grouped by tissue type. 
 
 Each plot is composed of a heatmap with an enrichement score (from 0 to 1) for each marker gene set in each cell cluster. The cell cluster number is indicated for each row with roman number in the rightmost column. 
 For the marker score, if a gene is considered a marker for more than one group, the score is proportionally reduced.
@@ -20,6 +20,13 @@ On the left there is a dendrogram evaluated using a distance (cosine) over all C
 The green bar plot between the dendrogram and the heatmap shows the UMI detection efficiency (UDE) mean. This score is the RNA extraction efficiency mean for the cell cluster. This can be usefull because if we observe a very low UDE and no clear marker group enrichment or there is an enrichment for more than one marker set (and very different), is it possible that the cluster is formed by just background signal.
 The right orange bar plot shows the cluster cell number.
 
+### Summary conclusions
+
+Generally in the univolved samples the ISG set seems to be enriched always in a Endothelial, Fibroblast or Smooth muscle cell group or in another Dendridic, Macrophage cell group.
+
+In the involved samples with the previous groups enriched in ISG genes, we can also observe and involvement in the T cells/ILC. Only in patient 10, in which we observe some epithelial cells left, we see also here an ISG enrichment.
+
+In the PBMC samples the ISG groups seems less expressed with again the involvement of macrophages/dendritic cells but also, in some cases the cytotoxic natural killer. 
 
 # Summary by Patient
 
@@ -177,7 +184,6 @@ uninvolved11
 uninvolved12
 ```
 
-Generally in the univolved samples the ISG set seems to be enriched always in a Endothelial, Fibroblast or Smooth muscle cell group or in another Dendridic, Macrophage cell group.
 
 ## Involved
 
@@ -205,7 +211,7 @@ involved11
 involved12
 ```
 
-In the involved samples with the previous groups enriched in ISG genes, we can also observe and involvement in the T cells/ILC. Only in patient 10, in which we observe some epithelial cells left, we see also here an ISG enrichment. 
+ 
 
 ## PBMC
 
@@ -233,5 +239,5 @@ PBMC11
 PBMC12
 ```
 
-In this type of samples the ISG groups seems less expressed with again the involvement of macrophages/dendritic cells but also, in some cases the cytotoxic natural killer 
+
 
