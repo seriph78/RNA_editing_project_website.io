@@ -9,14 +9,17 @@ today <- Sys.Date()
 format(today, format = "%A %d %B %Y")
 ```
 
-## Instruction: how to read the plots
+## Instructions: how to read the plots
 
 The following plots are the same present in the end of each analysis, reported here to have a better overview. We first show plots grouped by patient, then grouped by tissue type. 
 
-Each plot is composed of a heatmap with an enrichement score (from 0 to 1) for each marker gene set in each cell cluster. The cell cluster number is indicated for each row with roman number in the rightmost column. 
-For the marker score, if a gene is considered a marker for more than one group, the score is proportionally reduced.
-The last column of the heatmap contains the score for the ISG set of genes. 
+Each plot is composed of a heatmap with an enrichement score (from 0 to 1) for each marker gene set in each cell cluster. Each row corresponds to a cell cluster, and each column corresponds to a set of markers. The first columns correspond to markers of different cell types, while the last column contains the score for the ISG set of genes. 
+
+The cell cluster number is indicated for each row with roman number in the rightmost column. 
+For the cell marker score, if a gene is considered a marker for more than one group, the score is proportionally reduced.
+
 On the left there is a dendrogram evaluated using a distance (cosine) over all COTAN uniform clusters and considering, to estimate the distance, the whole transcriptome.
+
 The green bar plot between the dendrogram and the heatmap shows the UMI detection efficiency (UDE) mean. This score is the RNA extraction efficiency mean for the cell cluster. This can be usefull because if we observe a very low UDE and no clear marker group enrichment or there is an enrichment for more than one marker set (and very different), is it possible that the cluster is formed by just background signal.
 The right orange bar plot shows the cluster cell number.
 
@@ -27,6 +30,10 @@ Generally in the univolved samples the ISG set seems to be enriched always in a 
 In the involved samples with the previous groups enriched in ISG genes, we can also observe and involvement in the T cells/ILC. Only in patient 10, in which we observe some epithelial cells left, we see also here an ISG enrichment.
 
 In the PBMC samples the ISG groups seems less expressed with again the involvement of macrophages/dendritic cells but also, in some cases the cytotoxic natural killer. 
+
+We do not observe large differences between patients in the ISG gene enrichment, the trends are stable from one patient to another. 
+
+In general the ISG enrichment values are low. It could be useful to divide the 332 genes into subsets and check enrichment there. That could show more differences between cell types and also between patients.
 
 # Summary by Patient
 
