@@ -300,7 +300,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#instruction-how-to-read-the-plots" id="toc-instruction-how-to-read-the-plots" class="nav-link active" data-scroll-target="#instruction-how-to-read-the-plots">Instruction: how to read the plots</a></li>
+  <li><a href="#instructions-how-to-read-the-plots" id="toc-instructions-how-to-read-the-plots" class="nav-link active" data-scroll-target="#instructions-how-to-read-the-plots">Instructions: how to read the plots</a>
+  <ul class="collapse">
+  <li><a href="#summary-conclusions" id="toc-summary-conclusions" class="nav-link" data-scroll-target="#summary-conclusions">Summary conclusions</a></li>
+  </ul></li>
   <li><a href="#summary-by-patient" id="toc-summary-by-patient" class="nav-link" data-scroll-target="#summary-by-patient">Summary by Patient</a>
   <ul class="collapse">
   <li><a href="#patient-5" id="toc-patient-5" class="nav-link" data-scroll-target="#patient-5">Patient 5</a></li>
@@ -309,6 +312,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#patient-10" id="toc-patient-10" class="nav-link" data-scroll-target="#patient-10">Patient 10</a></li>
   <li><a href="#patient-11" id="toc-patient-11" class="nav-link" data-scroll-target="#patient-11">Patient 11</a></li>
   <li><a href="#patient-12" id="toc-patient-12" class="nav-link" data-scroll-target="#patient-12">Patient 12</a></li>
+  <li><a href="#patient-14" id="toc-patient-14" class="nav-link" data-scroll-target="#patient-14">Patient 14</a></li>
   </ul></li>
   <li><a href="#summary-by-sample-type" id="toc-summary-by-sample-type" class="nav-link" data-scroll-target="#summary-by-sample-type">Summary by Sample Type</a>
   <ul class="collapse">
@@ -342,13 +346,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>today <span class="ot">&lt;-</span> <span class="fu">Sys.Date</span>()</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(today, <span class="at">format =</span> <span class="st">"%A %d %B %Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Friday 23 December 2022"</code></pre>
+<pre><code>[1] "Friday 30 December 2022"</code></pre>
 </div>
 </div>
-<section id="instruction-how-to-read-the-plots" class="level2">
-<h2 class="anchored" data-anchor-id="instruction-how-to-read-the-plots">Instruction: how to read the plots</h2>
-<p>The following plots are the same present in the end of each analysis, reported here to have a better overview.</p>
-<p>Each plot is composed of a heatmap with an enrichement score (from 0 to 1) for each marker gene set in each cell cluster. The cell cluster number is indicated for each row with roman number in the rightmost column. For the marker score, if a gene is considered a marker for more than one group, the score is proportionally reduced. The last column of the heatmap contains the score for the ISG set of genes. On the left there is a dendrogram evaluated using a distance (cosine) over all COTAN uniform clusters and considering, to estimate the distance, the whole transcriptome. The green bar plot between the dendrogram and the heatmap shows the UMI detection efficiency (UDE) mean. This score is the RNA extraction efficiency mean for the cell cluster. This can be usefull because if we observe a very low UDE and no clear marker group enrichment or there is an enrichment for more than one marker set (and very different), is it possible that the cluster is formed by just background signal. The right orange bar plot shows the cluster cell number.</p>
+<section id="instructions-how-to-read-the-plots" class="level2">
+<h2 class="anchored" data-anchor-id="instructions-how-to-read-the-plots">Instructions: how to read the plots</h2>
+<p>The following plots are the same present in the end of each analysis, reported here to have a better overview. We first show plots grouped by patient, then grouped by tissue type.</p>
+<p>Each plot is composed of a heatmap with an enrichement score (from 0 to 1) for each marker gene set in each cell cluster. Each row corresponds to a cell cluster, and each column corresponds to a set of markers. The first columns correspond to markers of different cell types, while the last column contains the score for the ISG set of genes.</p>
+<p>The cell cluster number is indicated for each row with roman number in the rightmost column. For the cell marker score, if a gene is considered a marker for more than one group, the score is proportionally reduced.</p>
+<p>On the left there is a dendrogram evaluated using a distance (cosine) over all COTAN uniform clusters and considering, to estimate the distance, the whole transcriptome.</p>
+<p>The green bar plot between the dendrogram and the heatmap shows the UMI detection efficiency (UDE) mean. This score is the RNA extraction efficiency mean for the cell cluster. This can be usefull because if we observe a very low UDE and no clear marker group enrichment or there is an enrichment for more than one marker set (and very different), is it possible that the cluster is formed by just background signal. The right orange bar plot shows the cluster cell number.</p>
+<section id="summary-conclusions" class="level3">
+<h3 class="anchored" data-anchor-id="summary-conclusions">Summary conclusions</h3>
+<p>Generally in the univolved samples the ISG set seems to be enriched always in a Endothelial, Fibroblast or Smooth muscle cell group or in another Dendridic, Macrophage cell group.</p>
+<p>In the involved samples with the previous groups enriched in ISG genes, we can also observe and involvement in the T cells/ILC. Only in patient 10, in which we observe some epithelial cells left, we see also here an ISG enrichment.</p>
+<p>In the PBMC samples the ISG groups seems less expressed with again the involvement of macrophages/dendritic cells but also, in some cases the cytotoxic natural killer.</p>
+<p>We do not observe large differences between patients in the ISG gene enrichment, the trends are stable from one patient to another.</p>
+<p>In general the ISG enrichment values are low. It could be useful to divide the 332 genes into subsets and check enrichment there. That could show more differences between cell types and also between patients.</p>
+</section>
 </section>
 <section id="summary-by-patient" class="level1">
 <h1>Summary by Patient</h1>
@@ -613,128 +628,182 @@ Attaching package: 'dendextend'</code></pre>
 </div>
 </div>
 </section>
+<section id="patient-14" class="level2">
+<h2 class="anchored" data-anchor-id="patient-14">Patient 14</h2>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>involved14</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="1536"></p>
+<p></p><figcaption class="figure-caption">Involved sample for patient 14</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>uninvolved14</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="1536"></p>
+<p></p><figcaption class="figure-caption">Uninvolved sample for patient 14</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>PBMC14</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="1536"></p>
+<p></p><figcaption class="figure-caption">PBMC sample for patient 14</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="summary-by-sample-type" class="level1">
 <h1>Summary by Sample Type</h1>
 <section id="univolved" class="level2">
 <h2 class="anchored" data-anchor-id="univolved">Univolved</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>uninvolved5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="1536"></p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>uninvolved7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="1536"></p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>uninvolved8</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="1536"></p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>uninvolved10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="1536"></p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>uninvolved11</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>uninvolved5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="1536"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>uninvolved12</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>uninvolved7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="1536"></p>
 </div>
 </div>
-<p>Generally in the univolved samples the ISG set seems to be enriched always in a Endothelial, Fibroblast or Smooth muscle cell group or in another Dendridic, Macrophage cell group.</p>
-</section>
-<section id="involved" class="level2">
-<h2 class="anchored" data-anchor-id="involved">Involved</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>involved5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>uninvolved8</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="1536"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>involved7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>uninvolved10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="1536"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>involved8</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>uninvolved11</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="1536"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>involved10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>uninvolved12</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="1536"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>involved11</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>uninvolved14</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid" width="1536"></p>
 </div>
 </div>
+</section>
+<section id="involved" class="level2">
+<h2 class="anchored" data-anchor-id="involved">Involved</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>involved12</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>involved5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid" width="1536"></p>
 </div>
 </div>
-<p>In the involved samples with the previous groups enriched in ISG genes, we can also observe and involvement in the T cells/ILC. Only in patient 10, in which we observe some epithelial cells left, we see also here an ISG enrichment.</p>
-</section>
-<section id="pbmc" class="level2">
-<h2 class="anchored" data-anchor-id="pbmc">PBMC</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>PBMC5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>involved7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid" width="1536"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>PBMC7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>involved8</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid" width="1536"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>PBMC8</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>involved10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid" width="1536"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>PBMC10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>involved11</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="1536"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>PBMC11</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>involved12</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid" width="1536"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>PBMC12</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>involved14</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid" width="1536"></p>
 </div>
 </div>
-<p>In this type of samples the ISG groups seems less expressed with again the involvement of macrophages/dendritic cells but also, in some cases the cytotoxic natural killer</p>
+</section>
+<section id="pbmc" class="level2">
+<h2 class="anchored" data-anchor-id="pbmc">PBMC</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>PBMC5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid" width="1536"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>PBMC7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid" width="1536"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>PBMC8</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid" width="1536"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>PBMC10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid" width="1536"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>PBMC11</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid" width="1536"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>PBMC12</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid" width="1536"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>PBMC14</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="05_HeatmapSummary_NB_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid" width="1536"></p>
+</div>
+</div>
 
 
 </section>

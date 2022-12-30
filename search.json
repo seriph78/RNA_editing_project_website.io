@@ -571,14 +571,14 @@
     "href": "Crohn_disease/results/05_HeatmapSummary_NB.html",
     "title": "Final report - heatmap summary",
     "section": "",
-    "text": "today <- Sys.Date()\nformat(today, format = \"%A %d %B %Y\")\n\n[1] \"Friday 23 December 2022\""
+    "text": "today <- Sys.Date()\nformat(today, format = \"%A %d %B %Y\")\n\n[1] \"Friday 30 December 2022\""
   },
   {
-    "objectID": "Crohn_disease/results/05_HeatmapSummary_NB.html#instruction-how-to-read-the-plots",
-    "href": "Crohn_disease/results/05_HeatmapSummary_NB.html#instruction-how-to-read-the-plots",
+    "objectID": "Crohn_disease/results/05_HeatmapSummary_NB.html#instructions-how-to-read-the-plots",
+    "href": "Crohn_disease/results/05_HeatmapSummary_NB.html#instructions-how-to-read-the-plots",
     "title": "Final report - heatmap summary",
-    "section": "Instruction: how to read the plots",
-    "text": "Instruction: how to read the plots\nThe following plots are the same present in the end of each analysis, reported here to have a better overview.\nEach plot is composed of a heatmap with an enrichement score (from 0 to 1) for each marker gene set in each cell cluster. The cell cluster number is indicated for each row with roman number in the rightmost column. For the marker score, if a gene is considered a marker for more than one group, the score is proportionally reduced. The last column of the heatmap contains the score for the ISG set of genes. On the left there is a dendrogram evaluated using a distance (cosine) over all COTAN uniform clusters and considering, to estimate the distance, the whole transcriptome. The green bar plot between the dendrogram and the heatmap shows the UMI detection efficiency (UDE) mean. This score is the RNA extraction efficiency mean for the cell cluster. This can be usefull because if we observe a very low UDE and no clear marker group enrichment or there is an enrichment for more than one marker set (and very different), is it possible that the cluster is formed by just background signal. The right orange bar plot shows the cluster cell number."
+    "section": "Instructions: how to read the plots",
+    "text": "Instructions: how to read the plots\nThe following plots are the same present in the end of each analysis, reported here to have a better overview. We first show plots grouped by patient, then grouped by tissue type.\nEach plot is composed of a heatmap with an enrichement score (from 0 to 1) for each marker gene set in each cell cluster. Each row corresponds to a cell cluster, and each column corresponds to a set of markers. The first columns correspond to markers of different cell types, while the last column contains the score for the ISG set of genes.\nThe cell cluster number is indicated for each row with roman number in the rightmost column. For the cell marker score, if a gene is considered a marker for more than one group, the score is proportionally reduced.\nOn the left there is a dendrogram evaluated using a distance (cosine) over all COTAN uniform clusters and considering, to estimate the distance, the whole transcriptome.\nThe green bar plot between the dendrogram and the heatmap shows the UMI detection efficiency (UDE) mean. This score is the RNA extraction efficiency mean for the cell cluster. This can be usefull because if we observe a very low UDE and no clear marker group enrichment or there is an enrichment for more than one marker set (and very different), is it possible that the cluster is formed by just background signal. The right orange bar plot shows the cluster cell number.\n\nSummary conclusions\nGenerally in the univolved samples the ISG set seems to be enriched always in a Endothelial, Fibroblast or Smooth muscle cell group or in another Dendridic, Macrophage cell group.\nIn the involved samples with the previous groups enriched in ISG genes, we can also observe and involvement in the T cells/ILC. Only in patient 10, in which we observe some epithelial cells left, we see also here an ISG enrichment.\nIn the PBMC samples the ISG groups seems less expressed with again the involvement of macrophages/dendritic cells but also, in some cases the cytotoxic natural killer.\nWe do not observe large differences between patients in the ISG gene enrichment, the trends are stable from one patient to another.\nIn general the ISG enrichment values are low. It could be useful to divide the 332 genes into subsets and check enrichment there. That could show more differences between cell types and also between patients."
   },
   {
     "objectID": "Crohn_disease/results/05_HeatmapSummary_NB.html#patient-5",
@@ -623,24 +623,31 @@
     "text": "Patient 12\n\n\n\n\ninvolved12\n\n\n\n\nInvolved sample for patient 12\n\n\n\n\n\nuninvolved12\n\n\n\n\nUninvolved sample for patient 12\n\n\n\n\n\nPBMC12\n\n\n\n\nPBMC sample for patient 12"
   },
   {
+    "objectID": "Crohn_disease/results/05_HeatmapSummary_NB.html#patient-14",
+    "href": "Crohn_disease/results/05_HeatmapSummary_NB.html#patient-14",
+    "title": "Final report - heatmap summary",
+    "section": "Patient 14",
+    "text": "Patient 14\n\n\n\n\ninvolved14\n\n\n\n\nInvolved sample for patient 14\n\n\n\n\n\nuninvolved14\n\n\n\n\nUninvolved sample for patient 14\n\n\n\n\n\nPBMC14\n\n\n\n\nPBMC sample for patient 14"
+  },
+  {
     "objectID": "Crohn_disease/results/05_HeatmapSummary_NB.html#univolved",
     "href": "Crohn_disease/results/05_HeatmapSummary_NB.html#univolved",
     "title": "Final report - heatmap summary",
     "section": "Univolved",
-    "text": "Univolved\n\nuninvolved5\n\n\n\n\n\nuninvolved7\n\n\n\n\n\nuninvolved8\n\n\n\n\n\nuninvolved10\n\n\n\n\n\nuninvolved11\n\n\n\n\n\nuninvolved12\n\n\n\n\nGenerally in the univolved samples the ISG set seems to be enriched always in a Endothelial, Fibroblast or Smooth muscle cell group or in another Dendridic, Macrophage cell group."
+    "text": "Univolved\n\nuninvolved5\n\n\n\n\n\nuninvolved7\n\n\n\n\n\nuninvolved8\n\n\n\n\n\nuninvolved10\n\n\n\n\n\nuninvolved11\n\n\n\n\n\nuninvolved12\n\n\n\n\n\nuninvolved14"
   },
   {
     "objectID": "Crohn_disease/results/05_HeatmapSummary_NB.html#involved",
     "href": "Crohn_disease/results/05_HeatmapSummary_NB.html#involved",
     "title": "Final report - heatmap summary",
     "section": "Involved",
-    "text": "Involved\n\ninvolved5\n\n\n\n\n\ninvolved7\n\n\n\n\n\ninvolved8\n\n\n\n\n\ninvolved10\n\n\n\n\n\ninvolved11\n\n\n\n\n\ninvolved12\n\n\n\n\nIn the involved samples with the previous groups enriched in ISG genes, we can also observe and involvement in the T cells/ILC. Only in patient 10, in which we observe some epithelial cells left, we see also here an ISG enrichment."
+    "text": "Involved\n\ninvolved5\n\n\n\n\n\ninvolved7\n\n\n\n\n\ninvolved8\n\n\n\n\n\ninvolved10\n\n\n\n\n\ninvolved11\n\n\n\n\n\ninvolved12\n\n\n\n\n\ninvolved14"
   },
   {
     "objectID": "Crohn_disease/results/05_HeatmapSummary_NB.html#pbmc",
     "href": "Crohn_disease/results/05_HeatmapSummary_NB.html#pbmc",
     "title": "Final report - heatmap summary",
     "section": "PBMC",
-    "text": "PBMC\n\nPBMC5\n\n\n\n\n\nPBMC7\n\n\n\n\n\nPBMC8\n\n\n\n\n\nPBMC10\n\n\n\n\n\nPBMC11\n\n\n\n\n\nPBMC12\n\n\n\n\nIn this type of samples the ISG groups seems less expressed with again the involvement of macrophages/dendritic cells but also, in some cases the cytotoxic natural killer"
+    "text": "PBMC\n\nPBMC5\n\n\n\n\n\nPBMC7\n\n\n\n\n\nPBMC8\n\n\n\n\n\nPBMC10\n\n\n\n\n\nPBMC11\n\n\n\n\n\nPBMC12\n\n\n\n\n\nPBMC14"
   }
 ]
