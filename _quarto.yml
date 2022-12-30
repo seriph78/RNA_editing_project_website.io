@@ -10,12 +10,14 @@ project:
     - Crohn_disease/results/01_cleaning_patient10_NB.qmd
     - Crohn_disease/results/01_cleaning_patient11_NB.qmd
     - Crohn_disease/results/01_cleaning_patient12_NB.qmd
+    - Crohn_disease/results/01_cleaning_patient14_NB.qmd
     - Crohn_disease/results/04_Data_exploration_clusters_id_patient7_NB.qmd
     - Crohn_disease/results/04_Data_exploration_clusters_id_patient11_NB.qmd
     - Crohn_disease/results/04_Data_exploration_clusters_id_patient10_NB.qmd
     - Crohn_disease/results/04_Data_exploration_clusters_id_patient8_NB.qmd
     - Crohn_disease/results/04_Data_exploration_clusters_id_patient5_NB.qmd
     - Crohn_disease/results/04_Data_exploration_clusters_id_patient12_NB.qmd
+    - Crohn_disease/results/04_Data_exploration_clusters_id_patient14_NB.qmd
     - Crohn_disease/results/05_HeatmapSummary_NB.qmd
     
 website:
@@ -56,6 +58,8 @@ website:
                   text: "patient 11 ileum"
                 - href: Crohn_disease/results/01_cleaning_patient12_NB.qmd
                   text: "patient 12 ileum"
+                - href: Crohn_disease/results/01_cleaning_patient14_NB.qmd
+                  text: "patient 14 ileum"
                   
                 
                   
@@ -73,6 +77,8 @@ website:
                   text: "patient 11 ileum"
                 - href: Crohn_disease/results/04_Data_exploration_clusters_id_patient12_NB.qmd
                   text: "patient 12 ileum"
+                - href: Crohn_disease/results/04_Data_exploration_clusters_id_patient14_NB.qmd
+                  text: "patient 14 ileum"
                 
             
             - section: "Summary and Conclusion"

@@ -163,6 +163,26 @@ uninvolved12
 PBMC12
 ```
 
+## Patient 14
+
+```{r,echo=FALSE}
+involved14 <- readRDS("../data/04_cluster_identification/patient14_Involved_heatmap.RDS")
+uninvolved14 <- readRDS("../data/04_cluster_identification/patient14_Uninvolved_heatmap.RDS")
+PBMC14 <- readRDS("../data/04_cluster_identification/patient14_PBMC_heatmap.RDS")
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "Involved sample for patient 14"}
+involved14
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "Uninvolved sample for patient 14"}
+uninvolved14
+```
+
+```{r, fig.width= 16, fig.height= 12, fig.cap= "PBMC sample for patient 14"}
+PBMC14
+```
+
 # Summary by Sample Type
 
 ## Univolved
@@ -189,6 +209,10 @@ uninvolved11
 
 ```{r, fig.width= 16, fig.height= 12}
 uninvolved12
+```
+
+```{r, fig.width= 16, fig.height= 12}
+uninvolved14
 ```
 
 
@@ -218,7 +242,10 @@ involved11
 involved12
 ```
 
- 
+```{r, fig.width= 16, fig.height= 12}
+involved14
+```
+
 
 ## PBMC
 
@@ -246,5 +273,7 @@ PBMC11
 PBMC12
 ```
 
-
+```{r, fig.width= 16, fig.height= 12}
+PBMC14
+```
 

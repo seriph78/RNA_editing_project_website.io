@@ -1,0 +1,479 @@
+---
+title: "Data exploration patient 14"
+editor: visual
+execute: 
+  freeze: true
+---
+
+```{r, echo= FALSE}
+library(grid)
+library(gridExtra)
+library(viridis)
+library(ggplot2)
+library(stringr)
+library(dendextend)
+devtools::load_all("../../../COTAN/")
+```
+
+```{r}
+today <- Sys.Date()
+format(today, format = "%A %d %B %Y")
+```
+
+### Import markers
+
+```{r}
+markers <- readxl::read_excel("../../Marker_genes.xlsx",sheet = 1)
+markers <- as.list(markers)
+markers <- markers[2:length(markers)]
+for (nv in names(markers)) {
+  markers[[nv]] <- unique(markers[[nv]][!is.na(markers[[nv]])])
+}
+```
+
+# Uninvolved ileum samples
+
+```{r}
+out_dir <- "../../Crohn_disease/data/04_cluster_identification/"
+in_dir <- "../../Crohn_disease/data/02_cleaned_data/"
+sample.id = "patient14_Uninvolved"
+
+expression.cl <- read.csv(paste0(out_dir,sample.id,"_expression_clusters.csv"),row.names = 1)
+
+obj <- readRDS(paste0(in_dir,sample.id,".clustered.merged.cotan.RDS"))
+
+ISG.genes <- read.csv("../../ISG_fixed.txt",header = T)
+colnames(ISG.genes) <- "genes"
+```
+
+Number of ISG genes
+
+```{r}
+dim(ISG.genes)
+```
+
+Detected ISG genes in the sample
+
+```{r}
+dim(ISG.genes[ISG.genes$genes %in% getGenes(obj), ,drop = FALSE])
+```
+
+### GDI plot with ISG genes
+
+Gene Differentiation Index is a score of how much a gene is differentially expressed in the dataset. Genes expressed only in a subpopulation of cells will have a GDI score higher than 1.5 while constitutive genes will show a GDI lower than 1.5. In the plot on the x-axis, there is also an estimation of the mean gene expression in the whole sample.
+
+```{r,fig.cap= "In green the most expressed ISG genes and in purple the top GDI ISG genes in the sample. Red dotted line indicates the 1.5 GDI threshold for differentially expressed genes. The two blue lines indicate the firs and senonc quartile for GDI score."}
+GDI.data <- calculateGDI(objCOTAN = obj)
+GDIPlot(objCOTAN = obj, 
+        genes = list("High exp ISG"=rownames(GDI.data[rownames(GDI.data) %in% 
+                                  ISG.genes$genes &
+                                  GDI.data$sum.raw.norm >= 9,]),
+                          "High GDI ISG"=rownames(GDI.data[rownames(GDI.data) %in%
+                                                             ISG.genes$genes &
+                                  GDI.data$GDI >= quantile(GDI.data$GDI,probs = 0.99),])),
+        GDI.df = GDI.data)
+```
+
+### Cluster assignment with expression increment
+
+```{r}
+score.df <- geneSetEnrichment(objCOTAN = obj,
+                              genes = markers, 
+                              expression.cl = expression.cl)
+```
+
+We add separately the ISG score (to avoid the division of the score isubpopulationesent in more marker lists)
+
+```{r}
+score.ISG <- geneSetEnrichment(objCOTAN = obj,
+                              genes = list("ISG"=ISG.genes$genes), 
+                              expression.cl = expression.cl)
+score.df <- rbind(score.df,score.ISG)
+```
+
+In the next table we can observe how many marker genes we defined and how many are detected in thex-axis,e.
+
+```{r}
+score.df[,c("N. detected","N. total")]
+```
+
+Cluster tree using the cosine distance over cluster coex.
+
+```{r}
+cluster_data <- getClusterizationData(obj)[["coex"]]
+
+######## This is the best: cosine dissimilarity
+Matrix <- as.matrix(t(cluster_data))
+sim <- Matrix / sqrt(rowSums(Matrix * Matrix))
+sim <- sim %*% t(sim)
+D_sim <- as.dist(1 - sim)
+tree <- hclust(D_sim,method = "ward.D2")
+```
+
+```{r, echo=FALSE}
+dend <- as.dendrogram(tree)
+#colnames(df) <- str_remove_all(colnames(df), pattern = "cl.")
+cut = cutree(tree, k = 9)
+dend =branches_color(dend,k=9,col=c("#4DBBD5FF","#91D1C2FF","#E64B35FF","gray80","#3C5488FF","#F39B7FFF","gray80"),groupLabels = T)
+dend =color_labels(dend,k=9)
+```
+
+```{r, echo=FALSE}
+df.t <- t(score.df[,1:(ncol(score.df)-2)])
+
+df3 <- as.data.frame(table(getClusterizationData(obj)[[1]]))
+Freq <- df3$Freq
+names(Freq) <- as.character(df3$Var1)
+
+#Freq <- Freq[labels(dend)]
+Freq <- Freq[rownames(df.t)]
+
+MetadataCells <- getMetadataCells(obj)
+last.clusterization <- paste0("CL_",getClusterizations(obj)[length(getClusterizations(obj))])
+UDE <- setNames(rep(NA,length(Freq)), as.character(unique(MetadataCells[,last.clusterization])))
+
+
+for (cl in unique(MetadataCells[,last.clusterization])) {
+  mean.UDE <- mean(MetadataCells[MetadataCells[last.clusterization] == cl,]$nu)
+  #print(paste0(cl," ",mean.UDE))
+ UDE[as.character(cl)] <- mean.UDE
+}
+UDE <- UDE[rownames(df.t)]
+
+```
+
+```{r, echo=FALSE}
+ha = rowAnnotation(cell.number = anno_numeric(Freq,
+        bg_gp = gpar(fill = "orange", col = "black"),labels_gp = gpar(fontsize = 12)), annotation_name_rot = 0)
+
+hb = rowAnnotation(UDE.mean = anno_numeric(round(UDE,digits = 2),
+        bg_gp = gpar(fill = "green", col = "black"),align_to = "right",labels_gp = gpar(fontsize = 12)),annotation_name_rot = 0)
+```
+
+### Final score heatmap
+
+```{r, fig.width= 16, fig.height= 12}
+col_fun = colorRamp2(c(0, 1), c( "lightblue", "red"))
+final.heatmap <- Heatmap(df.t, rect_gp = gpar(col = "white", lwd = 1),
+        #cluster_rows = F,
+        cluster_columns = FALSE,
+        show_heatmap_legend = F,
+        col = col_fun,
+        width =  unit(28, "cm"),
+        row_dend_width = unit(8, "cm"),
+        #height = unit(6, "cm"),
+        cluster_rows = dend,
+        column_names_gp = gpar(fontsize = 11),
+      row_names_gp = gpar(fontsize = 9),
+        cell_fun = function(j, i, x, y, width, height, fill) {
+        grid.text(sprintf("%.1f", df.t[i, j]), x, y, gp = gpar(fontsize = 9))
+},
+right_annotation = ha,
+left_annotation = hb
+)
+
+final.heatmap
+```
+
+```{r}
+saveRDS(final.heatmap,paste0("../../Crohn_disease/data/04_cluster_identification/",sample.id,"_heatmap.RDS"))
+```
+
+# Involved ileum samples
+
+```{r}
+sample.id = "patient14_Involved"
+
+expression.cl <- read.csv(paste0(out_dir,sample.id,"_expression_clusters.csv"),row.names = 1)
+
+obj <- readRDS(paste0(in_dir,sample.id,".clustered.merged.cotan.RDS"))
+
+ISG.genes <- read.csv("../../ISG_fixed.txt",header = T)
+colnames(ISG.genes) <- "genes"
+```
+
+Number of ISG genes
+
+```{r}
+dim(ISG.genes)
+```
+
+Detected ISG genes in the sample
+
+```{r}
+dim(ISG.genes[ISG.genes$genes %in% getGenes(obj), ,drop = FALSE])
+```
+
+### GDI plot with ISG genes
+
+Gene Differentiation Index is a score of how mutch a gene is different,tially expressed in the dataset. Genes expressed only in a sub-population of cells will have a GDI score higher than 1.5 while constitutive genes will show a GDI lower than 1.5. In the plot on the x axis there is also an estimation of the mean gene expression in the whole sample.
+
+```{r,fig.cap= "In green the most expressed ISG genes and in purple the top GDI ISG genes in the sample. Red dotted line indicates the 1.5 GDI threshold for differentially expressed genes. The two blue lines indicate the firs and senonc quartile for GDI score."}
+GDI.data <- calculateGDI(objCOTAN = obj)
+GDIPlot(objCOTAN = obj, 
+        genes = list("High exp ISG"=rownames(GDI.data[rownames(GDI.data) %in% 
+                                  ISG.genes$genes &
+                                  GDI.data$sum.raw.norm >= 9,]),
+                          "High GDI ISG"=rownames(GDI.data[rownames(GDI.data) %in%
+                                                             ISG.genes$genes &
+                                  GDI.data$GDI >= quantile(GDI.data$GDI,probs = 0.99),])),
+        GDI.df = GDI.data)
+```
+
+### 
+
+Cluster assignment with expression increment
+
+```{r}
+score.df <- geneSetEnrichment(objCOTAN = obj,
+                              genes = markers, 
+                              expression.cl = expression.cl)
+```
+
+We add separately the ISG score (to avoid the division of the score if a gene is present in more marker lists)
+
+```{r}
+score.ISG <- geneSetEnrichment(objCOTAN = obj,
+                              genes = list("ISG"=ISG.genes$genes), 
+                              expression.cl = expression.cl)
+score.df <- rbind(score.df,score.ISG)
+```
+
+In the next table we can observe how many marker genes we defined and how many are detecx-axis the sample.
+
+```{r}
+score.df[,c("N. detected","N. total")]
+```
+
+Cluster tree using the cosine distance over cluster coex.
+
+```{r}
+cluster_data <- getClusterizationData(obj)[["coex"]]
+
+######## This is the best: cosine dissimilarity
+Matrix <- as.matrix(t(cluster_data))
+sim <- Matrix / sqrt(rowSums(Matrix * Matrix))
+sim <- sim %*% t(sim)
+D_sim <- as.dist(1 - sim)
+tree <- hclust(D_sim,method = "ward.D2")
+```
+
+```{r, echo=FALSE}
+dend <- as.dendrogram(tree)
+#colnames(df) <- str_remove_all(colnames(df), pattern = "cl.")
+cut = cutree(tree, k = 9)
+dend =branches_color(dend,k=9,col=c("#4DBBD5FF","#91D1C2FF","#E64B35FF","gray80","#3C5488FF","#F39B7FFF","gray80"),groupLabels = T)
+dend =color_labels(dend,k=9)
+```
+
+```{r, echo=FALSE}
+df.t <- t(score.df[,1:(ncol(score.df)-2)])
+
+df3 <- as.data.frame(table(getClusterizationData(obj)[[1]]))
+Freq <- df3$Freq
+names(Freq) <- as.character(df3$Var1)
+
+#Freq <- Freq[labels(dend)]
+Freq <- Freq[rownames(df.t)]
+
+MetadataCells <- getMetadataCells(obj)
+last.clusterization <- paste0("CL_",getClusterizations(obj)[length(getClusterizations(obj))])
+UDE <- setNames(rep(NA,length(Freq)), as.character(unique(MetadataCells[,last.clusterization])))
+
+
+for (cl in unique(MetadataCells[,last.clusterization])) {
+  mean.UDE <- mean(MetadataCells[MetadataCells[last.clusterization] == cl,]$nu)
+  #print(paste0(cl," ",mean.UDE))
+ UDE[as.character(cl)] <- mean.UDE
+}
+UDE <- UDE[rownames(df.t)]
+
+```
+
+```{r, echo=FALSE}
+ha = rowAnnotation(cell.number = anno_numeric(Freq,
+        bg_gp = gpar(fill = "orange", col = "black"),labels_gp = gpar(fontsize = 12)), annotation_name_rot = 0)
+
+hb = rowAnnotation(UDE.mean = anno_numeric(round(UDE,digits = 2),
+        bg_gp = gpar(fill = "green", col = "black"),align_to = "right",labels_gp = gpar(fontsize = 12)),annotation_name_rot = 0)
+```
+
+### Final score heatmap
+
+```{r, fig.width= 16, fig.height= 12}
+col_fun = colorRamp2(c(0, 1), c( "lightblue", "red"))
+final.heatmap <- Heatmap(df.t, rect_gp = gpar(col = "white", lwd = 1),
+        #cluster_rows = F,
+        cluster_columns = FALSE,
+        show_heatmap_legend = F,
+        col = col_fun,
+        width =  unit(28, "cm"),
+        row_dend_width = unit(8, "cm"),
+        #height = unit(6, "cm"),
+        cluster_rows = dend,
+        column_names_gp = gpar(fontsize = 11),
+      row_names_gp = gpar(fontsize = 9),
+        cell_fun = function(j, i, x, y, width, height, fill) {
+        grid.text(sprintf("%.1f", df.t[i, j]), x, y, gp = gpar(fontsize = 9))
+},
+right_annotation = ha,
+left_annotation = hb
+)
+
+final.heatmap
+```
+
+```{r}
+saveRDS(final.heatmap,paste0("../../Crohn_disease/data/04_cluster_identification/",sample.id,"_heatmap.RDS"))
+```
+
+# PBMC samples
+
+```{r}
+sample.id = "patient14_PBMC"
+expression.cl <- read.csv(paste0(out_dir,sample.id,"_expression_clusters.csv"),row.names = 1)
+
+obj <- readRDS(paste0(in_dir,sample.id,".clustered.merged.cotan.RDS"))
+
+ISG.genes <- read.csv("../../ISG_fixed.txt",header = T)
+colnames(ISG.genes) <- "genes"
+```
+
+Number of ISG genes
+
+```{r}
+dim(ISG.genes)
+```
+
+Detected ISG genes in the sample
+
+```{r}
+dim(ISG.genes[ISG.genes$genes %in% getGenes(obj), ,drop = FALSE])
+```
+
+### GDI plot with ISG genes
+
+Gene Differentiation Index is a score of how mutch a gene is differentially expressed in the dataset. Genes expressed only in a subpopulation of cells will have a GDI score higher than 1.5 while constitutive genes will show a GDI lower than 1.5. In the plot on the x axis there is also an estimation of the mean gene expression in the whole sample.
+
+```{r,fig.cap= "In green the most expressed ISG genes and in purple the top GDI ISG genes in the sample. Red dotted line indicates the 1.5 GDI threshold for differentially expressed genes. The two blue lines indicate the firs and senonc quartile for GDI score."}
+GDI.data <- calculateGDI(objCOTAN = obj)
+GDIPlot(objCOTAN = obj, 
+        genes = list("High exp ISG"=rownames(GDI.data[rownames(GDI.data) %in% 
+                                  ISG.genes$genes &
+                                  GDI.data$sum.raw.norm >= 9,]),
+                          "High GDI ISG"=rownames(GDI.data[rownames(GDI.data) %in%
+                                                             ISG.genes$genes &
+                                  GDI.data$GDI >= quantile(GDI.data$GDI,probs = 0.99),])),
+        GDI.df = GDI.data)
+```
+
+### Cluster assignment with expression increment
+
+```{r}
+score.df <- geneSetEnrichment(objCOTAN = obj,
+                              genes = markers, 
+                              expression.cl = expression.cl)
+```
+
+We add separately the ISG score (to avoid the division of the score is a gene is present in more marker list)
+
+```{r}
+score.ISG <- geneSetEnrichment(objCOTAN = obj,
+                              genes = list("ISG"=ISG.genes$genes), 
+                              expression.cl = expression.cl)
+score.df <- rbind(score.df,score.ISG)
+```
+
+In the next table we can observe how many marker genes we defined and how may are detected in the sample.
+
+```{r}
+score.df[,c("N. detected","N. total")]
+```
+
+Cluster tree using the cosine distance over cluster coex.
+
+```{r}
+cluster_data <- getClusterizationData(obj)[["coex"]]
+
+######## This is the best: cosine dissimilarity
+Matrix <- as.matrix(t(cluster_data))
+sim <- Matrix / sqrt(rowSums(Matrix * Matrix))
+sim <- sim %*% t(sim)
+D_sim <- as.dist(1 - sim)
+tree <- hclust(D_sim,method = "ward.D2")
+```
+
+```{r, echo=FALSE}
+dend <- as.dendrogram(tree)
+#colnames(df) <- str_remove_all(colnames(df), pattern = "cl.")
+cut = cutree(tree, k = 9)
+dend =branches_color(dend,k=9,col=c("#4DBBD5FF","#91D1C2FF","#E64B35FF","gray80","#3C5488FF","#F39B7FFF","gray80"),groupLabels = T)
+dend =color_labels(dend,k=9)
+```
+
+```{r, echo=FALSE}
+df.t <- t(score.df[,1:(ncol(score.df)-2)])
+
+df3 <- as.data.frame(table(getClusterizationData(obj)[[1]]))
+Freq <- df3$Freq
+names(Freq) <- as.character(df3$Var1)
+
+#Freq <- Freq[labels(dend)]
+Freq <- Freq[rownames(df.t)]
+
+MetadataCells <- getMetadataCells(obj)
+last.clusterization <- paste0("CL_",getClusterizations(obj)[length(getClusterizations(obj))])
+UDE <- setNames(rep(NA,length(Freq)), as.character(unique(MetadataCells[,last.clusterization])))
+
+
+for (cl in unique(MetadataCells[,last.clusterization])) {
+  mean.UDE <- mean(MetadataCells[MetadataCells[last.clusterization] == cl,]$nu)
+  #print(paste0(cl," ",mean.UDE))
+ UDE[as.character(cl)] <- mean.UDE
+}
+UDE <- UDE[rownames(df.t)]
+```
+
+```{r, echo=FALSE}
+ha = rowAnnotation(cell.number = anno_numeric(Freq,
+        bg_gp = gpar(fill = "orange", col = "black"),labels_gp = gpar(fontsize = 12)), annotation_name_rot = 0)
+
+hb = rowAnnotation(UDE.mean = anno_numeric(round(UDE,digits = 2),
+        bg_gp = gpar(fill = "green", col = "black"),align_to = "right",labels_gp = gpar(fontsize = 12)),annotation_name_rot = 0)
+```
+
+### Final score heatmap
+
+```{r, fig.width= 16, fig.height= 12}
+col_fun = colorRamp2(c(0, 1), c( "lightblue", "red"))
+final.heatmap <- Heatmap(df.t, rect_gp = gpar(col = "white", lwd = 1),
+        #cluster_rows = F,
+        cluster_columns = FALSE,
+        show_heatmap_legend = F,
+        col = col_fun,
+        width =  unit(28, "cm"),
+        row_dend_width = unit(8, "cm"),
+        #height = unit(6, "cm"),
+        cluster_rows = dend,
+        column_names_gp = gpar(fontsize = 11),
+      row_names_gp = gpar(fontsize = 9),
+        cell_fun = function(j, i, x, y, width, height, fill) {
+        grid.text(sprintf("%.1f", df.t[i, j]), x, y, gp = gpar(fontsize = 9))
+},
+right_annotation = ha,
+left_annotation = hb
+)
+
+final.heatmap
+```
+
+```{r}
+saveRDS(final.heatmap,paste0("../../Crohn_disease/data/04_cluster_identification/",sample.id,"_heatmap.RDS"))
+
+```
+
+###### Session info
+
+```{r}
+sessionInfo()
+```
